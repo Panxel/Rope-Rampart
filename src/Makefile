@@ -10,8 +10,8 @@ LIBS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
 
 all: main
 
-main: main.o renderer.o entite.o unite.o
-	$(LD) $(LDFLAGS)  main.o renderer.o entite.o unite.o -o main $(LIBS)
+main: main.o renderer.o entite.o unite.o guerrier.o
+	$(LD) $(LDFLAGS)  main.o renderer.o entite.o unite.o guerrier.o -o main $(LIBS)
 
 main.o: main.cpp renderer.hpp settings.hpp guerrier.hpp
 	$(CPP) $(CPPFLAGS) -c main.cpp

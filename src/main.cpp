@@ -33,7 +33,7 @@ int main(){
     
     Renderer& renderer = Renderer :: get_instance();
     Guerrier e1 = Guerrier(0,0,20,5,2,10);
-    Guerrier e2= Guerrier(1,1,20,5,2,10);
+    Guerrier e2 = Guerrier(1,1,20,5,2,10);
     
     /*texture2.setSmooth(true);
     texture.setSmooth(true);
@@ -42,6 +42,7 @@ int main(){
     sprite.setTexture(texture);
     sprite2.setTexture(texture2);
     */
+    /*
     e1.textureLoad("../res/test.jpg");
     e2.textureLoad("../res/esp32.png");
     e1.setTexture(e1.getTexture());
@@ -57,5 +58,6 @@ int main(){
         renderer.getWindow().draw(renderer.getText());
         renderer.getWindow().display();
     }
+    */
     return 0;
 }
