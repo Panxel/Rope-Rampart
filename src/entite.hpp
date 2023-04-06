@@ -7,12 +7,11 @@ class Entite{
 
     public : 
     Entite(int x,int y);
-    //virtual void afficher() const = 0;
-    void textureLoad(const std::string& path);
-    void textureLoad(const std::string& path,const sf::IntRect& r);
-    void setTexture(const sf::Texture& texture);
-    sf::Texture& getTexture(){ return texture;};
-    sf::Sprite& getSprite(){ return sprite;};
+    virtual void afficher(sf::RenderWindow& window) = 0;
+    const sf::Sprite& getSprite() const { return sprite;};
+    const int& getX() const {return pos_x;};
+    const int& getY() const {return pos_y;};
+
 
     protected :
     int pos_x;

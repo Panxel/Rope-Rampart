@@ -32,32 +32,17 @@ void input(sf::Event event,Renderer& renderer){
 int main(){
     
     Renderer& renderer = Renderer :: get_instance();
-    Guerrier e1 = Guerrier(0,0,20,5,2,10);
-    Guerrier e2 = Guerrier(1,1,20,5,2,10);
-    
-    /*texture2.setSmooth(true);
-    texture.setSmooth(true);
-    sf::Sprite sprite;
-    sf::Sprite sprite2;
-    sprite.setTexture(texture);
-    sprite2.setTexture(texture2);
-    */
-    /*
-    e1.textureLoad("../res/test.jpg");
-    e2.textureLoad("../res/esp32.png");
-    e1.setTexture(e1.getTexture());
-    e2.setTexture(e2.getTexture());
+    Guerrier e1 = Guerrier(0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED);
     while(renderer.getWindow().isOpen()){
         sf::Event event;
         while(renderer.getWindow().pollEvent(event)){
             input(event,renderer);
         }
         renderer.getWindow().clear(sf::Color :: Black);
-        renderer.getWindow().draw(e1.getSprite());
-        renderer.getWindow().draw(e2.getSprite());
+        e1.afficher(renderer.getWindow());
         renderer.getWindow().draw(renderer.getText());
         renderer.getWindow().display();
     }
-    */
+    
     return 0;
 }
