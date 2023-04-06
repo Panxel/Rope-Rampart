@@ -16,7 +16,7 @@ main: main.o renderer.o entite.o unite.o guerrier.o jeu.o
 main.o: main.cpp renderer.hpp settings.hpp guerrier.hpp jeu.hpp
 	$(CPP) $(CPPFLAGS) -c main.cpp
 
-jeu.o : jeu.cpp renderer.hpp guerrier.hpp settings.hpp
+jeu.o : jeu.cpp renderer.hpp guerrier.hpp settings.hpp 
 	$(CPP) $(CPPFLAGS) -c jeu.cpp
 	
 entite.o : entite.cpp entite.hpp
