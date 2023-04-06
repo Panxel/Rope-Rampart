@@ -1,15 +1,16 @@
 #include "guerrier.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <math.h>
 
-Guerrier::Guerrier(int x,int y,int health,int dmg, int spd) : Unite(x,y,health,dmg,spd){
+Guerrier::Guerrier(float x,float y,int health,int dmg, int spd) : Unite(x,y,health,dmg,spd){
     texture.loadFromFile("../res/test_small.jpg");
     sprite.setTexture(texture);
     std :: cout << "Creation classe Guerrier" << std :: endl;
 }
 
 void Guerrier :: afficher(sf::RenderWindow& window) {
-    sprite.setPosition(pos_x,pos_y);
+    sprite.setPosition(round(pos_x),round(pos_y));
     window.draw(sprite);
 }
 

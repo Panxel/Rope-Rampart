@@ -5,9 +5,11 @@
 class Unite : public Entite {
 
     public : 
-    Unite(int x,int y,int health,int dmg, int spd);
+    Unite(float x,float y,int health,int dmg, int spd);
     
     virtual void attack() const = 0;
+
+    const bool dead() const{return hp<=0;};
 
     //Getters lecture/ecrite
     const int& getHP() const {return hp;};

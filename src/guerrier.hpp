@@ -6,7 +6,7 @@
 class Guerrier : public Unite {
 
     public : 
-    Guerrier(int x,int y,int health,int dmg, int spd);
+    Guerrier(float x,float y,int health,int dmg, int spd);
     void afficher(sf::RenderWindow& window);
     void attack() const;
 

@@ -9,10 +9,6 @@
 class Renderer {
 
 public:
-    Renderer(const Renderer&) = delete;
-    Renderer(Renderer&&) = delete;
-    Renderer& operator=(Renderer&&) = delete;
-    Renderer& operator=(const Renderer&) = delete;
     
     static Renderer& get_instance(){
         static Renderer instance;
@@ -27,6 +23,11 @@ public:
 
 protected:
     Renderer();
+    
+    //Empeche la copie et l'assignation
+    Renderer(const Renderer&) = delete;
+    Renderer& operator=(const Renderer&) = delete;
+
     sf::RenderWindow window;
     sf::Font font;
     sf::Text txt;
