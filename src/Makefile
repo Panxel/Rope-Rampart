@@ -20,7 +20,7 @@ jeu.o : jeu.cpp renderer.hpp guerrier.hpp settings.hpp
 	$(CPP) $(CPPFLAGS) -c jeu.cpp
 	
 entite.o : entite.cpp entite.hpp
-	$(CPP) $(CPPFLAGS) -c entite.cpp 
+	$(CPP) $(CPPFLAGS) -c entite.cpp  
 
 unite.o : unite.cpp unite.hpp
 	$(CPP) $(CPPFLAGS) -c unite.cpp 
