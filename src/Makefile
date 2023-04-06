@@ -13,7 +13,7 @@ all: main
 main: main.o renderer.o entite.o unite.o guerrier.o jeu.o
 	$(LD) $(LDFLAGS)  main.o renderer.o entite.o unite.o guerrier.o jeu.o -o main $(LIBS)
 
-main.o: main.cpp renderer.hpp settings.hpp guerrier.hpp jeu.hpp 
+main.o: main.cpp renderer.hpp settings.hpp guerrier.hpp jeu.hpp
 	$(CPP) $(CPPFLAGS) -c main.cpp
 
 jeu.o : jeu.cpp renderer.hpp guerrier.hpp settings.hpp 
