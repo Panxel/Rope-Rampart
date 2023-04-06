@@ -31,5 +31,7 @@ guerrier.o : guerrier.cpp guerrier.hpp
 renderer.o : renderer.cpp renderer.hpp settings.hpp
 	$(CPP) $(CPPFLAGS) -c renderer.cpp 
 
+
+
 clean:
 	rm -f *.o main

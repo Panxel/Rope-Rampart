@@ -7,6 +7,7 @@
 #include "settings.hpp"
 #include "guerrier.hpp"
 #include "unite.hpp"
+#include "controlManager.hpp"
 #include <vector>
 
 class Jeu{
@@ -18,8 +19,7 @@ class Jeu{
         return instance;
     }
 
-    void input();
-    sf::Event& getEvent() {return event;};
+    void gameInput();
     const std::vector<Unite*>& getJoueurs() const{return joueurs;};
 
     //void gamePlay();
@@ -33,9 +33,7 @@ class Jeu{
     Jeu(const Jeu&) = delete;
     Jeu& operator=(const Jeu&) = delete;
 
-    bool gameOn = true;
-
-    Renderer& renderer = Renderer :: get_instance();;
+    Renderer& renderer = Renderer :: get_instance();
     Guerrier g1 = Guerrier(0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED);
     Guerrier g2 = Guerrier(0.8*WIN_WIDTH,0.8*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED);
     std :: vector<Unite*> joueurs;

@@ -4,6 +4,7 @@
 #include "settings.hpp"
 #include "guerrier.hpp"
 #include "jeu.hpp"
+#include "controlManager.hpp"
 #include <vector>
 
 Jeu :: Jeu(){
@@ -11,65 +12,64 @@ Jeu :: Jeu(){
     joueurs.push_back(&g2);
 }
 
+void Jeu :: gameInput(){
+
+    //POUR EVITER QUE SA CRASH CAR SFML EST MAL FOUTU
+    while(Renderer :: get_instance().getWindow().pollEvent(event)){
+    }
+    if(event.type == sf::Event::Closed){
+        Renderer :: get_instance().getWindow().close();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+        Renderer :: get_instance().getWindow().close();
+    }
+
+    //Joueur 1
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        joueurs[0]->getX()-=0.02*joueurs[0]->getSpeed();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        joueurs[0]->getX()+=0.02*joueurs[0]->getSpeed();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        joueurs[0]->getY()-=0.02*joueurs[0]->getSpeed();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        joueurs[0]->getY()+=0.02*joueurs[0]->getSpeed();
+    }
+
+    //Joueur 2
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+        joueurs[1]->getX()-=0.02*joueurs[1]->getSpeed();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+        joueurs[1]->getX()+=0.02*joueurs[1]->getSpeed();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
+        joueurs[1]->getY()-=0.02*joueurs[1]->getSpeed();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+        joueurs[1]->getY()+=0.02*joueurs[1]->getSpeed();
+    }
+}
+
+
 void Jeu :: gameLoop(){
 
     while(Renderer :: get_instance().getWindow().isOpen()){
-        //POUR EVITER QUE SA CRASH CAR SFML EST MAL FOUTU
-        while(Renderer :: get_instance().getWindow().pollEvent(event)){
-        }
-        input();
+        gameInput();
         gameDraw();
     }
 }
 
 void Jeu :: gameDraw() const {
     Renderer :: get_instance().getWindow().clear(sf::Color :: Black);
-    getJoueurs()[0]->afficher(Renderer :: get_instance().getWindow());
-    getJoueurs()[1]->afficher(Renderer :: get_instance().getWindow());
+    joueurs[0]->afficher(Renderer :: get_instance().getWindow());
+    joueurs[1]->afficher(Renderer :: get_instance().getWindow());
     Renderer :: get_instance().getWindow().draw(Renderer :: get_instance().getText());
     Renderer :: get_instance().getWindow().display();
 }
 
 //void Jeu :: gamePlay(){
 //}
-
-void Jeu :: input(){
-
-    //Fermeture du jeu//
-    //Utilisation de event pour donner une utilité//
-    if(event.type == sf::Event::Closed){
-        renderer.getWindow().close();
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-        renderer.getWindow().close();
-    }
-
-    //Joueur 1
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        g1.getX()-=0.05;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        g1.getX()+=0.05;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        g1.getY()-=0.05;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        g1.getY()+=0.05;
-    }
-
-    //Joueur 2
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
-        g2.getX()-=0.05;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        g2.getX()+=0.05;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
-        g2.getY()-=0.05;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        g2.getY()+=0.05;
-    }
-}
