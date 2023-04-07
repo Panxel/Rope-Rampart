@@ -1,7 +1,7 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 #include <iostream>
-
+#include "settings.hpp"
 #include <SFML/Graphics.hpp>
 
 

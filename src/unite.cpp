@@ -1,5 +1,4 @@
 #include "unite.hpp"
-#include <iostream>
 
 Unite :: Unite(float x,float y,int health, int dmg, int spd) : Entite(x,y){
     std :: cout << "Utilisation Constructeur Unite" << std :: endl;

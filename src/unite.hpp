@@ -1,6 +1,7 @@
 #ifndef UNITE_HPP
 #define UNITE_HPP
 #include "entite.hpp"
+#include <iostream>
 
 class Unite : public Entite {
 

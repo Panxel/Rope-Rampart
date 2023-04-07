@@ -7,7 +7,6 @@
 #include "settings.hpp"
 #include "guerrier.hpp"
 #include "unite.hpp"
-#include "controlManager.hpp"
 #include <vector>
 
 class Jeu{

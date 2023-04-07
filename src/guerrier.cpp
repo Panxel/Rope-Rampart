@@ -1,7 +1,4 @@
 #include "guerrier.hpp"
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <math.h>
 
 Guerrier::Guerrier(float x,float y,int health,int dmg, int spd) : Unite(x,y,health,dmg,spd){
     texture.loadFromFile("../res/test_small.jpg");

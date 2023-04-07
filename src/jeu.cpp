@@ -1,11 +1,4 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include "renderer.hpp"
-#include "settings.hpp"
-#include "guerrier.hpp"
 #include "jeu.hpp"
-#include "controlManager.hpp"
-#include <vector>
 
 Jeu :: Jeu(){
     joueurs.push_back(&g1);

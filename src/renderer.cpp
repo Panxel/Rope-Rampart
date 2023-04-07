@@ -1,7 +1,4 @@
-#include <iostream>
 #include "renderer.hpp"
-#include "settings.hpp"
-
 
 Renderer::Renderer()
 {

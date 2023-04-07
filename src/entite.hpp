@@ -2,6 +2,7 @@
 #define ENTITE_HPP
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Entite{
 
