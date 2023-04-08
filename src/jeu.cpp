@@ -46,8 +46,16 @@ void Jeu :: gameInput(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
         joueurs_[1]->getY()+=0.02*joueurs_[1]->getSpeed();
     }
-}
 
+
+    // TEST
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+        g1_.setCommande(std::make_unique<AttackCommande>(monsters_[0],g1_.getAttack()));
+        g1_.executeCommande();
+    }
+
+}
+ 
 
 void Jeu :: gameLoop(){
 

@@ -10,13 +10,13 @@ LIBS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
 
 all: main
 
-main: main.o renderer.o entite.o unite.o guerrier.o robot.o jeu.o
-	$(LD) $(LDFLAGS)  main.o renderer.o entite.o unite.o guerrier.o robot.o jeu.o -o main $(LIBS)
+main: main.o renderer.o entite.o unite.o guerrier.o robot.o attackCommande.o jeu.o
+	$(LD) $(LDFLAGS)  main.o renderer.o entite.o unite.o guerrier.o attackCommande.o robot.o jeu.o -o main $(LIBS)
 
-main.o: main.cpp renderer.hpp settings.hpp guerrier.hpp jeu.hpp
+main.o: main.cpp
 	$(CPP) $(CPPFLAGS) -c main.cpp
 
-jeu.o : jeu.cpp renderer.hpp guerrier.hpp settings.hpp 
+jeu.o : jeu.cpp jeu.hpp
 	$(CPP) $(CPPFLAGS) -c jeu.cpp
 	
 entite.o : entite.cpp entite.hpp
@@ -31,7 +31,10 @@ guerrier.o : guerrier.cpp guerrier.hpp
 robot.o : robot.cpp robot.hpp
 	$(CPP) $(CPPFLAGS) -c robot.cpp 
 
-renderer.o : renderer.cpp renderer.hpp settings.hpp
+attackCommande.o : attackCommande.cpp attackCommande.hpp
+	$(CPP) $(CPPFLAGS) -c attackCommande.cpp 
+
+renderer.o : renderer.cpp renderer.hpp
 	$(CPP) $(CPPFLAGS) -c renderer.cpp 
 
 

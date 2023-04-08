@@ -9,7 +9,7 @@
 class Robot : public Unite {
 
     public :
-    Robot(float x,float y,int health,int dmg, int spd);
+    Robot(float x,float y,int health,int atk, int spd);
     void afficher(sf::RenderWindow& window);
     void attack() const;
 };

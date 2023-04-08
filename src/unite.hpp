@@ -6,17 +6,18 @@
 class Unite : public Entite {
 
     public : 
-    Unite(float x,float y,int health,int dmg, int spd);
+    Unite(float x,float y,int health,int atk, int spd);
     
     virtual void attack() const = 0;
 
     const bool dead() const{return hp_<=0;};
+    void takeDamage(int damage);
 
     //Getters lecture/ecrite
     const int& getHP() const {return hp_;};
     int& getHP(){return hp_;};
-    const int& getDamage() const {return damage_;};
-    int& getDamage(){return damage_;};
+    const int& getAttack() const {return attack_;};
+    int& getDamage(){return attack_;};
     const int& getSpeed() const {return speed_;};
     int& getSpeed(){return speed_;};
 
@@ -24,7 +25,7 @@ class Unite : public Entite {
     protected :
 
     int hp_;
-    int damage_;
+    int attack_;
     int speed_;
 
 };

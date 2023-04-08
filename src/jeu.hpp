@@ -9,6 +9,7 @@
 #include "unite.hpp"
 #include <vector>
 #include "robot.hpp"
+#include "attackCommande.hpp"
 
 class Jeu{
 
@@ -40,6 +41,7 @@ class Jeu{
     std :: vector<Unite*> joueurs_;
     sf :: Event event_;
     std :: vector<Unite*> monsters_;
+
     //std :: array<Unite*,5> decor;
 
 };
