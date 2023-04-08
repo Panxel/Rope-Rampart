@@ -11,5 +11,10 @@ const int GUERRIER_HP = 20;
 const int GUERRIER_DAMAGE = 5;
 const int GUERRIER_SPEED = 2;
 
+const int Robot_HP = 10;
+const int Robot_DAMAGE = 2;
+const int Robot_SPEED = 1;
+
+
 
 #endif

@@ -2,22 +2,22 @@
 
 Renderer::Renderer()
 {
-    window.create(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "Rope Rampart");
-    window.clear(sf::Color::Black);
+    window_.create(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "Rope Rampart");
+    window_.clear(sf::Color::Black);
     loadFont();
     setText("Salut", 26, sf::Color::Red);
 }
 
 void Renderer :: loadFont(){
-    if(!font.loadFromFile("../res/Poppins-Regular.ttf")){
+    if(!font_.loadFromFile("../res/Poppins-Regular.ttf")){
         std::cout << "Error Chargement Font" << std::endl;
     }
 }
 
 void Renderer :: setText(const sf::String str,int size,sf::Color color){
-    txt.setFont(font);
-    txt.setString(str);
-    txt.setCharacterSize(size);
-    txt.setFillColor(color);
-    txt.setStyle(sf::Text :: Bold);
+    txt_.setFont(font_);
+    txt_.setString(str);
+    txt_.setCharacterSize(size);
+    txt_.setFillColor(color);
+    txt_.setStyle(sf::Text :: Bold);
 }

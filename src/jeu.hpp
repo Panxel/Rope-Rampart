@@ -8,6 +8,7 @@
 #include "guerrier.hpp"
 #include "unite.hpp"
 #include <vector>
+#include "robot.hpp"
 
 class Jeu{
 
@@ -19,7 +20,7 @@ class Jeu{
     }
 
     void gameInput();
-    const std::vector<Unite*>& getJoueurs() const{return joueurs;};
+    const std::vector<Unite*>& getJoueurs() const{return joueurs_;};
 
     //void gamePlay();
     void gameLoop();
@@ -32,12 +33,13 @@ class Jeu{
     Jeu(const Jeu&) = delete;
     Jeu& operator=(const Jeu&) = delete;
 
-    Renderer& renderer = Renderer :: get_instance();
-    Guerrier g1 = Guerrier(0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED);
-    Guerrier g2 = Guerrier(0.8*WIN_WIDTH,0.8*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED);
-    std :: vector<Unite*> joueurs;
-    sf :: Event event;
-    //std :: vector<Unite*> monsters;
+    Renderer& renderer_ = Renderer :: get_instance();
+    Robot r1_ = Robot(0.2*WIN_WIDTH,0.2*WIN_HEIGHT,Robot_HP,Robot_DAMAGE,Robot_SPEED);
+    Guerrier g1_ = Guerrier(0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED);
+    Guerrier g2_ = Guerrier(0.8*WIN_WIDTH,0.8*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED);
+    std :: vector<Unite*> joueurs_;
+    sf :: Event event_;
+    std :: vector<Unite*> monsters_;
     //std :: array<Unite*,5> decor;
 
 };

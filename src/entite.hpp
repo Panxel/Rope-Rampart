@@ -9,18 +9,18 @@ class Entite{
     public : 
     Entite(float x,float y);
     virtual void afficher(sf::RenderWindow& window) = 0;
-    const sf::Sprite& getSprite() const { return sprite;};
-    const float& getX() const {return pos_x;};
-    const float& getY() const {return pos_y;};
-    float& getX(){return pos_x;};
-    float& getY(){return pos_y;};
+    const sf::Sprite& getSprite() const { return sprite_;};
+    const float& getX() const {return pos_x_;};
+    const float& getY() const {return pos_y_;};
+    float& getX(){return pos_x_;};
+    float& getY(){return pos_y_;};
 
 
     protected :
-    float pos_x;
-    float pos_y;
-    sf::Texture texture;
-    sf::Sprite sprite;
+    float pos_x_;
+    float pos_y_;
+    sf::Texture texture_;
+    sf::Sprite sprite_;
 };
 
 

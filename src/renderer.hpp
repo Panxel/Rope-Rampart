@@ -18,8 +18,8 @@ public:
     void loadFont();
 
     
-    sf::RenderWindow& getWindow() {return window;};
-    sf::Text& getText() {return txt;};
+    sf::RenderWindow& getWindow() {return window_;};
+    sf::Text& getText() {return txt_;};
 
 protected:
     Renderer();
@@ -28,9 +28,9 @@ protected:
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
 
-    sf::RenderWindow window;
-    sf::Font font;
-    sf::Text txt;
+    sf::RenderWindow window_;
+    sf::Font font_;
+    sf::Text txt_;
 
 };
 
