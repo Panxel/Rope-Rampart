@@ -1,11 +1,11 @@
 #include "attackCommande.hpp"
 
-AttackCommande :: AttackCommande(unite_ptr robot, int damage){
+AttackCommande :: AttackCommande(unite_ptr unite, int damage){
     damageDealt_=damage;
-    robot_=robot;
+    unite_=unite;
 }
 
 void AttackCommande :: execute(){
-    robot_->takeDamage(damageDealt_);
-    std :: cout << "Hp du robot : " << robot_->getHP() << std::endl;
+    unite_->takeDamage(damageDealt_);
+    std :: cout << "Hp de l'unité : " << unite_->getHP() << std::endl;
 }

@@ -10,6 +10,7 @@
 #include <vector>
 #include "robot.hpp"
 #include "attackCommande.hpp"
+#include "moveCommande.hpp"
 #include "loadTexture.hpp"
 
 class Jeu{

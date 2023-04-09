@@ -38,5 +38,6 @@ class Unite : public Entite {
 
 };
 
+typedef std::shared_ptr<Unite> unite_ptr;
 
 #endif

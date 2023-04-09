@@ -54,6 +54,11 @@ void Jeu :: gameInput(){
         joueurs_[0]->executeCommande();
     }
 
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)){
+        joueurs_[0]->setCommande(std::make_unique<MoveCommande>(joueurs_[1],0.02*joueurs_[1]->getSpeed(),0.02*joueurs_[1]->getSpeed()));
+        joueurs_[0]->executeCommande();
+    }
+
 }
  
 
