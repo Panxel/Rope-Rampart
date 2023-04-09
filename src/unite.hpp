@@ -2,11 +2,16 @@
 #define UNITE_HPP
 #include "entite.hpp"
 #include <iostream>
+#include "commande.hpp"
+#include <memory>
+#include <SFML/Graphics.hpp>
+
+typedef std::unique_ptr<Commande> commande_ptr;
 
 class Unite : public Entite {
 
     public : 
-    Unite(float x,float y,int health,int atk, int spd);
+    Unite(sf::Texture& texture, float x,float y,int health,int atk, int spd);
     
     virtual void attack() const = 0;
 
@@ -21,12 +26,15 @@ class Unite : public Entite {
     const int& getSpeed() const {return speed_;};
     int& getSpeed(){return speed_;};
 
+    void setCommande(commande_ptr commande);
+    void executeCommande();
 
-    protected :
+    protected : 
 
     int hp_;
     int attack_;
     int speed_;
+    commande_ptr commande_;
 
 };
 

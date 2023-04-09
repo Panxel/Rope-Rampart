@@ -1,6 +1,6 @@
 #include "attackCommande.hpp"
 
-AttackCommande :: AttackCommande(Unite* robot, int damage){
+AttackCommande :: AttackCommande(unite_ptr robot, int damage){
     damageDealt_=damage;
     robot_=robot;
 }

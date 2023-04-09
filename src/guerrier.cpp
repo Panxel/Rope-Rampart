@@ -1,8 +1,6 @@
 #include "guerrier.hpp"
 
-Guerrier::Guerrier(float x,float y,int health,int atk, int spd) : Unite(x,y,health,atk,spd){
-    texture_.loadFromFile("../res/test_small.jpg");
-    sprite_.setTexture(texture_);
+Guerrier::Guerrier(sf::Texture& texture,float x,float y,int health,int atk, int spd) : Unite(texture,x,y,health,atk,spd){
     std :: cout << "Creation classe Guerrier" << std :: endl;
 }
 
@@ -13,12 +11,4 @@ void Guerrier :: afficher(sf::RenderWindow& window) {
 
 void Guerrier :: attack() const {
     std :: cout << " Utilisation attack de Guerrier" << std :: endl;
-}
-
-void Guerrier :: setCommande(commande_ptr commande){
-    commande_ = std::move(commande);
-}
-
-void Guerrier :: executeCommande(){
-    commande_->execute();
 }

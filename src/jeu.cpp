@@ -1,21 +1,21 @@
 #include "jeu.hpp"
 
 Jeu :: Jeu(){
-    joueurs_.push_back(&g1_);
-    joueurs_.push_back(&g2_);
-    monsters_.push_back(&r1_);
+    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
+    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.8*WIN_WIDTH,0.8*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
+    addMonster(std :: make_shared<Robot>(loadTexture_.getMap()["Robot"],0.2*WIN_WIDTH,0.2*WIN_HEIGHT,Robot_HP,Robot_DAMAGE,Robot_SPEED));
 }
 
 void Jeu :: gameInput(){
 
     //POUR EVITER QUE SA CRASH CAR SFML EST MAL FOUTU
-    while(Renderer :: get_instance().getWindow().pollEvent(event_)){
+    while(renderer_.getWindow().pollEvent(event_)){
     }
     if(event_.type == sf::Event::Closed){
-        Renderer :: get_instance().getWindow().close();
+        renderer_.getWindow().close();
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-        Renderer :: get_instance().getWindow().close();
+        renderer_.getWindow().close();
     }
 
     //Joueur 1
@@ -50,8 +50,8 @@ void Jeu :: gameInput(){
 
     // TEST
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        g1_.setCommande(std::make_unique<AttackCommande>(monsters_[0],g1_.getAttack()));
-        g1_.executeCommande();
+        joueurs_[0]->setCommande(std::make_unique<AttackCommande>(monsters_[0],joueurs_[0]->getAttack()));
+        joueurs_[0]->executeCommande();
     }
 
 }
@@ -59,19 +59,19 @@ void Jeu :: gameInput(){
 
 void Jeu :: gameLoop(){
 
-    while(Renderer :: get_instance().getWindow().isOpen()){
+    while(renderer_.getWindow().isOpen()){
         gameInput();
         gameDraw();
     }
 }
 
 void Jeu :: gameDraw() const {
-    Renderer :: get_instance().getWindow().clear(sf::Color :: Black);
-    joueurs_[0]->afficher(Renderer :: get_instance().getWindow());
-    joueurs_[1]->afficher(Renderer :: get_instance().getWindow());
-    monsters_[0]->afficher(Renderer :: get_instance().getWindow());
-    Renderer :: get_instance().getWindow().draw(Renderer :: get_instance().getText());
-    Renderer :: get_instance().getWindow().display();
+    renderer_.getWindow().clear(sf::Color :: Black);
+    joueurs_[0]->afficher(renderer_.getWindow());
+    joueurs_[1]->afficher(renderer_.getWindow());
+    monsters_[0]->afficher(renderer_.getWindow());
+    renderer_.getWindow().draw(renderer_.getText());
+    renderer_.getWindow().display();
 }
 
 //void Jeu :: gamePlay(){

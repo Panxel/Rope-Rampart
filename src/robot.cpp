@@ -1,8 +1,6 @@
 #include "robot.hpp"
 
-Robot::Robot(float x,float y,int health,int atk, int spd) : Unite(x,y,health,atk,spd){
-    texture_.loadFromFile("../res/robot_small.jpg");
-    sprite_.setTexture(texture_);
+Robot::Robot(sf::Texture& texture,float x,float y,int health,int atk, int spd) : Unite(texture,x,y,health,atk,spd){
     std :: cout << "Creation classe Robot" << std :: endl;
 }
 
