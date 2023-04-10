@@ -10,11 +10,3 @@ Unite :: Unite(sf::Texture& texture,float x,float y,int health, int atk, int spd
 void Unite :: takeDamage(int damage){
     hp_-=damage;
 }
-
-void Unite :: setCommande(commande_ptr commande){
-    commande_ = std::move(commande);
-}
-
-void Unite :: executeCommande(){
-    commande_->execute();
-}

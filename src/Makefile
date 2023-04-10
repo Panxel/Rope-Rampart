@@ -10,13 +10,13 @@ LIBS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
 
 all: main
 
-main: main.o renderer.o entite.o unite.o guerrier.o robot.o attackCommande.o loadTexture.o moveCommande.o jeu.o 
-	$(LD) $(LDFLAGS)  main.o renderer.o entite.o unite.o guerrier.o attackCommande.o robot.o loadTexture.o moveCommande.o jeu.o -o main $(LIBS)
+main: main.o renderer.o entite.o unite.o guerrier.o robot.o attackCommande.o loadTexture.o moveCommande.o invoker.o jeu.o 
+	$(LD) $(LDFLAGS)  main.o renderer.o entite.o unite.o guerrier.o attackCommande.o robot.o loadTexture.o moveCommande.o invoker.o jeu.o -o main $(LIBS)
 
-main.o: main.cpp jeu.hpp renderer.hpp unite.hpp robot.hpp guerrier.hpp attackCommande.hpp settings.hpp loadTexture.hpp moveCommande.hpp
+main.o: main.cpp jeu.hpp renderer.hpp unite.hpp robot.hpp guerrier.hpp attackCommande.hpp settings.hpp loadTexture.hpp moveCommande.hpp invoker.hpp
 	$(CPP) $(CPPFLAGS) -c main.cpp
 
-jeu.o : jeu.cpp jeu.hpp renderer.hpp unite.hpp robot.hpp guerrier.hpp attackCommande.hpp settings.hpp loadTexture.hpp moveCommande.hpp
+jeu.o : jeu.cpp jeu.hpp renderer.hpp unite.hpp robot.hpp guerrier.hpp attackCommande.hpp settings.hpp loadTexture.hpp moveCommande.hpp invoker.hpp
 	$(CPP) $(CPPFLAGS) -c jeu.cpp
 	
 entite.o : entite.cpp entite.hpp
@@ -36,6 +36,9 @@ attackCommande.o : attackCommande.cpp attackCommande.hpp unite.hpp commande.hpp
 
 moveCommande.o : moveCommande.cpp moveCommande.hpp unite.hpp commande.hpp
 	$(CPP) $(CPPFLAGS) -c moveCommande.cpp 
+
+invoker.o : invoker.cpp invoker.hpp commande.hpp
+	$(CPP) $(CPPFLAGS) -c invoker.cpp 
 
 renderer.o : renderer.cpp renderer.hpp settings.hpp
 	$(CPP) $(CPPFLAGS) -c renderer.cpp 

@@ -50,13 +50,13 @@ void Jeu :: gameInput(){
 
     // TEST
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        joueurs_[0]->setCommande(std::make_unique<AttackCommande>(monsters_[0],joueurs_[0]->getAttack()));
-        joueurs_[0]->executeCommande();
+        invoker_.setCommande(std::make_unique<AttackCommande>(monsters_[0],joueurs_[0]->getAttack()));
+        invoker_.executeCommande();
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)){
-        joueurs_[0]->setCommande(std::make_unique<MoveCommande>(joueurs_[1],0.02*joueurs_[1]->getSpeed(),0.02*joueurs_[1]->getSpeed()));
-        joueurs_[0]->executeCommande();
+        invoker_.setCommande(std::make_unique<MoveCommande>(joueurs_[1],0.02*joueurs_[1]->getSpeed(),0.02*joueurs_[1]->getSpeed()));
+        invoker_.executeCommande();
     }
 
 }

@@ -12,6 +12,7 @@
 #include "attackCommande.hpp"
 #include "moveCommande.hpp"
 #include "loadTexture.hpp"
+#include "invoker.hpp"
 
 class Jeu{
 
@@ -39,6 +40,7 @@ class Jeu{
 
     Renderer& renderer_ = Renderer :: get_instance();
     LoadTexture& loadTexture_ = LoadTexture :: get_instance();
+    Invoker& invoker_ = Invoker :: get_instance();
 
     std :: vector<unite_ptr> joueurs_;
     sf :: Event event_;
