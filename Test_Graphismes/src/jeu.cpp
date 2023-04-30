@@ -1,11 +1,17 @@
 #include "jeu.hpp"
 
+sf::Vertex line[2];
+sf::RectangleShape position_small_map;
+sf::CircleShape position_j1;
+sf::CircleShape position_j2;
+
 Jeu :: Jeu(){
     addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
     addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.8*WIN_WIDTH,0.8*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
     addMonster(std :: make_shared<Robot>(loadTexture_.getMap()["Robot"],0.2*WIN_WIDTH,0.2*WIN_HEIGHT,Robot_HP,Robot_DAMAGE,Robot_SPEED));
     renderer_.getWindow().clear(sf::Color :: Black);
     joueurs_[0]->getSprite().setScale(3,3);
+    joueurs_[1]->getSprite().setScale(3,3);
     //minimap.reset(sf::FloatRect(50, 50, 15,15));
     if(!this->map.loadFromFile("../res/MAP_V2.png"))
     {
@@ -21,7 +27,17 @@ Jeu :: Jeu(){
     minimap.setViewport(sf::FloatRect(0.80f, 0.f, 0.2, 0.22f));
     map_radar.setScale(0.65,0.65);
     rectangle.setPosition(25,25);
-    rectangle.setSize(sf::Vector2f(965,830));
+    rectangle.setSize(sf::Vector2f(965,830));   
+    // Test position grande map dans la petite
+    position_small_map.setFillColor(sf::Color::Transparent);
+    position_small_map.setOutlineThickness(8);
+    position_small_map.setOutlineColor(sf::Color::Red);
+    // Test position des joueurs dans la minimap.
+    position_j1.setFillColor(sf::Color::Red);
+    position_j2.setFillColor(sf::Color::Blue);
+    position_j1.setRadius(12.0f);
+    position_j2.setRadius(12.0f);
+
 }
 
 void Jeu :: gameInput(){
@@ -142,12 +158,27 @@ void Jeu :: gameDraw(){
     joueurs_[0]->afficher(renderer_.getWindow());
     joueurs_[1]->afficher(renderer_.getWindow());
     monsters_[0]->afficher(renderer_.getWindow());
+     // TEST AFFICHAGE LINE 
+    line[0].position = sf::Vector2f(joueurs_[0]->getX()+25, joueurs_[0]->getY()+40);
+    line[0].color  = sf::Color::Yellow;
+    line[1].position = sf::Vector2f(joueurs_[1]->getX()+25, joueurs_[1]->getY()+40);
+    line[1].color = sf::Color::Yellow;
+    renderer_.getWindow().draw(line,2,sf::Lines);
     // Passage sur la petite map.
     renderer_.getWindow().setView(minimap);
     renderer_.getWindow().draw(map_radar);
     renderer_.getWindow().draw(rectangle);
+    position_small_map.setPosition(-map_sp.getPosition().x*0.65,-map_sp.getPosition().y*0.65);
+    //std::cout<<"Position en x de la grande map : "<<-map_sp.getPosition().x<<std::endl;
+    //std::cout<<"POsition en y de la grande map :"<<-map_sp.getPosition().y<<std::endl;
+    position_small_map.setSize(sf::Vector2f(520,390)); 
+    renderer_.getWindow().draw(position_small_map);
+    position_j1.setPosition(sf::Vector2f(position_small_map.getPosition().x+joueurs_[0]->getX()*0.65+5,position_small_map.getPosition().y+joueurs_[0]->getY()*0.65+5));
+    position_j2.setPosition(sf::Vector2f(position_small_map.getPosition().x+joueurs_[1]->getX()*0.65+5,position_small_map.getPosition().y+joueurs_[1]->getY()*0.65+5));
+    renderer_.getWindow().draw(position_j1);
+    renderer_.getWindow().draw(position_j2);
     renderer_.getWindow().display();
-    
+
 }
 
 //void Jeu :: gamePlay(){
