@@ -2,8 +2,8 @@
 // Deux variables à mettre en attribut de la classe guerrier.
 // Variables nécessaire au changement d'images pour les animations;
 int compteur =0;
-int debut=0;
-sf::IntRect rect(debut,0,13,20);
+int debut=1;
+sf::IntRect rect(debut,0,12,21);
 
 Guerrier::Guerrier(sf::Texture& texture,float x,float y,int health,int atk, int spd) : Unite(texture,x,y,health,atk,spd){
     std :: cout << "Creation classe Guerrier" << std :: endl;

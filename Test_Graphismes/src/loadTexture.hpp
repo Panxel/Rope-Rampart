@@ -22,7 +22,9 @@ class LoadTexture{
 
         std::unordered_map<std::string,sf::Texture> mapTexture_;
         sf::Texture textureRobot_;
-        sf::Texture textureGuerrier_;
+        sf::Texture textureGuerrier1_;
+        sf::Texture textureGuerrier2_;
+
 };      
 
 #endif

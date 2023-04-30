@@ -6,12 +6,14 @@ sf::CircleShape position_j1;
 sf::CircleShape position_j2;
 
 Jeu :: Jeu(){
-    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
-    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.8*WIN_WIDTH,0.8*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
+    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier1"],0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
+    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier2"],0.8*WIN_WIDTH,0.8*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
     addMonster(std :: make_shared<Robot>(loadTexture_.getMap()["Robot"],0.2*WIN_WIDTH,0.2*WIN_HEIGHT,Robot_HP,Robot_DAMAGE,Robot_SPEED));
     renderer_.getWindow().clear(sf::Color :: Black);
     joueurs_[0]->getSprite().setScale(3,3);
     joueurs_[1]->getSprite().setScale(3,3);
+    joueurs_[0]->direction = 42;
+    joueurs_[0]->direction = 42;
     //minimap.reset(sf::FloatRect(50, 50, 15,15));
     if(!this->map.loadFromFile("../res/MAP_V2.png"))
     {
@@ -41,6 +43,8 @@ Jeu :: Jeu(){
 }
 
 void Jeu :: gameInput(){
+    bool mouvement_j1 = false;
+    bool mouvement_j2 = false;
 
     //POUR EVITER QUE SA CRASH CAR SFML EST MAL FOUTU
     while(renderer_.getWindow().pollEvent(event_)){
@@ -54,6 +58,7 @@ void Jeu :: gameInput(){
 
     //Joueur 1
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        mouvement_j1=true;
         // Changement de la valeur de la direction (direction correspond à la hauteur du pixel de la bande d'animation)
         joueurs_[0]->direction=63;
 
@@ -72,7 +77,8 @@ void Jeu :: gameInput(){
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        joueurs_[0]->direction=0;
+        mouvement_j1=true;
+        joueurs_[0]->direction=21;
         if(joueurs_[0]->getX()>600)
         {
             map_sp.setPosition(map_sp.getPosition().x-0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
@@ -85,7 +91,8 @@ void Jeu :: gameInput(){
         
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        joueurs_[0]->direction=21;
+        mouvement_j1=true;
+        joueurs_[0]->direction=42;
         if(joueurs_[0]->getY()<200)
         {
             map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+0.02*joueurs_[0]->getSpeed());
@@ -97,7 +104,8 @@ void Jeu :: gameInput(){
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        joueurs_[0]->direction=42;
+        mouvement_j1=true;
+        joueurs_[0]->direction=0;
         if(joueurs_[0]->getY()>400)
         {
             map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y-0.02*joueurs_[0]->getSpeed());
@@ -108,21 +116,82 @@ void Jeu :: gameInput(){
             joueurs_[0]->getY()+=0.02*joueurs_[0]->getSpeed();
         }
     }
+    if(mouvement_j1==false)
+    {
+        if(joueurs_[0]->direction==0 || joueurs_[0]->direction==21 || joueurs_[0]->direction==42 || joueurs_[0]->direction==63 )
+        {
+            joueurs_[0]->direction += 84;
+        }
+    }
 
-    //Joueur 2 - Faire les deplacement de la map aussi sur ce joueur.
+    //Joueur 2
+     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+        mouvement_j2=true;
+        // Changement de la valeur de la direction (direction correspond à la hauteur du pixel de la bande d'animation)
+        joueurs_[1]->direction=63;
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
-        joueurs_[1]->getX()-=0.02*joueurs_[1]->getSpeed();
+        // Il faudra faire les tests pour savoir si on est vraiment au bord de l'image.
+        // Test SI le joueur atteint la bordure gauche de l'écran
+        if(joueurs_[1]->getX()<200)
+        {
+            // SI Oui, on bouge ici l'autre joueur et la map dans le sens contraire. A la fin, il faudra aussi bouger tous les robots.
+            map_sp.setPosition(map_sp.getPosition().x+0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
+            joueurs_[0]->getX()+=0.02*joueurs_[1]->getSpeed();
+        }
+        else
+        {
+            // SINON, il se déplace juste.
+            joueurs_[1]->getX()-=0.02*joueurs_[1]->getSpeed();
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        joueurs_[1]->getX()+=0.02*joueurs_[1]->getSpeed();
+        mouvement_j2=true;
+        joueurs_[1]->direction=21;
+        if(joueurs_[1]->getX()>600)
+        {
+            map_sp.setPosition(map_sp.getPosition().x-0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
+            joueurs_[0]->getX()-=0.02*joueurs_[1]->getSpeed();
+        }
+        else
+        {
+            joueurs_[1]->getX()+=0.02*joueurs_[1]->getSpeed();
+        }
+        
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
-        joueurs_[1]->getY()-=0.02*joueurs_[1]->getSpeed();
+        mouvement_j2=true;
+        joueurs_[1]->direction=42;
+        if(joueurs_[1]->getY()<200)
+        {
+            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+0.02*joueurs_[0]->getSpeed());
+            joueurs_[0]->getY()+=0.02*joueurs_[1]->getSpeed();
+        }
+        else
+        {
+            joueurs_[1]->getY()-=0.02*joueurs_[1]->getSpeed();
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        joueurs_[1]->getY()+=0.02*joueurs_[1]->getSpeed();
+        mouvement_j2=true;
+        joueurs_[1]->direction=0;
+        if(joueurs_[1]->getY()>400)
+        {
+            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y-0.02*joueurs_[0]->getSpeed());
+            joueurs_[0]->getY()-=0.02*joueurs_[1]->getSpeed();
+        }
+        else
+        {
+            joueurs_[1]->getY()+=0.02*joueurs_[1]->getSpeed();
+        }
     }
+    if(mouvement_j2==false)
+    {
+        if(joueurs_[1]->direction==0 || joueurs_[1]->direction==21 || joueurs_[1]->direction==42 || joueurs_[1]->direction==63 )
+        {
+            joueurs_[1]->direction += 84;
+        }
+    }
+
 
 
     // TEST
