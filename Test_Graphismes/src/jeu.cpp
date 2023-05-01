@@ -1,9 +1,12 @@
 #include "jeu.hpp"
+#include "math.h"
 
+// Tests Variables à mettre plus tard dans des classes.
 sf::Vertex line[2];
 sf::RectangleShape position_small_map;
 sf::CircleShape position_j1;
 sf::CircleShape position_j2;
+float Kv;
 
 Jeu :: Jeu(){
     addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier1"],0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
@@ -12,8 +15,13 @@ Jeu :: Jeu(){
     renderer_.getWindow().clear(sf::Color :: Black);
     joueurs_[0]->getSprite().setScale(3,3);
     joueurs_[1]->getSprite().setScale(3,3);
-    joueurs_[0]->direction = 42;
-    joueurs_[0]->direction = 42;
+    joueurs_[0]->getX() = 220;
+    joueurs_[0]->getY() = 180;
+    joueurs_[1]->getX() = 250;
+    joueurs_[1]->getY() = 180;
+    
+    joueurs_[0]->direction = 0;
+    joueurs_[1]->direction = 0;
     //minimap.reset(sf::FloatRect(50, 50, 15,15));
     if(!this->map.loadFromFile("../res/MAP_V2.png"))
     {
@@ -39,13 +47,17 @@ Jeu :: Jeu(){
     position_j2.setFillColor(sf::Color::Blue);
     position_j1.setRadius(12.0f);
     position_j2.setRadius(12.0f);
-
 }
 
 void Jeu :: gameInput(){
+    // Test Variables à mettre autre part après
     bool mouvement_j1 = false;
     bool mouvement_j2 = false;
-
+    bool elastique_j1 = true;
+    bool elastique_j2 = true;
+    float distance = sqrt(pow(joueurs_[0]->getX()-joueurs_[1]->getX(),2)+pow(joueurs_[0]->getY()-joueurs_[1]->getY(),2));
+    std::cout<<"Distance : "<<distance<<std::endl;
+    Kv = 0.02*joueurs_[0]->getSpeed()/200;
     //POUR EVITER QUE SA CRASH CAR SFML EST MAL FOUTU
     while(renderer_.getWindow().pollEvent(event_)){
     }
@@ -59,61 +71,129 @@ void Jeu :: gameInput(){
     //Joueur 1
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         mouvement_j1=true;
+        if(sqrt(pow(joueurs_[0]->getX()-0.02*joueurs_[0]->getSpeed()-joueurs_[1]->getX(),2)+pow(joueurs_[0]->getY()-joueurs_[1]->getY(),2))<distance)
+        {
+            elastique_j1 = false;  
+        }
+        else
+        {
+            elastique_j1 = true;
+        }
         // Changement de la valeur de la direction (direction correspond à la hauteur du pixel de la bande d'animation)
         joueurs_[0]->direction=63;
-
         // Il faudra faire les tests pour savoir si on est vraiment au bord de l'image.
         // Test SI le joueur atteint la bordure gauche de l'écran
         if(joueurs_[0]->getX()<200)
         {
             // SI Oui, on bouge ici l'autre joueur et la map dans le sens contraire. A la fin, il faudra aussi bouger tous les robots.
-            map_sp.setPosition(map_sp.getPosition().x+0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
-            joueurs_[1]->getX()+=0.02*joueurs_[0]->getSpeed();
+            map_sp.setPosition(map_sp.getPosition().x+0.02*joueurs_[0]->getSpeed()/*-distance*Kv*/,map_sp.getPosition().y);
+            joueurs_[1]->getX()=joueurs_[1]->getX()+0.02*joueurs_[0]->getSpeed()/*-distance*Kv*/;
+            if(elastique_j1==true)
+            {
+                joueurs_[1]->getX()-=distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x-distance*Kv,map_sp.getPosition().y);
+            }
         }
         else
         {
             // SINON, il se déplace juste.
-            joueurs_[0]->getX()-=0.02*joueurs_[0]->getSpeed();
+            joueurs_[0]->getX()=joueurs_[0]->getX()-0.02*joueurs_[0]->getSpeed();
+            if(elastique_j1==true)
+            {
+                joueurs_[0]->getX()+=distance*Kv;
+            }
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         mouvement_j1=true;
         joueurs_[0]->direction=21;
-        if(joueurs_[0]->getX()>600)
+        if(sqrt(pow(joueurs_[0]->getX()+0.02*joueurs_[0]->getSpeed()-joueurs_[1]->getX(),2)+pow(joueurs_[0]->getY()-joueurs_[1]->getY(),2))<distance)
         {
-            map_sp.setPosition(map_sp.getPosition().x-0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
-            joueurs_[1]->getX()-=0.02*joueurs_[0]->getSpeed();
+            elastique_j1 = false;  
         }
         else
         {
-            joueurs_[0]->getX()+=0.02*joueurs_[0]->getSpeed();
+            elastique_j1 = true;
+        }
+        if(joueurs_[0]->getX()>600)
+        {
+            map_sp.setPosition(map_sp.getPosition().x-0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
+            joueurs_[1]->getX()=joueurs_[1]->getX()-0.02*joueurs_[0]->getSpeed();
+            if(elastique_j1==true)
+            {
+                joueurs_[1]->getX() += distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
+            }
+        }
+        else
+        {
+            joueurs_[0]->getX()=joueurs_[0]->getX()+0.02*joueurs_[0]->getSpeed();
+            if(elastique_j1==true)
+            {
+                joueurs_[0]->getX() -= distance*Kv;
+            }
         }
         
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         mouvement_j1=true;
-        joueurs_[0]->direction=42;
-        if(joueurs_[0]->getY()<200)
+        if(sqrt(pow(joueurs_[0]->getX()-joueurs_[1]->getX(),2)+pow(joueurs_[0]->getY()-0.02*joueurs_[0]->getSpeed()-joueurs_[1]->getY(),2))<distance)
         {
-            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+0.02*joueurs_[0]->getSpeed());
-            joueurs_[1]->getY()+=0.02*joueurs_[0]->getSpeed();
+            elastique_j1 = false;  
         }
         else
         {
-            joueurs_[0]->getY()-=0.02*joueurs_[0]->getSpeed();
+            elastique_j1 = true;
+        }
+        joueurs_[0]->direction=42;
+        
+        if(joueurs_[0]->getY()<200)
+        {
+            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+0.02*joueurs_[0]->getSpeed());
+            joueurs_[1]->getY()=joueurs_[1]->getY()+0.02*joueurs_[0]->getSpeed();
+            if(elastique_j1==true)
+            {
+                joueurs_[1]->getY() -= distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y-distance*Kv);
+            }
+        }
+        else{
+            joueurs_[0]->getY()=joueurs_[0]->getY()-0.02*joueurs_[0]->getSpeed();
+            if(elastique_j1==true)
+            {
+               joueurs_[0]->getY() += distance*Kv; 
+            }
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         mouvement_j1=true;
+        if(sqrt(pow(joueurs_[0]->getX()-joueurs_[1]->getX(),2)+pow(joueurs_[0]->getY()+0.02*joueurs_[0]->getSpeed()-joueurs_[1]->getY(),2))<distance)
+        {
+            elastique_j1 = false;  
+        }
+        else
+        {
+            elastique_j1 = true;
+        }
         joueurs_[0]->direction=0;
         if(joueurs_[0]->getY()>400)
         {
             map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y-0.02*joueurs_[0]->getSpeed());
-            joueurs_[1]->getY()-=0.02*joueurs_[0]->getSpeed();
+            joueurs_[1]->getY()=joueurs_[1]->getY()-0.02*joueurs_[0]->getSpeed();
+            if(elastique_j1==true)
+            {
+                joueurs_[1]->getY() += distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+distance*Kv);
+            }            
         }
         else
         {
-            joueurs_[0]->getY()+=0.02*joueurs_[0]->getSpeed();
+            joueurs_[0]->getY()=joueurs_[0]->getY()+0.02*joueurs_[0]->getSpeed();
+            if(elastique_j1==true)
+            {
+                joueurs_[0]->getY() -= distance*Kv; 
+            }
+            
         }
     }
     if(mouvement_j1==false)
@@ -125,63 +205,131 @@ void Jeu :: gameInput(){
     }
 
     //Joueur 2
-     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
         mouvement_j2=true;
+        if(sqrt(pow(joueurs_[1]->getX()-0.02*joueurs_[1]->getSpeed()-joueurs_[0]->getX(),2)+pow(joueurs_[1]->getY()-joueurs_[0]->getY(),2))<distance)
+        {
+            elastique_j2 = false;  
+        }
+        else
+        {
+            elastique_j2 = true;
+        }
         // Changement de la valeur de la direction (direction correspond à la hauteur du pixel de la bande d'animation)
         joueurs_[1]->direction=63;
-
         // Il faudra faire les tests pour savoir si on est vraiment au bord de l'image.
         // Test SI le joueur atteint la bordure gauche de l'écran
         if(joueurs_[1]->getX()<200)
         {
             // SI Oui, on bouge ici l'autre joueur et la map dans le sens contraire. A la fin, il faudra aussi bouger tous les robots.
-            map_sp.setPosition(map_sp.getPosition().x+0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
-            joueurs_[0]->getX()+=0.02*joueurs_[1]->getSpeed();
+            map_sp.setPosition(map_sp.getPosition().x+0.02*joueurs_[1]->getSpeed(),map_sp.getPosition().y);
+            joueurs_[0]->getX()=joueurs_[0]->getX()+0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+                joueurs_[0]->getX()-=distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x-distance*Kv,map_sp.getPosition().y);
+            }
         }
         else
         {
             // SINON, il se déplace juste.
-            joueurs_[1]->getX()-=0.02*joueurs_[1]->getSpeed();
+            joueurs_[1]->getX()=joueurs_[1]->getX()-0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+                joueurs_[1]->getX()+=distance*Kv;
+            }
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
         mouvement_j2=true;
         joueurs_[1]->direction=21;
-        if(joueurs_[1]->getX()>600)
+        if(sqrt(pow(joueurs_[1]->getX()+0.02*joueurs_[1]->getSpeed()-joueurs_[0]->getX(),2)+pow(joueurs_[1]->getY()-joueurs_[0]->getY(),2))<distance)
         {
-            map_sp.setPosition(map_sp.getPosition().x-0.02*joueurs_[0]->getSpeed(),map_sp.getPosition().y);
-            joueurs_[0]->getX()-=0.02*joueurs_[1]->getSpeed();
+            elastique_j2 = false;  
         }
         else
         {
-            joueurs_[1]->getX()+=0.02*joueurs_[1]->getSpeed();
+            elastique_j2 = true;
+        }
+        if(joueurs_[1]->getX()>600)
+        {
+            map_sp.setPosition(map_sp.getPosition().x-0.02*joueurs_[1]->getSpeed(),map_sp.getPosition().y);
+            joueurs_[0]->getX()=joueurs_[0]->getX()-0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+                joueurs_[0]->getX() += distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
+            }
+        }
+        else
+        {
+            joueurs_[1]->getX()=joueurs_[1]->getX()+0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+                joueurs_[1]->getX() -= distance*Kv;
+            }
         }
         
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
         mouvement_j2=true;
-        joueurs_[1]->direction=42;
-        if(joueurs_[1]->getY()<200)
+        if(sqrt(pow(joueurs_[1]->getX()-joueurs_[0]->getX(),2)+pow(joueurs_[1]->getY()-0.02*joueurs_[1]->getSpeed()-joueurs_[0]->getY(),2))<distance)
         {
-            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+0.02*joueurs_[0]->getSpeed());
-            joueurs_[0]->getY()+=0.02*joueurs_[1]->getSpeed();
+            elastique_j2 = false;  
         }
         else
         {
-            joueurs_[1]->getY()-=0.02*joueurs_[1]->getSpeed();
+            elastique_j2 = true;
+        }
+        joueurs_[1]->direction=42;
+        
+        if(joueurs_[1]->getY()<200)
+        {
+            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+0.02*joueurs_[1]->getSpeed());
+            joueurs_[0]->getY()=joueurs_[0]->getY()+0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+                joueurs_[0]->getY() -= distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y-distance*Kv);
+            }
+        }
+        else{
+            joueurs_[1]->getY()=joueurs_[1]->getY()-0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+               joueurs_[1]->getY() += distance*Kv; 
+            }
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
         mouvement_j2=true;
-        joueurs_[1]->direction=0;
-        if(joueurs_[1]->getY()>400)
+        if(sqrt(pow(joueurs_[1]->getX()-joueurs_[0]->getX(),2)+pow(joueurs_[1]->getY()+0.02*joueurs_[1]->getSpeed()-joueurs_[0]->getY(),2))<distance)
         {
-            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y-0.02*joueurs_[0]->getSpeed());
-            joueurs_[0]->getY()-=0.02*joueurs_[1]->getSpeed();
+            elastique_j2 = false;  
         }
         else
         {
-            joueurs_[1]->getY()+=0.02*joueurs_[1]->getSpeed();
+            elastique_j2 = true;
+        }
+        joueurs_[1]->direction=0;
+        if(joueurs_[1]->getY()>400)
+        {
+            map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y-0.02*joueurs_[1]->getSpeed());
+            joueurs_[0]->getY()=joueurs_[0]->getY()-0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+                joueurs_[0]->getY() += distance*Kv;
+                map_sp.setPosition(map_sp.getPosition().x,map_sp.getPosition().y+distance*Kv);
+            }            
+        }
+        else
+        {
+            joueurs_[1]->getY()=joueurs_[1]->getY()+0.02*joueurs_[1]->getSpeed();
+            if(elastique_j2==true)
+            {
+                joueurs_[1]->getY() -= distance*Kv; 
+            }
+            
         }
     }
     if(mouvement_j2==false)
@@ -191,8 +339,6 @@ void Jeu :: gameInput(){
             joueurs_[1]->direction += 84;
         }
     }
-
-
 
     // TEST
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
@@ -204,7 +350,6 @@ void Jeu :: gameInput(){
         invoker_.setCommande(std::make_unique<MoveCommande>(joueurs_[1],0.02*joueurs_[1]->getSpeed(),0.02*joueurs_[1]->getSpeed()));
         invoker_.executeCommande();
     }
-
 }
  
 
@@ -247,7 +392,6 @@ void Jeu :: gameDraw(){
     renderer_.getWindow().draw(position_j1);
     renderer_.getWindow().draw(position_j2);
     renderer_.getWindow().display();
-
 }
 
 //void Jeu :: gamePlay(){
