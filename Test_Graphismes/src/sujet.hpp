@@ -1,6 +1,7 @@
 #ifndef SUJET_HPP
 #define SUJET_HPP
 #include "observer.hpp"
+#include <algorithm>
 #include <vector>
 
 class Sujet{

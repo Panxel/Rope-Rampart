@@ -8,6 +8,6 @@ void Sujet :: removeObserver(observer_ptr observer){
 }
 void Sujet :: notifyObserver(){
     for(observer_ptr observer : vectorObserver_){
-        observer.update();
+        observer->update();
     }
 }
