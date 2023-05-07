@@ -31,12 +31,12 @@ class Unite : public Entite {
 
     
     //Sujet
-    void addObserver(chateau_ptr observer);
-    void removeObserver(chateau_ptr observer);
-    void notifyObserver(std::shared_ptr<Unite> unite);
+    void addObserverChateau(chateau_ptr observer);
+    void removeObserverChateau(chateau_ptr observer);
+    void notifyObserverChateau(std::shared_ptr<Unite> unite);
 
     protected :
-    std:: vector<chateau_ptr> vectorObserver_;
+    std:: vector<chateau_ptr> vectorObserverChateau_;
 
     Direction direction_ = Bas;
     int attack_;

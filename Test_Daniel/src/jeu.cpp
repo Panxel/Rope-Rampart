@@ -11,9 +11,12 @@ void Jeu :: gameInput(){
 
     //POUR EVITER QUE SA CRASH CAR SFML EST MAL FOUTU
     while(renderer_.getWindow().pollEvent(event_)){
-    }
-    if(event_.type == sf::Event::Closed){
+        if(event_.type == sf::Event::Closed){
         renderer_.getWindow().close();
+        }else if(event_.type == sf::Event :: KeyPressed && event_.key.code== sf::Keyboard :: Space){
+            std :: cout << "Utilisation Attaque" << std :: endl;
+            vectorJoueurs_[0]->notifyObserverRobot(vectorJoueurs_[0]);
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
         renderer_.getWindow().close();
@@ -23,51 +26,54 @@ void Jeu :: gameInput(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         vectorJoueurs_[0]->getX()-=0.02*vectorJoueurs_[0]->getSpeed();
         vectorJoueurs_[0]->getDirection()=Gauche;
-        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
+        vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         vectorJoueurs_[0]->getX()+=0.02*vectorJoueurs_[0]->getSpeed();
         vectorJoueurs_[0]->getDirection()=Droite;
-        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
+        vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         vectorJoueurs_[0]->getY()-=0.02*vectorJoueurs_[0]->getSpeed();
         vectorJoueurs_[0]->getDirection()=Haut;
-        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
-
+        vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         vectorJoueurs_[0]->getY()+=0.02*vectorJoueurs_[0]->getSpeed();
         vectorJoueurs_[0]->getDirection()=Bas;
-        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
-
+        vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
     }
 
+    /*
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+        std :: cout << "Utilisation Attaque" << std :: endl;
+        vectorJoueurs_[0]->notifyObserverRobot(vectorJoueurs_[0]);
+    }*/
+    
     //Joueur 2
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
         vectorJoueurs_[1]->getX()-=0.02*vectorJoueurs_[1]->getSpeed();
         vectorJoueurs_[1]->getDirection()=Gauche;
-        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
+        vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
         vectorJoueurs_[1]->getX()+=0.02*vectorJoueurs_[1]->getSpeed();
         vectorJoueurs_[1]->getDirection()=Droite;
-        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
+        vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
         vectorJoueurs_[1]->getY()-=0.02*vectorJoueurs_[1]->getSpeed();
         vectorJoueurs_[1]->getDirection()=Haut;
-        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
-
+        vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
         vectorJoueurs_[1]->getY()+=0.02*vectorJoueurs_[1]->getSpeed();
         vectorJoueurs_[1]->getDirection()=Bas;
-        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
+        vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
 
     }
 
@@ -75,11 +81,12 @@ void Jeu :: gameInput(){
  
 
 void Jeu :: gameLoop(){
-    for(unite_ptr joueur : vectorJoueurs_){
-        joueur->addObserver(chateau_[0]);
-    }
-    for(unite_ptr monster : vectorMonsters_){
-        monster->addObserver(chateau_[0]);
+    for(guerrier_ptr joueur : vectorJoueurs_){
+        joueur->addObserverChateau(chateau_[0]);
+        for(robot_ptr monster : vectorMonsters_){
+            monster->addObserverChateau(chateau_[0]);
+            joueur->addObserverRobot(monster);
+        }
     }
     while(renderer_.getWindow().isOpen()){
         gameInput();
@@ -90,10 +97,10 @@ void Jeu :: gameLoop(){
 
 void Jeu :: gameDraw() {
     renderer_.getWindow().clear(sf::Color :: Black);
-    for(unite_ptr joueur : vectorJoueurs_){
+    for(guerrier_ptr joueur : vectorJoueurs_){
         joueur->afficher(renderer_.getWindow());
     }
-    for(unite_ptr monster : vectorMonsters_){
+    for(robot_ptr monster : vectorMonsters_){
         monster->afficher(renderer_.getWindow());
     }
     chateau_[0]->afficher(renderer_.getWindow());
@@ -102,7 +109,7 @@ void Jeu :: gameDraw() {
 }
 
 void Jeu :: gamePlay(){
-    for(unite_ptr monster : vectorMonsters_){
+    for(robot_ptr monster : vectorMonsters_){
         float deltaX =(CHATEAU_INITX+CHATEAU_WIDTH/2)-monster->getX();
         float deltaY =(CHATEAU_INITY+CHATEAU_HEIGHT/2)-monster->getY();
         if(deltaX>0){
@@ -115,6 +122,6 @@ void Jeu :: gamePlay(){
         }else if(deltaY<0){
             monster->getY()-= 0.02*monster->getSpeed();
         }
-        monster->notifyObserver(monster);        
+        monster->notifyObserverChateau(monster);        
     }
 }

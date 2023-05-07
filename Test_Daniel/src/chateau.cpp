@@ -6,7 +6,7 @@ Chateau :: Chateau(sf::Texture& texture,float x,float y,int health,int id) : Ent
 }
 
 
-void Chateau :: update(std:: shared_ptr<Unite> unite){
+void Chateau :: update( unite_ptr unite){
     if(unite->getID()==1){
         if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+GUERRIER_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+GUERRIER_HEIGHT)){
             std :: cout << "Collision Chateau" << std :: endl;

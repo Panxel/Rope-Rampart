@@ -6,14 +6,14 @@ Unite :: Unite(sf::Texture& texture,float x,float y,int health,int id, int atk, 
     speed_=spd;
 }
 
-void Unite :: addObserver(chateau_ptr observer){
-    vectorObserver_.push_back(observer);
+void Unite :: addObserverChateau(chateau_ptr observer){
+    vectorObserverChateau_.push_back(observer);
 }
-void Unite :: removeObserver(chateau_ptr observer){
-    vectorObserver_.erase(std::find(vectorObserver_.begin(),vectorObserver_.end(),observer));
+void Unite :: removeObserverChateau(chateau_ptr observer){
+    vectorObserverChateau_.erase(std::find(vectorObserverChateau_.begin(),vectorObserverChateau_.end(),observer));
 }
-void Unite :: notifyObserver(unite_ptr unite){
-    for(chateau_ptr observer : vectorObserver_){
+void Unite :: notifyObserverChateau(unite_ptr unite){
+    for(chateau_ptr observer : vectorObserverChateau_){
         observer->update(unite);
     }
 }
