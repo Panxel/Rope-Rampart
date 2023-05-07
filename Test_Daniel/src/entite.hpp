@@ -8,7 +8,7 @@
 class Entite{
 
     public : 
-    Entite(sf::Texture& texture,float x,float y,int health);
+    Entite(sf::Texture& texture,float x,float y,int health,int id);
     void afficher(sf::RenderWindow& window);
     const sf::Sprite& getSprite() const { return sprite_;};
     void loadSprite(sf::Texture& texture);
@@ -18,10 +18,16 @@ class Entite{
     float& getY(){return pos_y_;};
     const int& getHP() const {return hp_;};
     int& getHP(){return hp_;};
+    const int& getID() const {return id_;};
+    int& getID(){return id_;};
+    const bool dead() const{return hp_<=0;};
+    void takeDamage(const int& damage);
 
 
     protected :
+    int id_;
     int hp_;
+    bool dead_ = false;
     float pos_x_;
     float pos_y_;
     sf::Sprite sprite_;

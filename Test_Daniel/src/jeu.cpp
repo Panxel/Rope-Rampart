@@ -1,10 +1,10 @@
 #include "jeu.hpp"
 
 Jeu :: Jeu(){
-    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.5*WIN_WIDTH,0.5*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
-    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],0.3*WIN_WIDTH,0.3*WIN_HEIGHT,GUERRIER_HP,GUERRIER_DAMAGE,GUERRIER_SPEED));
-    addMonster(std :: make_shared<Robot>(loadTexture_.getMap()["Robot"],0.2*WIN_WIDTH,0.2*WIN_HEIGHT,ROBOT_HP,ROBOT_DAMAGE,ROBOT_SPEED));
-    addEntiteObserver(std :: make_shared<Chateau>(loadTexture_.getMap()["Guerrier"],0.8*WIN_WIDTH,0.8*WIN_HEIGHT,CHATEAU_HP));
+    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],JOUEUR1_INITX,JOUEUR1_INITY,GUERRIER_HP,JOUEUR_ID,GUERRIER_DAMAGE,GUERRIER_SPEED));
+    addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],JOUEUR2_INITX,JOUEUR2_INITY,GUERRIER_HP,JOUEUR_ID,GUERRIER_DAMAGE,GUERRIER_SPEED));
+    addMonster(std :: make_shared<Robot>(loadTexture_.getMap()["Robot"],ROBOT_INITX,ROBOT_INITY,ROBOT_HP,ROBOT_ID,ROBOT_DAMAGE,ROBOT_SPEED));
+    addEntiteObserver(std :: make_shared<Chateau>(loadTexture_.getMap()["Guerrier"],CHATEAU_INITX,CHATEAU_INITY,CHATEAU_HP,CHATEAU_ID));
 }
 
 void Jeu :: gameInput(){
@@ -21,54 +21,53 @@ void Jeu :: gameInput(){
 
     //Joueur 1
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        joueurs_[0]->getX()-=0.02*joueurs_[0]->getSpeed();
-        joueurs_[0]->getDirection()=Gauche;
-        joueurs_[0]->notifyObserver(joueurs_[0]);
+        vectorJoueurs_[0]->getX()-=0.02*vectorJoueurs_[0]->getSpeed();
+        vectorJoueurs_[0]->getDirection()=Gauche;
+        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        joueurs_[0]->getX()+=0.02*joueurs_[0]->getSpeed();
-        joueurs_[0]->getDirection()=Droite;
-        joueurs_[0]->notifyObserver(joueurs_[0]);
+        vectorJoueurs_[0]->getX()+=0.02*vectorJoueurs_[0]->getSpeed();
+        vectorJoueurs_[0]->getDirection()=Droite;
+        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        joueurs_[0]->getY()-=0.02*joueurs_[0]->getSpeed();
-        joueurs_[0]->getDirection()=Haut;
-        joueurs_[0]->notifyObserver(joueurs_[0]);
+        vectorJoueurs_[0]->getY()-=0.02*vectorJoueurs_[0]->getSpeed();
+        vectorJoueurs_[0]->getDirection()=Haut;
+        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        joueurs_[0]->getY()+=0.02*joueurs_[0]->getSpeed();
-        joueurs_[0]->getDirection()=Bas;
-        joueurs_[0]->notifyObserver(joueurs_[0]);
+        vectorJoueurs_[0]->getY()+=0.02*vectorJoueurs_[0]->getSpeed();
+        vectorJoueurs_[0]->getDirection()=Bas;
+        vectorJoueurs_[0]->notifyObserver(vectorJoueurs_[0]);
 
     }
 
     //Joueur 2
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
-        joueurs_[1]->getX()-=0.02*joueurs_[1]->getSpeed();
-        joueurs_[1]->getDirection()=Gauche;
-        joueurs_[1]->notifyObserver(joueurs_[1]);
+        vectorJoueurs_[1]->getX()-=0.02*vectorJoueurs_[1]->getSpeed();
+        vectorJoueurs_[1]->getDirection()=Gauche;
+        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        joueurs_[1]->getX()+=0.02*joueurs_[1]->getSpeed();
-        joueurs_[1]->getDirection()=Droite;
-        joueurs_[1]->notifyObserver(joueurs_[1]);
+        vectorJoueurs_[1]->getX()+=0.02*vectorJoueurs_[1]->getSpeed();
+        vectorJoueurs_[1]->getDirection()=Droite;
+        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
-        joueurs_[1]->getY()-=0.02*joueurs_[1]->getSpeed();
-        joueurs_[1]->getDirection()=Haut;
-        joueurs_[1]->notifyObserver(joueurs_[1]);
+        vectorJoueurs_[1]->getY()-=0.02*vectorJoueurs_[1]->getSpeed();
+        vectorJoueurs_[1]->getDirection()=Haut;
+        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
 
 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        joueurs_[1]->getY()+=0.02*joueurs_[1]->getSpeed();
-        joueurs_[1]->getDirection()=Bas;
-        joueurs_[1]->notifyObserver(joueurs_[1]);
-
+        vectorJoueurs_[1]->getY()+=0.02*vectorJoueurs_[1]->getSpeed();
+        vectorJoueurs_[1]->getDirection()=Bas;
+        vectorJoueurs_[1]->notifyObserver(vectorJoueurs_[1]);
 
     }
 
@@ -76,24 +75,46 @@ void Jeu :: gameInput(){
  
 
 void Jeu :: gameLoop(){
-    joueurs_[0]->addObserver(chateau_[0]);
-    joueurs_[1]->addObserver(chateau_[0]);
-    monsters_[0]->addObserver(chateau_[0]);
+    for(unite_ptr joueur : vectorJoueurs_){
+        joueur->addObserver(chateau_[0]);
+    }
+    for(unite_ptr monster : vectorMonsters_){
+        monster->addObserver(chateau_[0]);
+    }
     while(renderer_.getWindow().isOpen()){
         gameInput();
+        gamePlay();
         gameDraw();
     }
 }
 
-void Jeu :: gameDraw() const {
+void Jeu :: gameDraw() {
     renderer_.getWindow().clear(sf::Color :: Black);
-    joueurs_[0]->afficher(renderer_.getWindow());
-    joueurs_[1]->afficher(renderer_.getWindow());
-    monsters_[0]->afficher(renderer_.getWindow());
+    for(unite_ptr joueur : vectorJoueurs_){
+        joueur->afficher(renderer_.getWindow());
+    }
+    for(unite_ptr monster : vectorMonsters_){
+        monster->afficher(renderer_.getWindow());
+    }
     chateau_[0]->afficher(renderer_.getWindow());
     renderer_.getWindow().draw(renderer_.getText());
     renderer_.getWindow().display();
 }
 
-//void Jeu :: gamePlay(){
-//}
+void Jeu :: gamePlay(){
+    for(unite_ptr monster : vectorMonsters_){
+        float deltaX =(CHATEAU_INITX+CHATEAU_WIDTH/2)-monster->getX();
+        float deltaY =(CHATEAU_INITY+CHATEAU_HEIGHT/2)-monster->getY();
+        if(deltaX>0){
+            monster->getX()+= 0.02*monster->getSpeed();
+        }else if(deltaX<0){
+            monster->getX()-= 0.02*monster->getSpeed();
+        }
+        if(deltaY>0){
+            monster->getY()+= 0.02*monster->getSpeed();
+        }else if(deltaY<0){
+            monster->getY()-= 0.02*monster->getSpeed();
+        }
+        monster->notifyObserver(monster);        
+    }
+}

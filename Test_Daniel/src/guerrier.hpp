@@ -7,7 +7,7 @@
 class Guerrier : public Unite {
 
     public : 
-    Guerrier(sf::Texture& texture,float x,float y,int health,int atk, int spd);
+    Guerrier(sf::Texture& texture,float x,float y,int health,int id,int atk, int spd);
     void attack() const;
 
     protected :

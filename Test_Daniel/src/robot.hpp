@@ -8,7 +8,7 @@
 class Robot : public Unite {
 
     public :
-    Robot(sf::Texture& texture,float x,float y,int health,int atk, int spd);
+    Robot(sf::Texture& texture,float x,float y,int health,int id,int atk, int spd);
     void attack() const;
 };
 

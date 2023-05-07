@@ -16,17 +16,14 @@ enum Direction{
 class Unite : public Entite {
 
     public : 
-    Unite(sf::Texture& texture, float x,float y,int health,int atk, int spd);
+    Unite(sf::Texture& texture, float x,float y,int health,int id,int atk, int spd);
     
     virtual void attack() const = 0;
-
-    const bool dead() const{return hp_<=0;};
-    void takeDamage(int damage);
 
     //Getters lecture/ecrite
 
     const int& getAttack() const {return attack_;};
-    int& getDamage(){return attack_;};
+    int& getAttack(){return attack_;};
     const int& getSpeed() const {return speed_;};
     int& getSpeed(){return speed_;};
     const Direction& getDirection() const {return direction_;};
@@ -41,7 +38,6 @@ class Unite : public Entite {
     protected :
     std:: vector<chateau_ptr> vectorObserver_;
 
-    bool dead_ = false;
     Direction direction_ = Bas;
     int attack_;
     int speed_;

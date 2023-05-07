@@ -1,6 +1,6 @@
 #include "unite.hpp"
 
-Unite :: Unite(sf::Texture& texture,float x,float y,int health, int atk, int spd) : Entite(texture,x,y,health){
+Unite :: Unite(sf::Texture& texture,float x,float y,int health,int id, int atk, int spd) : Entite(texture,x,y,health,id){
     std :: cout << "Utilisation Constructeur Unite" << std :: endl;
     attack_=atk;
     speed_=spd;
@@ -16,8 +16,4 @@ void Unite :: notifyObserver(unite_ptr unite){
     for(chateau_ptr observer : vectorObserver_){
         observer->update(unite);
     }
-}
-
-void Unite :: takeDamage(int damage){
-    hp_-=damage;
 }
