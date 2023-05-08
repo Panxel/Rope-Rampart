@@ -11,7 +11,7 @@ class LoadTexture{
             static LoadTexture instance;
             return instance;
         }
-        void loadFile();
+        void loadFile(std:: string path);
         std::unordered_map<std::string,sf::Texture>& getMap(){return mapTexture_;}; 
     protected :
 
@@ -21,8 +21,7 @@ class LoadTexture{
         LoadTexture& operator=(const LoadTexture&) = delete;
 
         std::unordered_map<std::string,sf::Texture> mapTexture_;
-        sf::Texture textureRobot_;
-        sf::Texture textureGuerrier_;
+        sf::Texture texture_;
 };      
 
 #endif

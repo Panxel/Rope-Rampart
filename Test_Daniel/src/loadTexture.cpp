@@ -1,11 +1,13 @@
 #include "loadTexture.hpp"
 
 LoadTexture :: LoadTexture(){
-    loadFile();
-    mapTexture_.insert({{"Robot",textureRobot_}, {"Guerrier",textureGuerrier_}});
+    loadFile("../res/robot_small.jpg");
+    mapTexture_.insert({"Robot",texture_});
+    loadFile("../res/test_small.jpg");
+    mapTexture_.insert({"Guerrier",texture_});
+
 }
 
-void LoadTexture :: loadFile(){
-    textureGuerrier_.loadFromFile("../res/test_small.jpg");
-    textureRobot_.loadFromFile("../res/robot_small.jpg");
+void LoadTexture :: loadFile(std::string path){
+    texture_.loadFromFile(path);
 }
