@@ -4,7 +4,6 @@
 #include "settings.hpp"
 #include <SFML/Graphics.hpp>
 
-
 //Singleton
 class Renderer {
 

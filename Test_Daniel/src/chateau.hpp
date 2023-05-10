@@ -13,7 +13,7 @@ class Chateau : public Entite {
 
     public :
     Chateau(sf::Texture& texture, float x,float y,int health,int id);
-
+    void afficher(sf::RenderWindow& window);
     void update(std :: shared_ptr<Unite> unite);
     
     protected :

@@ -1,6 +1,6 @@
 CPP=g++
 EXEC = main
-SRC = main.cpp entite.cpp unite.cpp guerrier.cpp robot.cpp renderer.cpp jeu.cpp loadTexture.cpp chateau.cpp
+SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
 CPPFLAGS=-std=c++14
 LIBS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio

@@ -10,7 +10,7 @@ class Robot : public Unite {
     public :
     Robot(sf::Texture& texture,float x,float y,int health,int id,int atk, int spd);
     void attack() const;
-
+    void afficher(sf::RenderWindow& window);
     void update(unite_ptr unite);
 
 };

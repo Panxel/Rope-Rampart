@@ -12,6 +12,8 @@
 #include "robot.hpp"
 #include "loadTexture.hpp"
 #include "chateau.hpp"
+#include "wave.hpp"
+#include <time.h>
 
 class Jeu{
 
@@ -22,11 +24,19 @@ class Jeu{
         return instance;
     }
 
-    void gameInput();
-    //const std::vector<unite_ptr>& getJoueurs() const{return vectorJoueurs_;};
     void addJoueur(guerrier_ptr joueur){vectorJoueurs_.push_back(joueur);};
-    void addMonster(robot_ptr monster){vectorMonsters_.push_back(monster);};
-    void addEntiteObserver(chateau_ptr chateau){chateau_.push_back(chateau);};
+    void clearVectorJoueur(){vectorJoueurs_.clear();};
+    void addChateau(chateau_ptr chateau){chateau_.push_back(chateau);};
+    void clearVectorChateau(){chateau_.clear();};
+    void clearAllObserverLink();
+    void clearAllVector();
+    void linkAllRobotObserver();
+    void delinkRobotObserver(robot_ptr robot);
+    void afficherAllJoueur();
+    void afficherChateau();
+
+    void gameChangeLevel();
+    void gameInput();
     void gamePlay();
     void gameLoop();
     void gameDraw();
@@ -40,13 +50,11 @@ class Jeu{
 
     Renderer& renderer_ = Renderer :: get_instance();
     LoadTexture& loadTexture_ = LoadTexture :: get_instance();
+    Wave& wave_ = Wave :: get_instance();
 
     std :: vector<guerrier_ptr> vectorJoueurs_;
     std :: vector<chateau_ptr> chateau_;
     sf :: Event event_;
-    std :: vector<robot_ptr> vectorMonsters_;
-
-    //std :: array<Unite*,5> decor;
 
 };
 

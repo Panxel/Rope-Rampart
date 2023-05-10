@@ -5,6 +5,13 @@
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 600;
 
+//Delimitation bordure interne
+
+const int WIN_INT_POSX = 100;
+const int WIN_INT_POSY = 100;
+const int WIN_INT_WIDTH = 600;
+const int WIN_INT_HEIGHT = 400;
+
 //Id
 const int CHATEAU_ID = 0;
 const int JOUEUR_ID = 1;

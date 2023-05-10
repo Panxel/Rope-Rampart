@@ -6,6 +6,7 @@ Entite::Entite(sf::Texture& texture,float x,float y,int health,int id){
     pos_y_=y;
     hp_=health;
     id_=id;
+    dead_=false;
     loadSprite(texture);
 }
 

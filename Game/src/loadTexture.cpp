@@ -11,3 +11,4 @@ LoadTexture :: LoadTexture(){
 void LoadTexture :: loadFile(std::string path){
     texture_.loadFromFile(path);
 }
+

@@ -34,6 +34,7 @@ class Unite : public Entite {
     void addObserverChateau(chateau_ptr observer);
     void removeObserverChateau(chateau_ptr observer);
     void notifyObserverChateau(std::shared_ptr<Unite> unite);
+    void clearVectorObserverChateau(){vectorObserverChateau_.clear();};
 
     protected :
     std:: vector<chateau_ptr> vectorObserverChateau_;

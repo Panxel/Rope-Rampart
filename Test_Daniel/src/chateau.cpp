@@ -5,9 +5,13 @@ Chateau :: Chateau(sf::Texture& texture,float x,float y,int health,int id) : Ent
     std :: cout << "Utilisation Constructeur Chateau" << std :: endl;
 }
 
+void Chateau :: afficher(sf::RenderWindow& window) {
+    sprite_.setPosition(round(pos_x_),round(pos_y_));
+    window.draw(sprite_);
+}
 
 void Chateau :: update( unite_ptr unite){
-    if(unite->getID()==1){
+    if(unite->getID()==1){ //Si c'est un joueur, il y a collision avec le chateau
         if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+GUERRIER_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+GUERRIER_HEIGHT)){
             std :: cout << "Collision Chateau" << std :: endl;
             if(unite->getDirection()==Haut){
@@ -20,14 +24,12 @@ void Chateau :: update( unite_ptr unite){
                 unite->getX()=pos_x_+CHATEAU_WIDTH;
             }
         }
-    }else if(unite->getID()==2){
+    }else if(unite->getID()>=2){ //Si c'est un monstre, il y a collision avec le chateau et le robot s'autodétruit et fait des dmg au chateau
         if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+ROBOT_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+ROBOT_HEIGHT)){
             std :: cout << "Robot damage le Chateau" << std :: endl;
             takeDamage(unite->getAttack());
             std :: cout << "HP CHATEAU : " << getHP() << std :: endl;
-            unite->getX()=ROBOT_INITX;
-            unite->getY()=ROBOT_INITY;
-
+            unite->getDead()=true;
         }
     }
 }

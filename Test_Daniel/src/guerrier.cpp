@@ -8,6 +8,11 @@ void Guerrier :: attack() const {
     std :: cout << " Utilisation attack de Guerrier" << std :: endl;
 }
 
+void Guerrier :: afficher(sf::RenderWindow& window) {
+    sprite_.setPosition(round(pos_x_),round(pos_y_));
+    window.draw(sprite_);
+}
+
 void Guerrier :: addObserverRobot(robot_ptr robot){
     vectorObserverRobot_.push_back(robot);
 }

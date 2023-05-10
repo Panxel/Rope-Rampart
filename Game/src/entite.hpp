@@ -20,14 +20,15 @@ class Entite{
     int& getHP(){return hp_;};
     const int& getID() const {return id_;};
     int& getID(){return id_;};
-    const bool dead() const{return hp_<=0;};
+    const bool& getDead() const {return dead_;};
+    bool& getDead(){return dead_;};
     void takeDamage(const int& damage);
 
 
     protected :
     int id_;
     int hp_;
-    bool dead_ = false;
+    bool dead_;
     float pos_x_;
     float pos_y_;
     sf::Sprite sprite_;

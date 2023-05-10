@@ -18,6 +18,9 @@ void Robot :: update(unite_ptr unite){
     if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+ROBOT_WIDTH, unite->getX()+GUERRIER_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+ROBOT_HEIGHT, unite->getY()+GUERRIER_HEIGHT)){
         std :: cout << "Robot Damaged" << std :: endl;
         takeDamage(unite->getAttack());
+        if(hp_<=0){
+            dead_=true;
+        }
         std :: cout << "HP ROBOT : " << getHP() << std :: endl;
     }
 }
