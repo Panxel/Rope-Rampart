@@ -141,14 +141,12 @@ void Jeu :: gameLoop(){
             gameDraw();
             gameInput();
         }
-        std::cout << "Here" << std::endl;
         //Changement de level
-        gameChangeLevel();
+        wave_.waveLevelUp();
+        //Link tous les dépendances d'observer par rapport au robot
+        linkAllRobotObserver();
         while(renderer_.getWindow().isOpen() && chateau_[0]->getHP()>0 && wave_.getVectorMonsters().size()!=0){ //Tant que le chateau est pas détruit ou qu'on ne quitte pas la fenetre ou que le level actuel n'est pas clear
-            //Mettre le Chrono ici pour faire apparaitre un temps régulier
-            if(wave_.getNbMobsSpawned()<wave_.getNbMobsTotal()){
-                wave_.getNbMobsSpawned()++;
-            }
+            wave_.mobSpawnManagement();
             gameInput();
             gamePlay();
             gameDraw();
@@ -157,35 +155,6 @@ void Jeu :: gameLoop(){
     }
     clearAllObserverLink();
     clearAllVector();
-}
-
-void Jeu :: gameChangeLevel(){
-    wave_.getLevel()++;
-    wave_.getNbMobsTotal()=round(wave_.getNbMobsTotal()*1.5);
-    wave_.getNbMobsSpawned()=0;
-    wave_.getNbMobsDied()=0;
-    for(int i=0;i<wave_.getNbMobsTotal();i++){
-        float x;
-        float y;
-        int cote = rand()%4; //Savoir dans quel coté de la map le mob spawn (Gauche, Haut, Droite, Bas)
-        if(cote == 0){ //Cote Gauche
-            x = rand()%WIN_INT_POSX;
-            y = rand()%WIN_HEIGHT;
-        }else if(cote == 1){ //Cote Haut
-            x = rand()%WIN_WIDTH;
-            y = rand()%WIN_INT_POSY;
-        }else if(cote == 2){ //Cote Droite
-            x = WIN_INT_WIDTH+WIN_INT_POSX+rand()%WIN_INT_POSX;
-            y = rand()%WIN_HEIGHT;
-        }else{ //Cote Bas
-            x = rand()%WIN_WIDTH;
-            y = WIN_INT_HEIGHT+WIN_INT_POSY+rand()%WIN_INT_POSY;
-        }
-        //Ajoute le mob dans le vecteur
-        wave_.addMonster(std :: make_shared<Robot>(loadTexture_.getMap()["Robot"],x,y,ROBOT_HP,ROBOT_ID,ROBOT_DAMAGE,ROBOT_SPEED));
-    }
-    //Link tous les dépendances d'observer par rapport au robot
-    linkAllRobotObserver();
 }
 
 void Jeu :: gameDraw() {
@@ -215,25 +184,13 @@ void Jeu :: gamePlay(){
             //Il faut delink les observer
             delinkRobotObserver(wave_.getVectorMonsters()[i]);
         }else{
-            float deltaX =(CHATEAU_INITX+CHATEAU_WIDTH/2)-wave_.getVectorMonsters()[i]->getX();
-            float deltaY =(CHATEAU_INITY+CHATEAU_HEIGHT/2)-wave_.getVectorMonsters()[i]->getY();
-            if(deltaX>0){
-                wave_.getVectorMonsters()[i]->getX()+= 0.8*wave_.getVectorMonsters()[i]->getSpeed();
-            }else if(deltaX<0){
-                wave_.getVectorMonsters()[i]->getX()-= 0.8*wave_.getVectorMonsters()[i]->getSpeed();
-            }
-            if(deltaY>0){
-                wave_.getVectorMonsters()[i]->getY()+= 0.8*wave_.getVectorMonsters()[i]->getSpeed();
-            }else if(deltaY<0){
-                wave_.getVectorMonsters()[i]->getY()-= 0.8*wave_.getVectorMonsters()[i]->getSpeed();
-            }
+            wave_.getVectorMonsters()[i]->moveManagement();
             wave_.getVectorMonsters()[i]->notifyObserverChateau(wave_.getVectorMonsters()[i]);
         }
         index++;
     }
     //Supprime les robots morts
-    int length = vectorIndexDeadMob.size();
-    for(int i =0; i < length;i++){
+    for(int i =0; i < vectorIndexDeadMob.size();i++){
         wave_.removeMonster(vectorIndexDeadMob[i]);
     }
 }

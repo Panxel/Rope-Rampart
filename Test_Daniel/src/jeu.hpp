@@ -13,7 +13,6 @@
 #include "loadTexture.hpp"
 #include "chateau.hpp"
 #include "wave.hpp"
-#include <time.h>
 
 class Jeu{
 
@@ -35,7 +34,6 @@ class Jeu{
     void afficherAllJoueur();
     void afficherChateau();
 
-    void gameChangeLevel();
     void gameInput();
     void gamePlay();
     void gameLoop();

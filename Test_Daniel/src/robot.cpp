@@ -24,3 +24,18 @@ void Robot :: update(unite_ptr unite){
         std :: cout << "HP ROBOT : " << getHP() << std :: endl;
     }
 }
+
+void Robot :: moveManagement(){
+    float deltaX =(CHATEAU_INITX+CHATEAU_WIDTH/2)-pos_x_;
+    float deltaY =(CHATEAU_INITY+CHATEAU_HEIGHT/2)-pos_y_;
+    if(deltaX>0){
+        pos_x_+= 0.8*speed_;
+    }else if(deltaX<0){
+        pos_x_-= 0.8*speed_;
+    }
+    if(deltaY>0){
+        pos_y_+= 0.8*speed_;
+    }else if(deltaY<0){
+        pos_y_-= 0.8*speed_;
+    }
+}

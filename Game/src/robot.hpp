@@ -3,7 +3,7 @@
 #include "unite.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+#include "settings.hpp"
 
 class Robot : public Unite {
 
@@ -12,6 +12,7 @@ class Robot : public Unite {
     void attack() const;
     void afficher(sf::RenderWindow& window);
     void update(unite_ptr unite);
+    void moveManagement();
 
 };
 
