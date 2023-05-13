@@ -4,7 +4,7 @@ Jeu :: Jeu(){ //Constructeur initial
     //Ajoute les 2 joueurs et le chateau dans les vecteurs
     addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],JOUEUR1_INITX,JOUEUR1_INITY,GUERRIER_HP,JOUEUR_ID,GUERRIER_DAMAGE,GUERRIER_SPEED));
     addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["Guerrier"],JOUEUR2_INITX,JOUEUR2_INITY,GUERRIER_HP,JOUEUR_ID,GUERRIER_DAMAGE,GUERRIER_SPEED));
-    addChateau(std :: make_shared<Chateau>(loadTexture_.getMap()["Guerrier"],CHATEAU_INITX,CHATEAU_INITY,CHATEAU_HP,CHATEAU_ID));
+    addChateau(std :: make_shared<Chateau>(loadTexture_.getMap()["Chateau"],CHATEAU_INITX,CHATEAU_INITY,CHATEAU_HP,CHATEAU_ID));
     //Met les liaisons d'observer
     for(guerrier_ptr joueur : vectorJoueurs_){
         joueur->addObserverChateau(chateau_[0]);
@@ -20,16 +20,14 @@ void Jeu :: clearAllObserverLink(){ //Permet d'enlever tous les liens d'observer
     }
     for(guerrier_ptr joueur : vectorJoueurs_){
         joueur->removeObserverChateau(chateau_[0]);
+        for(bombe_ptr bombe : wave_.getVectorBombe()){
+            bombe->removeObserverGuerrier(joueur);
+            joueur->removeObserverBombe(bombe);
+        }
     }
 }
 
-void Jeu :: clearAllVector(){ //Permet de clear tous les vecteurs
-    clearVectorJoueur();
-    clearVectorChateau();
-    wave_.clearVectorMonster();
-}
-
-void Jeu :: linkAllRobotObserver(){ //Permet de liés les dépendances d'observer par rapport au robot
+void Jeu :: linkAllRobotObserver(){ //Permet de liés les dépendances d'observer par rapport à tous les robots
     for(robot_ptr monster : wave_.getVectorMonsters()){
         monster->addObserverChateau(chateau_[0]);
         for(guerrier_ptr joueur : vectorJoueurs_){
@@ -42,6 +40,20 @@ void Jeu :: delinkRobotObserver(robot_ptr robot){ //Permet de detacher le robot 
     robot->removeObserverChateau(chateau_[0]);
     for(guerrier_ptr joueur : vectorJoueurs_){
         joueur->removeObserverRobot(robot);
+    }
+}
+
+void Jeu :: linkBombeObserver(bombe_ptr bombe){ //Permet de liés les dépendances d'observer par rapport à la bombe
+    for(guerrier_ptr guerrier : vectorJoueurs_){
+        bombe->addObserverGuerrier(guerrier);
+        guerrier->addObserverBombe(bombe);
+    }
+}
+
+void Jeu :: delinkBombeObserver(bombe_ptr bombe){ //Permet de detacher la bombe aux dépendances d'observer
+    for(guerrier_ptr guerrier : vectorJoueurs_){
+        guerrier->removeObserverBombe(bombe);
+        bombe->removeObserverGuerrier(guerrier);
     }
 }
 
@@ -154,7 +166,6 @@ void Jeu :: gameLoop(){
         wave_.getOver()=true;
     }
     clearAllObserverLink();
-    clearAllVector();
 }
 
 void Jeu :: gameDraw() {
@@ -164,33 +175,43 @@ void Jeu :: gameDraw() {
     //Affiche les entités
     afficherAllJoueur();
     afficherChateau();
-    wave_.afficherAllMonster(renderer_.getWindow());
-
     if(wave_.getOver()){
         renderer_.getWindow().draw(renderer_.getText());
+    }else{
+        wave_.afficherAllMonster(renderer_.getWindow());
+        wave_.afficherAllBombe(renderer_.getWindow());
     }
-
     //Affiche le renderer
     renderer_.getWindow().display();
 }
 
 void Jeu :: gamePlay(){
-    int index=0; //Index de parcours du vector de Monstre
-    std::vector<int> vectorIndexDeadMob; //Vector stockant des index des monstres morts sur cet instant
-    for(int i=0;i<(wave_.getNbMobsSpawned()-wave_.getNbMobsDied());i++){
-        if(wave_.getVectorMonsters()[i]->getDead()){
+    int i;
+    for(i=0;i<(wave_.getNbMobsSpawned()-wave_.getNbMobsDied());i++){
+        robot_ptr monster = wave_.getVectorMonsters()[i];
+        if(monster->getDead()){ //Supprime les robots morts
             wave_.getNbMobsDied()++;
-            vectorIndexDeadMob.insert(vectorIndexDeadMob.begin(),index); //Met l'index du monstre mort dans le vecteur (A la fin on aura un ordre décroissant, c'est ce que l'on veut)
             //Il faut delink les observer
-            delinkRobotObserver(wave_.getVectorMonsters()[i]);
+            delinkRobotObserver(monster);
+            //Si c'est un Bombot, il lâche une bombe
+            if(monster->getID()==3){
+                wave_.addBombe(std::make_shared<Bombe>(loadTexture_.getMap()["Bombe"],monster->getX(),monster->getY(),BOMBE_HP,BOMBE_ID,BOMBE_DAMAGE));
+                linkBombeObserver(wave_.getVectorBombe().back());
+            }
+            wave_.removeMonster(i);
+            i--;
         }else{
-            wave_.getVectorMonsters()[i]->moveManagement();
-            wave_.getVectorMonsters()[i]->notifyObserverChateau(wave_.getVectorMonsters()[i]);
+            monster->moveManagement();
+            monster->notifyObserverChateau(monster);
         }
-        index++;
     }
-    //Supprime les robots morts
-    for(int i =0; i < vectorIndexDeadMob.size();i++){
-        wave_.removeMonster(vectorIndexDeadMob[i]);
+    //Fait exploser les bombes
+    wave_.explodeAllBombe();
+    //Supprime les bombes mortes
+    for(i =wave_.getVectorBombe().size(); i > 0 ;i--){
+        if(wave_.getVectorBombe()[i-1]->getDead()){
+            delinkBombeObserver(wave_.getVectorBombe()[i-1]);
+            wave_.removeBombe(i-1);
+        }
     }
 }

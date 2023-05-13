@@ -2,6 +2,7 @@
 #define GUERRIER_HPP
 #include "unite.hpp"
 #include "robot.hpp"
+#include "bombe.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
@@ -15,10 +16,14 @@ class Guerrier : public Unite {
     void addObserverRobot(robot_ptr robot);
     void removeObserverRobot(robot_ptr robot);
     void notifyObserverRobot(unite_ptr unite);
-    void clearVectorObserverRobot(){vectorObserverRobot_.clear();};
+    void addObserverBombe(bombe_ptr bombe);
+    void removeObserverBombe(bombe_ptr bombe);
+    void notifyObserverBombe(unite_ptr unite);
+    void update(bombe_ptr bombe);
 
     protected :
     std:: vector<robot_ptr> vectorObserverRobot_;
+    std:: vector<bombe_ptr> vectorObserverBombe_;
 
 };
 

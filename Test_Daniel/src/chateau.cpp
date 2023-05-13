@@ -24,8 +24,19 @@ void Chateau :: update( unite_ptr unite){
                 unite->getX()=pos_x_+CHATEAU_WIDTH;
             }
         }
-    }else if(unite->getID()>=2){ //Si c'est un monstre, il y a collision avec le chateau et le robot s'autodétruit et fait des dmg au chateau
-        if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+ROBOT_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+ROBOT_HEIGHT)){
+    }//Mbot
+    else if(unite->getID()==2){ //Si c'est un monstre, il y a collision avec le chateau et le robot s'autodétruit et fait des dmg au chateau
+        if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+MBOT_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+MBOT_HEIGHT)){
+            unite->attack();
+            std :: cout << "Robot damage le Chateau" << std :: endl;
+            takeDamage(unite->getAttack());
+            std :: cout << "HP CHATEAU : " << getHP() << std :: endl;
+            unite->getDead()=true;
+        }
+    }//Bombot
+    else if(unite->getID()==3){ //Si c'est un monstre, il y a collision avec le chateau et le robot s'autodétruit et fait des dmg au chateau
+        if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+BOMBOT_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+BOMBOT_HEIGHT)){
+            unite->attack();
             std :: cout << "Robot damage le Chateau" << std :: endl;
             takeDamage(unite->getAttack());
             std :: cout << "HP CHATEAU : " << getHP() << std :: endl;

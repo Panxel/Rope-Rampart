@@ -28,9 +28,10 @@ class Jeu{
     void addChateau(chateau_ptr chateau){chateau_.push_back(chateau);};
     void clearVectorChateau(){chateau_.clear();};
     void clearAllObserverLink();
-    void clearAllVector();
     void linkAllRobotObserver();
     void delinkRobotObserver(robot_ptr robot);
+    void linkBombeObserver(bombe_ptr bombe);
+    void delinkBombeObserver(bombe_ptr bombe);
     void afficherAllJoueur();
     void afficherChateau();
 
