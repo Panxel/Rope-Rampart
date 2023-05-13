@@ -77,6 +77,7 @@ void Jeu :: gameInput(){
         }else if(event_.type == sf::Event :: KeyPressed && event_.key.code== sf::Keyboard :: Space){
             std :: cout << "Utilisation Attaque" << std :: endl;
             vectorJoueurs_[0]->notifyObserverRobot(vectorJoueurs_[0]);
+            vectorJoueurs_[0]->notifyObserverBombe(vectorJoueurs_[0]);
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
@@ -163,6 +164,12 @@ void Jeu :: gameLoop(){
             gamePlay();
             gameDraw();
         }
+        //Si il reste des bombes
+        while(wave_.getVectorBombe().size()!=0){
+            gameInput();
+            gamePlay();
+            gameDraw();
+        }
         wave_.getOver()=true;
     }
     clearAllObserverLink();
@@ -205,8 +212,6 @@ void Jeu :: gamePlay(){
             monster->notifyObserverChateau(monster);
         }
     }
-    //Fait exploser les bombes
-    wave_.explodeAllBombe();
     //Supprime les bombes mortes
     for(i =wave_.getVectorBombe().size(); i > 0 ;i--){
         if(wave_.getVectorBombe()[i-1]->getDead()){
@@ -214,4 +219,6 @@ void Jeu :: gamePlay(){
             wave_.removeBombe(i-1);
         }
     }
+    //Fait exploser les bombes
+    wave_.explodeAllBombe();
 }
