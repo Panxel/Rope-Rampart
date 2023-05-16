@@ -9,10 +9,16 @@ class Robot : public Unite {
 
     public :
     Robot(sf::Texture& texture,float x,float y,int health,int id,int atk, int spd);
-    void attack() const;
     void afficher(sf::RenderWindow& window);
-    void update(unite_ptr unite);
-    void moveManagement();
+    void moveManagement(float x, float y);
+    virtual void update(unite_ptr unite) = 0;
+
+    protected :
+     // Attributs nécessaire à l'affichage et au changement de sprite pour le graphisme
+    int compteur;
+    int debut;
+    // Rectangle permettant de selectionner la bonne image dans la grille d'image 
+    sf::IntRect rect;
 
 };
 

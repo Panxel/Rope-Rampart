@@ -5,7 +5,9 @@
 #include <chrono>
 #include <time.h>
 #include "settings.hpp"
-#include "robot.hpp"
+#include "mbot.hpp"
+#include "bombot.hpp"
+#include "bombe.hpp"
 #include "loadTexture.hpp"
 
 class Wave{
@@ -27,10 +29,15 @@ class Wave{
     std::vector<robot_ptr>& getVectorMonsters(){return vectorMonsters_;};
     void addMonster(robot_ptr monster){vectorMonsters_.push_back(monster);};
     void removeMonster(const int& index){vectorMonsters_.erase(vectorMonsters_.begin()+index);};
-    void clearVectorMonster(){vectorMonsters_.clear();};
     void afficherAllMonster(sf::RenderWindow& window);
+    const std::vector<bombe_ptr>& getVectorBombe() const {return vectorBombe_;};
+    std::vector<bombe_ptr>& getVectorBombe(){return vectorBombe_;};
+    void addBombe(bombe_ptr bombe){vectorBombe_.push_back(bombe);};
+    void removeBombe(const int& index){vectorBombe_.erase(vectorBombe_.begin()+index);};
+    void afficherAllBombe(sf::RenderWindow& window);
     void mobSpawnManagement();
     void waveLevelUp();
+    void explodeAllBombe();
 
     protected :
 
@@ -45,6 +52,7 @@ class Wave{
     std::chrono::time_point<std::chrono::system_clock> start_,end_;
     std::chrono::duration<double> diff_seconds_;
     std :: vector<robot_ptr> vectorMonsters_;
+    std :: vector<bombe_ptr> vectorBombe_;
     
     //Empeche la copie et l'assignation
     Wave(const Wave&) = delete;

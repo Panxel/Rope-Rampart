@@ -12,7 +12,29 @@ Wave::Wave(){
 
 void Wave :: afficherAllMonster(sf::RenderWindow& window){
     for(int i=0;i<(nb_mobs_spawned_-nb_mobs_died_);i++){
+        if(vectorMonsters_[i]->getDirection()==Droite)
+        {
+            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_right"]);
+        }
+        if(vectorMonsters_[i]->getDirection()==Gauche)
+        {
+            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_left"]);
+        }
+        if(vectorMonsters_[i]->getDirection()==Haut)
+        {
+            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_back"]);
+        }
+        if(vectorMonsters_[i]->getDirection()==Bas)
+        {
+            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_front"]);
+        }
         vectorMonsters_[i]->afficher(window);
+    }
+}
+
+void Wave :: afficherAllBombe(sf::RenderWindow& window){
+    for(bombe_ptr bombe : vectorBombe_){
+        bombe->afficher(window);
     }
 }
 
@@ -24,7 +46,6 @@ void Wave :: mobSpawnManagement(){
         }
         end_=std::chrono::system_clock::now();
         diff_seconds_=end_-start_;
-        std :: cout << diff_seconds_.count() << std::endl;
         if(diff_seconds_.count()>=3){
             nb_mobs_spawned_++;
             timer_start_=false;
@@ -54,7 +75,21 @@ void Wave :: waveLevelUp(){
             x = rand()%WIN_WIDTH;
             y = WIN_INT_HEIGHT+WIN_INT_POSY+rand()%WIN_INT_POSY;
         }
-        //Ajoute le mob dans le vecteur
-        addMonster(std :: make_shared<Robot>(loadTexture_.getMap()["Robot"],x,y,ROBOT_HP,ROBOT_ID,ROBOT_DAMAGE,ROBOT_SPEED));
+        //Ajoute un monstre et la difficulté augmente
+        if(rand()/static_cast<float>(RAND_MAX)>(log(level_)/5+0.002*level_)){
+            addMonster(std :: make_shared<Mbot>(loadTexture_.getMap()["Mbot"],x,y,MBOT_HP,MBOT_ID,MBOT_DAMAGE,MBOT_SPEED));
+        }else{
+            addMonster(std :: make_shared<Bombot>(loadTexture_.getMap()["Bombot"],x,y,BOMBOT_HP,BOMBOT_ID,BOMBOT_DAMAGE,BOMBOT_SPEED));
+        }   
+    }
+}
+
+void Wave :: explodeAllBombe(){
+    for(bombe_ptr bombe : vectorBombe_){
+        std::cout << bombe->timeDiff() << std::endl;
+        if(bombe->timeDiff()>=2){
+            bombe->getDead()=true;
+            bombe->notifyObserverGuerrier(bombe);
+        }
     }
 }

@@ -13,6 +13,7 @@
 #include "loadTexture.hpp"
 #include "chateau.hpp"
 #include "wave.hpp"
+#include "map.hpp"
 
 class Jeu{
 
@@ -28,11 +29,15 @@ class Jeu{
     void addChateau(chateau_ptr chateau){chateau_.push_back(chateau);};
     void clearVectorChateau(){chateau_.clear();};
     void clearAllObserverLink();
-    void clearAllVector();
     void linkAllRobotObserver();
     void delinkRobotObserver(robot_ptr robot);
+    void linkBombeObserver(bombe_ptr bombe);
+    void delinkBombeObserver(bombe_ptr bombe);
     void afficherAllJoueur();
     void afficherChateau();
+    void updateLifeAffichables();
+    void decalerAllAffichablesX();
+    void decalerAllAffichablesY();
 
     void gameInput();
     void gamePlay();
@@ -53,6 +58,10 @@ class Jeu{
     std :: vector<guerrier_ptr> vectorJoueurs_;
     std :: vector<chateau_ptr> chateau_;
     sf :: Event event_;
+    // Floatant qui stocke distance entre les deux joeueurs
+    float distance;
+    // Attribut Map qui contient tous les elements affichables permettant d'afficher la map (radar (minimap) avec sa view, HUD j1, HUD j2 ...)
+    Map background = Map(0,0);
 
 };
 
