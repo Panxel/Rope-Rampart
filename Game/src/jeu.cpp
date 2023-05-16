@@ -70,13 +70,10 @@ void Jeu :: delinkBombeObserver(bombe_ptr bombe){ //Permet de detacher la bombe 
 }
 
 void Jeu :: decalerAllAffichablesX(){
-    std::cout<<"Position Map X : "<<background.getBackground().getPosition().x<<std::endl;
     if(vectorJoueurs_[0]->getX()>=700 || vectorJoueurs_[1]->getX()>=700)
     {
         if(vectorJoueurs_[0]->getX()>=700 && vectorJoueurs_[0]->getMouvement()==true)
-        {
-            std::cout<<"J1 Bordure Droite : "<<std::endl;
-           
+        {  
             vectorJoueurs_[1]->getX() = vectorJoueurs_[1]->getX()-vectorJoueurs_[0]->getSpeed();   
             chateau_[0]->getX() -= vectorJoueurs_[0]->getSpeed();
             background.getX() -= vectorJoueurs_[0]->getSpeed();
@@ -87,7 +84,6 @@ void Jeu :: decalerAllAffichablesX(){
             if(vectorJoueurs_[0]->getElastique()==true)
             {
                 vectorJoueurs_[1]->getX() += distance*Kv;  
-                std::cout<<"Kv "<<Kv<<std::endl;
                 background.getX() += distance*Kv;
                 chateau_[0]->getX() += distance*Kv;
                 for(robot_ptr monster : wave_.getVectorMonsters()){
@@ -101,7 +97,6 @@ void Jeu :: decalerAllAffichablesX(){
             
             if(vectorJoueurs_[1]->getX()>=700 && vectorJoueurs_[1]->getMouvement()==true)
             {
-                std::cout<<"J2 Bordure Droite : "<<std::endl;
                 //vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();
                 vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();   
                 chateau_[0]->getX() -= vectorJoueurs_[1]->getSpeed();
@@ -112,7 +107,6 @@ void Jeu :: decalerAllAffichablesX(){
                 // Test pour savoir si l'élastique est la force élastique est présente.
                 if(vectorJoueurs_[1]->getElastique()==true)
                 {
-                    std::cout<<"Kv "<<Kv<<std::endl;
                     //vectorJoueurs_[0]->getX() += distance*Kv;
                     vectorJoueurs_[0]->getX() += distance*Kv;
                     chateau_[0]->getX() += distance*Kv;
@@ -130,7 +124,6 @@ void Jeu :: decalerAllAffichablesX(){
     {
         if(vectorJoueurs_[0]->getX()<=100 && vectorJoueurs_[0]->getMouvement()==true)
         {
-            std::cout<<"J1 Bordure Gauche : "<<std::endl;
             vectorJoueurs_[1]->getX() = vectorJoueurs_[1]->getX()+vectorJoueurs_[0]->getSpeed();
             chateau_[0]->getX() += vectorJoueurs_[0]->getSpeed();
             background.getX() += vectorJoueurs_[0]->getSpeed();
@@ -152,7 +145,6 @@ void Jeu :: decalerAllAffichablesX(){
         {
             if(vectorJoueurs_[1]->getX()<=100 && vectorJoueurs_[1]->getMouvement()==true)
             {
-                std::cout<<"J2 Bordure Gauche : "<<std::endl;
                 vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()+vectorJoueurs_[1]->getSpeed();
                 chateau_[0]->getX() += vectorJoueurs_[1]->getSpeed();
                 background.getX() += vectorJoueurs_[1]->getSpeed();

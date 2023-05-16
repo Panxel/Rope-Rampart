@@ -85,7 +85,6 @@ void Guerrier ::activateElastique(float distance, float autre_joueur_x, float au
                 }
                 else
                 {
-                    std::cout<<"Elastique Activé : Gauche"<<std::endl;
                     elastique = true;
                 }
                 break;
@@ -98,7 +97,6 @@ void Guerrier ::activateElastique(float distance, float autre_joueur_x, float au
                 }
                 else
                 {
-                    std::cout<<"Elastique Activé : Droite"<<std::endl;
                     elastique = true;
                 }
                 break;
@@ -111,7 +109,6 @@ void Guerrier ::activateElastique(float distance, float autre_joueur_x, float au
                 }
                 else
                 {
-                    std::cout<<"Elastique Activé : Haut"<<std::endl;
                     elastique = true;
                 }
                 break;
@@ -124,7 +121,6 @@ void Guerrier ::activateElastique(float distance, float autre_joueur_x, float au
                 }
                 else
                 {
-                    std::cout<<"Elastique Activé : bas"<<std::endl;
                     elastique = true;
                 }
             }
@@ -144,7 +140,6 @@ void Guerrier::deplacement(float distance)
                 pos_x_=pos_x_-speed_;
                 if(elastique==true)
                 {
-                    std::cout<<"Elastique Boucle : Gauche"<<std::endl;
                     pos_x_+=distance*Kv;
                 }
             }
@@ -157,8 +152,6 @@ void Guerrier::deplacement(float distance)
                 pos_x_=pos_x_+speed_;
                 if(elastique==true)
                 {
-                    std::cout<<"Elastique Boucle : Droite"<<std::endl;
-                    std::cout<<"Kv :"<<Kv<<std::endl;
                     pos_x_-=distance*Kv;
                 }
             }
@@ -171,7 +164,6 @@ void Guerrier::deplacement(float distance)
                 pos_y_=pos_y_-speed_;
                 if(elastique==true)
                 {
-                    std::cout<<"Elastique Boucle : Haut"<<std::endl;
                     pos_y_+=distance*Kv;
                 }
             }
@@ -184,7 +176,6 @@ void Guerrier::deplacement(float distance)
                 pos_y_=pos_y_+speed_;
                 if(elastique==true)
                 {
-                    std::cout<<"Elastique Boucle : Bas"<<std::endl;
                     pos_y_-=distance*Kv;
                 }
             }

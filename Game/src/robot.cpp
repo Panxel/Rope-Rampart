@@ -29,24 +29,19 @@ void Robot :: afficher(sf::RenderWindow& window) {
 void Robot :: moveManagement(float x, float y){
     float deltaX =(x+CHATEAU_WIDTH/2)-pos_x_;
     float deltaY =(y+CHATEAU_HEIGHT/2)-pos_y_;
-    std::cout<<deltaX<<" "<<deltaY<<std::endl;
     if(deltaX>=0.8){
         direction_=Droite;
-        std::cout<<"droite"<<std::endl;
         pos_x_+= 0.8*speed_;
     }
     if(deltaX<-0.8){
         direction_=Gauche;
-        std::cout<<"Gauche"<<std::endl;
         pos_x_-= 0.8*speed_;
     }
     if(deltaY>=0.8){
-        std::cout<<"Bas"<<std::endl;
         direction_=Bas;
         pos_y_+= 0.8*speed_;
     }
     if(deltaY<-0.8){
-        std::cout<<"hAUT"<<std::endl;
         direction_=Haut;
         pos_y_-= 0.8*speed_;
     }
