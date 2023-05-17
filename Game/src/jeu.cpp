@@ -7,6 +7,7 @@ Jeu :: Jeu(){ //Constructeur initial
     addChateau(std :: make_shared<Chateau>(loadTexture_.getMap()["Chateau"],CHATEAU_INITX,CHATEAU_INITY,CHATEAU_HP,CHATEAU_ID));
     // Chargement des textures de la map et de la minimap.
     background.loadSprites(loadTexture_.getMap()["Map"], loadTexture_.getMap()["Minimap"], loadTexture_.getMap()["Rope"],loadTexture_.getMap()["HUD_j1"],loadTexture_.getMap()["HUD_j2"]);
+    background.loadSpritesScreen(loadTexture_.getMap()["New_level"]);
     //Met les liaisons d'observer
     for(guerrier_ptr joueur : vectorJoueurs_){
         joueur->addObserverChateau(chateau_[0]);
@@ -21,6 +22,11 @@ Jeu :: Jeu(){ //Constructeur initial
     vectorJoueurs_[0]->getLifebar().getY() = 568;
     vectorJoueurs_[1]->getLifebar().getX() = 654;
     vectorJoueurs_[1]->getLifebar().getY() = 568;
+    // Ajoute nom des joueurs
+    background.getHUD_j1().setText("PLAYER ONE",16,sf::Color::Red);
+    background.getHUD_j2().setText("PLAYER TWO",16,sf::Color::Blue);
+    background.getHUD_j1().getText().setPosition(60,545);
+    background.getHUD_j2().getText().setPosition(655,545);
 }
 
 void Jeu :: clearAllObserverLink(){ //Permet d'enlever tous les liens d'observer
@@ -501,6 +507,7 @@ void Jeu :: gameDraw() {
     afficherAllJoueur();
     
     if(wave_.getOver()){
+        renderer_.getWindow().draw(background.getLevelUp());
         renderer_.getWindow().draw(renderer_.getText());
     }else{
         wave_.afficherAllMonster(renderer_.getWindow());

@@ -37,6 +37,9 @@ Map :: Map(float x,float y)
     //Paramètre position HUD j2
     HUD_j2.getSprite().setPosition(653,550);
     HUD_j2.getSprite().setScale(3,3);
+
+    // Paramètre écran nouveau niveau
+    level_up.setPosition(0,0);
     
 }
 
@@ -48,6 +51,9 @@ void Map::loadSprites(sf::Texture& texture, sf::Texture& texture_minimap, sf::Te
     HUD_j2.getSprite().setTexture(texture_hud_j2);
 }
 
+void Map::loadSpritesScreen(sf::Texture& texture){
+    level_up.setTexture(texture);
+}
 
 void Map :: afficher(sf::RenderWindow& window, Wave& wave_){
     window.setView(window.getDefaultView());

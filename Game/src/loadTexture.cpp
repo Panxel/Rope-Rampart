@@ -84,7 +84,9 @@ LoadTexture :: LoadTexture(){
     mapTexture_.insert({"attack_j1",texture_});
     loadFile("../res/Joueur2/attack_j2.png");
     mapTexture_.insert({"attack_j2",texture_});
-    
+    // Chargement des écran de jeu
+    loadFile("../res/Ecran Jeu/New_level.png");
+    mapTexture_.insert({"New_level",texture_});
 }
 
 void LoadTexture :: loadFile(std::string path){

@@ -6,13 +6,14 @@ Renderer::Renderer()
     window_.clear(sf::Color::Black);
     window_.setFramerateLimit(50);
     loadFont();
+    txt_.setPosition(240,250);
     txt_.setFont(font_);
-    setText("Press L to go on Next Level", 26, sf::Color::Red);
+    setText("        PRESS L \n TO GO TO NEXT LEVEL", 35, sf::Color::Red);
 }
 
 
 void Renderer :: loadFont(){
-    if(!font_.loadFromFile("../res/Poppins-Regular.ttf")){
+    if(!font_.loadFromFile("../res/Font.ttf")){
         std::cout << "Error Chargement Font" << std::endl;
     }
 }
