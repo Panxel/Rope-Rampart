@@ -72,9 +72,11 @@ void Wave :: waveLevelUp(){
             x = WIN_INT_WIDTH+WIN_INT_POSX+rand()%WIN_INT_POSX;
             y = rand()%WIN_HEIGHT;
         }else{ //Cote Bas
-            x = rand()%WIN_WIDTH;
+            x = rand()%WIN_WIDTH+50;
             y = WIN_INT_HEIGHT+WIN_INT_POSY+rand()%WIN_INT_POSY;
         }
+        x -= 200;
+        y -= 200;
         //Ajoute un monstre et la difficulté augmente
         if(rand()/static_cast<float>(RAND_MAX)>(log(level_)/5+0.002*level_)){
             addMonster(std :: make_shared<Mbot>(loadTexture_.getMap()["Mbot"],x,y,MBOT_HP,MBOT_ID,MBOT_DAMAGE,MBOT_SPEED));

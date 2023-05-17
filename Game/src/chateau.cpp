@@ -20,7 +20,7 @@ void Chateau :: afficher(sf::RenderWindow& window) {
 
 void Chateau :: update( unite_ptr unite){
     if(unite->getID()==1){ //Si c'est un joueur, il y a collision avec le chateau
-        if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+GUERRIER_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+GUERRIER_HEIGHT)){
+        if(std::max(pos_x_,unite->getX()+34) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+50) && std::max(pos_y_,unite->getY()+28) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+37)){
             std :: cout << "Collision Chateau" << std :: endl;
             if(unite->getDirection()==Haut){
                 unite->getY()=pos_y_+CHATEAU_HEIGHT;

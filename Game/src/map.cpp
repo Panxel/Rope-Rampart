@@ -55,7 +55,7 @@ void Map::loadSpritesScreen(sf::Texture& texture){
     level_up.setTexture(texture);
 }
 
-void Map :: afficher(sf::RenderWindow& window, Wave& wave_){
+void Map :: afficher(sf::RenderWindow& window){
     window.setView(window.getDefaultView());
     // Affichage du background
     background.setPosition(round(pos_x_),round(pos_y_));
@@ -63,6 +63,9 @@ void Map :: afficher(sf::RenderWindow& window, Wave& wave_){
     window.draw(rope);
     HUD_j1.afficher(window);
     HUD_j2.afficher(window);
+}
+
+void Map :: afficherView(sf::RenderWindow& window, Wave& wave_){
     window.setView(minimap);
     // Affichage du fond de la minimap
     window.draw(background_minimap);
@@ -83,5 +86,4 @@ void Map :: afficher(sf::RenderWindow& window, Wave& wave_){
     }
 
     window.setView(window.getDefaultView());
-
 }

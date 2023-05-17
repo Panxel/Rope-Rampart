@@ -13,10 +13,14 @@ Jeu :: Jeu(){ //Constructeur initial
         joueur->addObserverChateau(chateau_[0]);
     }
      // Set position j1 et j2 
-    vectorJoueurs_[0]->getX() = 220;
-    vectorJoueurs_[0]->getY()= 220;
-    vectorJoueurs_[1]->getX() = 250;
-    vectorJoueurs_[1]->getY() = 220;
+    background.getX()=-200;
+    background.getY()=-200;
+    vectorJoueurs_[0]->getX() = 500 - 200;
+    vectorJoueurs_[0]->getY()= 520-200;
+    vectorJoueurs_[1]->getX() = 550-200;
+    vectorJoueurs_[1]->getY() = 520-200;
+    chateau_[0]->getX() -= 200;
+    chateau_[0]->getY() -= 200;
     // Set position Lifebar j1 et j2
     vectorJoueurs_[0]->getLifebar().getX() = 52;
     vectorJoueurs_[0]->getLifebar().getY() = 568;
@@ -288,7 +292,7 @@ void Jeu:: updateLifeAffichables()
     std::string result;
     int life;
     for(guerrier_ptr joueur : vectorJoueurs_){
-        life = round((joueur->getHP()/GUERRIER_HP)*7);
+        life = round((joueur->getHP()/20.0)*7);
         result = "life" + std::to_string(life);
         joueur->getLifebar().loadSprite(loadTexture_.getMap()[result]);
     }
@@ -494,7 +498,7 @@ void Jeu :: gameDraw() {
     background.getCircleJ1().setPosition(background.getPositionMinimap().getPosition().x+vectorJoueurs_[0]->getX()*0.65+25, background.getPositionMinimap().getPosition().y+vectorJoueurs_[0]->getY()*0.65+15);
     background.getCircleJ2().setPosition(background.getPositionMinimap().getPosition().x+vectorJoueurs_[1]->getX()*0.65+25, background.getPositionMinimap().getPosition().y+vectorJoueurs_[1]->getY()*0.65+15);
     // Afficher la MAP
-    background.afficher(renderer_.getWindow(),wave_);
+    background.afficher(renderer_.getWindow());
     // Update position Corde
     background.getRope().setPosition(vectorJoueurs_[0]->getX()+60,vectorJoueurs_[0]->getY()+60);
     background.getRope().setSize(sf::Vector2f(distance,3));
@@ -505,7 +509,6 @@ void Jeu :: gameDraw() {
     //Affiche les entités
     afficherChateau();
     afficherAllJoueur();
-    
     if(wave_.getOver()){
         renderer_.getWindow().draw(background.getLevelUp());
         renderer_.getWindow().draw(renderer_.getText());
@@ -513,6 +516,8 @@ void Jeu :: gameDraw() {
         wave_.afficherAllMonster(renderer_.getWindow());
         wave_.afficherAllBombe(renderer_.getWindow());
     }
+    //Affiche la mini vue de la map et les HUD
+    background.afficherView(renderer_.getWindow(),wave_);
     //Affiche le renderer
     renderer_.getWindow().display();
 }

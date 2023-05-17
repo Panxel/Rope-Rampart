@@ -14,7 +14,8 @@ class Map{
     float& getY(){return pos_y_;};
     void loadSprites(sf::Texture& texture, sf::Texture& texture_minimap, sf::Texture& texture_rope, sf::Texture& texture_hud_j1, sf::Texture& texture_hud_j2);
     void loadSpritesScreen(sf::Texture& level_up);
-    void afficher(sf::RenderWindow& window, Wave& wave_);
+    void afficher(sf::RenderWindow& window);
+    void afficherView(sf::RenderWindow& window, Wave& wave_);
     const sf::CircleShape& getCircleJ1() const {return circle_j1;};
     sf::CircleShape& getCircleJ1(){return circle_j1;};
     const sf::CircleShape& getCircleJ2() const {return circle_j2;};

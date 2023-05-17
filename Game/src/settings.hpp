@@ -9,8 +9,8 @@ const int WIN_HEIGHT = 600;
 
 const int WIN_INT_POSX = 100;
 const int WIN_INT_POSY = 100;
-const int WIN_INT_WIDTH = 600;
-const int WIN_INT_HEIGHT = 400;
+const int WIN_INT_WIDTH = 1450;
+const int WIN_INT_HEIGHT = 1150;
 
 //Id
 const int CHATEAU_ID = 0;
@@ -23,8 +23,8 @@ const int BOMBE_ID = 4;
 
 const float CHATEAU_INITX = WIN_WIDTH/2;
 const float CHATEAU_INITY = WIN_HEIGHT/2;
-const int CHATEAU_WIDTH = 63;
-const int CHATEAU_HEIGHT = 72;
+const int CHATEAU_WIDTH = 50;
+const int CHATEAU_HEIGHT = 50;
 const int CHATEAU_HP = 300;
 
 //Bombe
