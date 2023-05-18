@@ -4,11 +4,26 @@
 Bombe :: Bombe(sf::Texture& texture,float x,float y,int health,int id, int atk) : Entite(texture,x,y,health,id){
     attack_=atk;
     start_=std::chrono::system_clock::now();
+    rect.top=0;
+    rect.left=0;
+    rect.height=32;
+    rect.width=32;
+    compteur=0;
+    debut=0;
     std :: cout << "Utilisation Constructeur Bombe" << std :: endl;
 }
 
 void Bombe :: afficher(sf::RenderWindow& window) {
     sprite_.setPosition(round(pos_x_),round(pos_y_));
+    if(compteur==9)
+        {
+            compteur=0;
+            debut=(debut+32)%384;
+            // Positionnement du rectangle de découpe dans l'image chargée
+            rect.left=debut;
+        }
+    sprite_.setTextureRect(rect);
+    compteur++;
     window.draw(sprite_);
 }
 

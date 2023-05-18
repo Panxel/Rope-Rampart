@@ -1,14 +1,14 @@
 - Trouver Sprite Robot mieux si possible et autre sprite pour différencier les robots (au moins taille si pas d'autres sprite trouvé)
-- Limiter déplacement joueur sur les bords de l'image.
+- Limiter déplacement joueur sur les bords de l'image. 
 - Essayer d'améliorer rendu Corde
-- Essayer d'améliorer l'anim d'attaque
-- Faire anim Bombe 
-- Ajouter HUD Chateau (en haut au centre certainement).
+- Essayer d'améliorer l'anim d'attaque 
+- Faire anim Bombe (OK)
+- Ajouter HUD Chateau (en haut au centre certainement). (Finalement peut être pas)
 - Afficher dans la petite map 
-- Faire Spawn les robots vers les contours de la grande map (rapide normalement)
+- Faire Spawn les robots vers les contours de la grande map (OK)
 - Question sur si on OS les mobs/ Sur si les perso perdent des HP/
 - Implementer Classe Corde si nécessaire
-- Regler pb collision (modif Hitbox (rapide normalement))
+- Regler pb collision (modif Hitbox (V1 à ameliorer fort))
 - Faire Ecran de passage de niveau (et Menu / Fin ?)
 - Shop ? Monnaie ? 
 - Si Shop : Augmentation de stat/ Regen chateau / Stat chateau augmentee ?

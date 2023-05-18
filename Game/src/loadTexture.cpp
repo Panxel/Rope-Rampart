@@ -79,6 +79,9 @@ LoadTexture :: LoadTexture(){
     mapTexture_.insert({"robot_right",texture_});
     loadFile("../res/Robot/robot_left.png");
     mapTexture_.insert({"robot_left",texture_});
+    // Chargement texture bombe :
+    loadFile("../res/Bombe/bomb.png");
+    mapTexture_.insert({"Bombe",texture_});
     //Chargement des textures d'attaques
     loadFile("../res/Joueur1/attack_j1.png");
     mapTexture_.insert({"attack_j1",texture_});

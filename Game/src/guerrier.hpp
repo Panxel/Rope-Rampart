@@ -45,11 +45,6 @@ class Guerrier : public Unite {
     bool isAttacking;
     // Boolean pour savoir si le personnage est en mouvement afin de gerer les animations du jeu.
     bool mouvement_;
-      // Attributs nécessaire à l'affichage et au changement de sprite pour le graphisme
-    int compteur;
-    int debut;
-    // Rectangle permettant de selectionner la bonne image dans la grille d'image 
-    sf::IntRect rect;
     // Barre de vie
     Lifebar lifebar_ = Lifebar(0,0);
 

@@ -532,7 +532,8 @@ void Jeu :: gamePlay(){
             delinkRobotObserver(monster);
             //Si c'est un Bombot, il lâche une bombe
             if(monster->getID()==3){
-                wave_.addBombe(std::make_shared<Bombe>(loadTexture_.getMap()["Bombe"],monster->getX(),monster->getY(),BOMBE_HP,BOMBE_ID,BOMBE_DAMAGE));
+                wave_.addBombe(std::make_shared<Bombe>(loadTexture_.getMap()["Bombe"],monster->getX()+15,monster->getY()+15,BOMBE_HP,BOMBE_ID,BOMBE_DAMAGE));
+                std::cout<<"Bombe posé en : "<<monster->getX()<<" "<<monster->getY()<<std::endl;
                 linkBombeObserver(wave_.getVectorBombe().back());
             }
             wave_.removeMonster(i);

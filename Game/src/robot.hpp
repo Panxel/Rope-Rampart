@@ -14,11 +14,8 @@ class Robot : public Unite {
     virtual void update(unite_ptr unite) = 0;
 
     protected :
-     // Attributs nécessaire à l'affichage et au changement de sprite pour le graphisme
-    int compteur;
-    int debut;
     // Rectangle permettant de selectionner la bonne image dans la grille d'image 
-    sf::IntRect rect;
+    //sf::IntRect rect;
 
 };
 

@@ -32,6 +32,11 @@ class Entite{
     float pos_x_;
     float pos_y_;
     sf::Sprite sprite_;
+    // Rectangle permettant de selectionner la bonne image dans la grille d'image 
+    sf::IntRect rect;
+     // Attributs nécessaire à l'affichage et au changement de sprite pour le graphisme
+    int compteur;
+    int debut;
 };
 
 

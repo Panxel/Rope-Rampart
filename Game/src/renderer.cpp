@@ -6,9 +6,9 @@ Renderer::Renderer()
     window_.clear(sf::Color::Black);
     window_.setFramerateLimit(50);
     loadFont();
-    txt_.setPosition(240,250);
+    txt_.setPosition(230,250);
     txt_.setFont(font_);
-    setText("        PRESS L \n TO GO TO NEXT LEVEL", 35, sf::Color::Red);
+    setText("          PRESS L \n TO GO TO NEXT LEVEL", 35, sf::Color::Red);
 }
 
 
