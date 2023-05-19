@@ -40,6 +40,11 @@ Map :: Map(float x,float y)
 
     // Paramètre écran nouveau niveau
     level_up.setPosition(0,0);
+
+    // Set BorderReached
+
+    borderReachedX = 0;
+    borderReachedX = 0;
     
 }
 
@@ -86,4 +91,24 @@ void Map :: afficherView(sf::RenderWindow& window, Wave& wave_){
     }
 
     window.setView(window.getDefaultView());
+}
+
+void Map :: isBorderReached()
+{
+    if(background.getPosition().x>0)
+    {
+        borderReachedX = 9;
+    }
+    if(background.getPosition().x<-758)
+    {
+        borderReachedX = 3;
+    }
+    if(background.getPosition().y>0)
+    {
+        borderReachedY = 12;
+    }
+    if(background.getPosition().y<-720)
+    {
+        borderReachedY = 6;
+    }
 }

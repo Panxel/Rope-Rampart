@@ -32,6 +32,11 @@ class Map{
     HUD& getHUD_j1(){return HUD_j1;};
     const HUD& getHUD_j2() const {return HUD_j2;};
     HUD& getHUD_j2(){return HUD_j2;};
+    const int& getBorderReachedX() const {return borderReachedX;};
+    int& getBorderReachedX(){return borderReachedX;};
+    const int& getBorderReachedY() const {return borderReachedY;};
+    int& getBorderReachedY(){return borderReachedY;};
+    void isBorderReached();
 
     protected :
     float pos_x_;
@@ -49,6 +54,10 @@ class Map{
     HUD HUD_j1=HUD(0,0);
     // HUD j2
     HUD HUD_j2=HUD(0,0);
+    //
+    int borderReachedX;
+    int borderReachedY;
+    
     
     
 

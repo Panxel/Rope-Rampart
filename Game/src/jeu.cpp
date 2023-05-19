@@ -80,24 +80,33 @@ void Jeu :: delinkBombeObserver(bombe_ptr bombe){ //Permet de detacher la bombe 
 }
 
 void Jeu :: decalerAllAffichablesX(){
+    background.isBorderReached();
     if(vectorJoueurs_[0]->getX()>=700 || vectorJoueurs_[1]->getX()>=700)
     {
         if(vectorJoueurs_[0]->getX()>=700 && vectorJoueurs_[0]->getMouvement()==true)
         {  
-            vectorJoueurs_[1]->getX() = vectorJoueurs_[1]->getX()-vectorJoueurs_[0]->getSpeed();   
-            chateau_[0]->getX() -= vectorJoueurs_[0]->getSpeed();
-            background.getX() -= vectorJoueurs_[0]->getSpeed();
-            for(robot_ptr monster : wave_.getVectorMonsters()){
-                monster->getX() -= vectorJoueurs_[0]->getSpeed();
+            if(background.getBorderReachedX()!=3)
+            {
+                vectorJoueurs_[1]->getX() = vectorJoueurs_[1]->getX()-vectorJoueurs_[0]->getSpeed();   
+                chateau_[0]->getX() -= vectorJoueurs_[0]->getSpeed();
+                background.getX() -= vectorJoueurs_[0]->getSpeed();
+                for(robot_ptr monster : wave_.getVectorMonsters()){
+                    monster->getX() -= vectorJoueurs_[0]->getSpeed();
+                }
             }
+            
             // Test pour savoir si l'élastique est la force élastique est présente.
             if(vectorJoueurs_[0]->getElastique()==true)
             {
-                vectorJoueurs_[1]->getX() += distance*Kv;  
-                background.getX() += distance*Kv;
-                chateau_[0]->getX() += distance*Kv;
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getX() += distance*Kv;
+                 
+                if(background.getBorderReachedX()!=3)
+                {
+                    vectorJoueurs_[1]->getX() += distance*Kv;
+                    background.getX() += distance*Kv;
+                    chateau_[0]->getX() += distance*Kv;
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getX() += distance*Kv;
+                    }
                 }
                 //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
             }
@@ -108,21 +117,30 @@ void Jeu :: decalerAllAffichablesX(){
             if(vectorJoueurs_[1]->getX()>=700 && vectorJoueurs_[1]->getMouvement()==true)
             {
                 //vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();
-                vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();   
-                chateau_[0]->getX() -= vectorJoueurs_[1]->getSpeed();
-                background.getX() -= vectorJoueurs_[1]->getSpeed();
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getX() -= vectorJoueurs_[1]->getSpeed();
+                
+                if(background.getBorderReachedX()!=3)
+                {
+                    vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();   
+                    chateau_[0]->getX() -= vectorJoueurs_[1]->getSpeed();
+                    background.getX() -= vectorJoueurs_[1]->getSpeed();
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getX() -= vectorJoueurs_[1]->getSpeed();
+                    }
                 }
+
                 // Test pour savoir si l'élastique est la force élastique est présente.
                 if(vectorJoueurs_[1]->getElastique()==true)
                 {
                     //vectorJoueurs_[0]->getX() += distance*Kv;
-                    vectorJoueurs_[0]->getX() += distance*Kv;
-                    chateau_[0]->getX() += distance*Kv;
-                    background.getX() += distance*Kv;
-                    for(robot_ptr monster : wave_.getVectorMonsters()){
-                        monster->getX() += distance*Kv;
+                    if(background.getBorderReachedX()!=3)
+                    {
+                        vectorJoueurs_[0]->getX() += distance*Kv;
+                        chateau_[0]->getX() += distance*Kv;
+                        background.getX() += distance*Kv;
+                         background.getX() += distance*Kv;
+                        for(robot_ptr monster : wave_.getVectorMonsters()){
+                            monster->getX() += distance*Kv;
+                        }
                     }
                     //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
                 }
@@ -134,20 +152,28 @@ void Jeu :: decalerAllAffichablesX(){
     {
         if(vectorJoueurs_[0]->getX()<=100 && vectorJoueurs_[0]->getMouvement()==true)
         {
-            vectorJoueurs_[1]->getX() = vectorJoueurs_[1]->getX()+vectorJoueurs_[0]->getSpeed();
-            chateau_[0]->getX() += vectorJoueurs_[0]->getSpeed();
-            background.getX() += vectorJoueurs_[0]->getSpeed();
-            for(robot_ptr monster : wave_.getVectorMonsters()){
-                monster->getX() += vectorJoueurs_[0]->getSpeed();
+            
+            if(background.getBorderReachedX()!=9)
+            {
+                vectorJoueurs_[1]->getX() = vectorJoueurs_[1]->getX()+vectorJoueurs_[0]->getSpeed();
+                chateau_[0]->getX() += vectorJoueurs_[0]->getSpeed();
+                background.getX() += vectorJoueurs_[0]->getSpeed();
+                for(robot_ptr monster : wave_.getVectorMonsters()){
+                    monster->getX() += vectorJoueurs_[0]->getSpeed();
+                }
             }
+
             // Test pour savoir si l'élastique est la force élastique est présente.
             if(vectorJoueurs_[0]->getElastique()==true)
             {
-                vectorJoueurs_[1]->getX() -= distance*Kv;
-                chateau_[0]->getX() -= distance*Kv;
-                background.getX() -= distance*Kv;
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getX() -= distance*Kv;
+                if(background.getBorderReachedX()!=9)
+                {
+                    vectorJoueurs_[1]->getX() -= distance*Kv;
+                    chateau_[0]->getX() -= distance*Kv;
+                    background.getX() -= distance*Kv;
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getX() -= distance*Kv;
+                    }
                 }
             }
         }
@@ -155,20 +181,26 @@ void Jeu :: decalerAllAffichablesX(){
         {
             if(vectorJoueurs_[1]->getX()<=100 && vectorJoueurs_[1]->getMouvement()==true)
             {
-                vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()+vectorJoueurs_[1]->getSpeed();
-                chateau_[0]->getX() += vectorJoueurs_[1]->getSpeed();
-                background.getX() += vectorJoueurs_[1]->getSpeed();
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getX() += vectorJoueurs_[1]->getSpeed();
+                if(background.getBorderReachedX()!=9)
+                {
+                    vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()+vectorJoueurs_[1]->getSpeed();
+                    chateau_[0]->getX() += vectorJoueurs_[1]->getSpeed();
+                    background.getX() += vectorJoueurs_[1]->getSpeed();
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getX() += vectorJoueurs_[1]->getSpeed();
+                    }
                 }
                 // Test pour savoir si l'élastique est la force élastique est présente.
                 if(vectorJoueurs_[1]->getElastique()==true)
                 {
-                    vectorJoueurs_[0]->getX() -= distance*Kv;
-                    chateau_[0]->getX() -= distance*Kv;
-                    background.getX() -= distance*Kv;
-                    for(robot_ptr monster : wave_.getVectorMonsters()){
-                        monster->getX() -= distance*Kv;
+                    if(background.getBorderReachedX()!=9)
+                    {
+                        vectorJoueurs_[0]->getX() -= distance*Kv;
+                        chateau_[0]->getX() -= distance*Kv;
+                        background.getX() -= distance*Kv;
+                        for(robot_ptr monster : wave_.getVectorMonsters()){
+                            monster->getX() -= distance*Kv;
+                        }
                     }
                     //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
                 }
@@ -177,28 +209,39 @@ void Jeu :: decalerAllAffichablesX(){
 
         }  
     }
+    background.getBorderReachedX()=0;
 }
 
 
 void Jeu :: decalerAllAffichablesY(){
+    std::cout<<background.getX()<<std::endl;
+    std::cout<<background.getY()<<std::endl;
+    background.isBorderReached();
     if(vectorJoueurs_[0]->getY()>=500 || vectorJoueurs_[1]->getY()>=500)
     {
+       
         if(vectorJoueurs_[0]->getY()>=500 && vectorJoueurs_[0]->getMouvement()==true)
         {
-            vectorJoueurs_[1]->getY() = vectorJoueurs_[1]->getY()-vectorJoueurs_[0]->getSpeed();
-            chateau_[0]->getY() -= vectorJoueurs_[0]->getSpeed();
-            background.getY() -= vectorJoueurs_[0]->getSpeed();
-            for(robot_ptr monster : wave_.getVectorMonsters()){
-                monster->getY() -= vectorJoueurs_[0]->getSpeed();
+            if(background.getBorderReachedY()!=6)
+            {
+                vectorJoueurs_[1]->getY() = vectorJoueurs_[1]->getY()-vectorJoueurs_[0]->getSpeed();
+                chateau_[0]->getY() -= vectorJoueurs_[0]->getSpeed();
+                background.getY() -= vectorJoueurs_[0]->getSpeed();
+                for(robot_ptr monster : wave_.getVectorMonsters()){
+                    monster->getY() -= vectorJoueurs_[0]->getSpeed();
+                }
             }
             // Test pour savoir si l'élastique est la force élastique est présente.
             if(vectorJoueurs_[0]->getElastique()==true)
             {
-                vectorJoueurs_[1]->getY() += distance*Kv;
-                background.getY() += distance*Kv;
-                chateau_[0]->getY() += distance*Kv;
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getY() += distance*Kv;
+                if(background.getBorderReachedY()!=6)
+                {
+                    vectorJoueurs_[1]->getY() += distance*Kv;
+                    background.getY() += distance*Kv;
+                    chateau_[0]->getY() += distance*Kv;
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getY() += distance*Kv;
+                    }
                 }
             }
         }
@@ -206,20 +249,26 @@ void Jeu :: decalerAllAffichablesY(){
         {
             if(vectorJoueurs_[1]->getY()>=500 && vectorJoueurs_[1]->getMouvement()==true)
             {
-                vectorJoueurs_[0]->getY() = vectorJoueurs_[0]->getY()-vectorJoueurs_[1]->getSpeed();
-                chateau_[0]->getY() -= vectorJoueurs_[1]->getSpeed();
-                background.getY() -= vectorJoueurs_[1]->getSpeed();
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getY() -= vectorJoueurs_[1]->getSpeed();
+                if(background.getBorderReachedY()!=6)
+                {   
+                    vectorJoueurs_[0]->getY() = vectorJoueurs_[0]->getY()-vectorJoueurs_[1]->getSpeed();
+                    chateau_[0]->getY() -= vectorJoueurs_[1]->getSpeed();
+                    background.getY() -= vectorJoueurs_[1]->getSpeed();
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getY() -= vectorJoueurs_[1]->getSpeed();
+                    }
                 }
                 // Test pour savoir si l'élastique est la force élastique est présente.
                 if(vectorJoueurs_[1]->getElastique()==true)
                 {
-                    vectorJoueurs_[0]->getY() += distance*Kv;
-                    chateau_[0]->getY() += distance*Kv;
-                    background.getY() += distance*Kv;
-                    for(robot_ptr monster : wave_.getVectorMonsters()){
-                        monster->getY() += distance*Kv;
+                    if(background.getBorderReachedY()!=6)
+                    {
+                        vectorJoueurs_[0]->getY() += distance*Kv;
+                        chateau_[0]->getY() += distance*Kv;
+                        background.getY() += distance*Kv;
+                        for(robot_ptr monster : wave_.getVectorMonsters()){
+                            monster->getY() += distance*Kv;
+                        }
                     }
                 }
 
@@ -231,20 +280,26 @@ void Jeu :: decalerAllAffichablesY(){
     {
         if(vectorJoueurs_[0]->getY()<=100 && vectorJoueurs_[0]->getMouvement()==true)
         {
-            vectorJoueurs_[1]->getY() = vectorJoueurs_[1]->getY()+vectorJoueurs_[0]->getSpeed();
-            chateau_[0]->getY() += vectorJoueurs_[0]->getSpeed();
-            background.getY() += vectorJoueurs_[0]->getSpeed();
-            for(robot_ptr monster : wave_.getVectorMonsters()){
-                monster->getY() += vectorJoueurs_[0]->getSpeed();
+            if(background.getBorderReachedY()!=12)
+            {
+                vectorJoueurs_[1]->getY() = vectorJoueurs_[1]->getY()+vectorJoueurs_[0]->getSpeed();
+                chateau_[0]->getY() += vectorJoueurs_[0]->getSpeed();
+                background.getY() += vectorJoueurs_[0]->getSpeed();
+                for(robot_ptr monster : wave_.getVectorMonsters()){
+                    monster->getY() += vectorJoueurs_[0]->getSpeed();
+                }
             }
             // Test pour savoir si l'élastique est la force élastique est présente.
             if(vectorJoueurs_[0]->getElastique()==true)
             {
-                vectorJoueurs_[1]->getY() -= distance*Kv;
-                chateau_[0]->getY() -= distance*Kv;
-                background.getY() -= distance*Kv;
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getY() -= distance*Kv;
+                if(background.getBorderReachedY()!=12)
+                {
+                    vectorJoueurs_[1]->getY() -= distance*Kv;
+                    chateau_[0]->getY() -= distance*Kv;
+                    background.getY() -= distance*Kv;
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getY() -= distance*Kv;
+                    }
                 }
                 //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
             }
@@ -253,20 +308,26 @@ void Jeu :: decalerAllAffichablesY(){
         {
             if(vectorJoueurs_[1]->getY()<=100 && vectorJoueurs_[1]->getMouvement()==true)
             {
-                vectorJoueurs_[0]->getY() = vectorJoueurs_[0]->getY()+vectorJoueurs_[1]->getSpeed();
-                chateau_[0]->getY() += vectorJoueurs_[1]->getSpeed();
-                background.getY() += vectorJoueurs_[1]->getSpeed();
-                for(robot_ptr monster : wave_.getVectorMonsters()){
-                    monster->getY() += vectorJoueurs_[1]->getSpeed();
+                if(background.getBorderReachedY()!=12)
+                {
+                    vectorJoueurs_[0]->getY() = vectorJoueurs_[0]->getY()+vectorJoueurs_[1]->getSpeed();
+                    chateau_[0]->getY() += vectorJoueurs_[1]->getSpeed();
+                    background.getY() += vectorJoueurs_[1]->getSpeed();
+                    for(robot_ptr monster : wave_.getVectorMonsters()){
+                        monster->getY() += vectorJoueurs_[1]->getSpeed();
+                    }
                 }
                 // Test pour savoir si l'élastique est la force élastique est présente.
                 if(vectorJoueurs_[1]->getElastique()==true)
                 {
-                    vectorJoueurs_[0]->getY() -= distance*Kv;
-                    chateau_[0]->getY() -= distance*Kv;
-                    background.getY() -= distance*Kv;
-                    for(robot_ptr monster : wave_.getVectorMonsters()){
-                        monster->getY() -= distance*Kv;
+                    if(background.getBorderReachedY()!=12)
+                    {
+                        vectorJoueurs_[0]->getY() -= distance*Kv;
+                        chateau_[0]->getY() -= distance*Kv;
+                        background.getY() -= distance*Kv;
+                        for(robot_ptr monster : wave_.getVectorMonsters()){
+                            monster->getY() -= distance*Kv;
+                        }
                     }
                     //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
                 }
@@ -274,6 +335,7 @@ void Jeu :: decalerAllAffichablesY(){
             }
         }
     }
+    background.getBorderReachedY()=0;
 }
 
 
