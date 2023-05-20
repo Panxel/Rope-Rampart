@@ -2,6 +2,7 @@
 
 Bombot::Bombot(sf::Texture& texture,float x,float y,int health,int id,int atk, int spd) : Robot(texture,x,y,health,id,atk,spd){
     std :: cout << "Creation classe Bombot" << std :: endl;
+    
 }
 
 void Bombot :: attack(){

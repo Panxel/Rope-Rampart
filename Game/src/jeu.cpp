@@ -94,11 +94,9 @@ void Jeu :: decalerAllAffichablesX(){
                     monster->getX() -= vectorJoueurs_[0]->getSpeed();
                 }
             }
-            
             // Test pour savoir si l'élastique est la force élastique est présente.
             if(vectorJoueurs_[0]->getElastique()==true)
             {
-                 
                 if(background.getBorderReachedX()!=3)
                 {
                     vectorJoueurs_[1]->getX() += distance*Kv;
@@ -116,10 +114,12 @@ void Jeu :: decalerAllAffichablesX(){
             
             if(vectorJoueurs_[1]->getX()>=700 && vectorJoueurs_[1]->getMouvement()==true)
             {
+                std::cout<<"DRoite j1"<<std::endl;
                 //vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();
                 
                 if(background.getBorderReachedX()!=3)
                 {
+                    std::cout<<"DRoite j1 decalage"<<std::endl;
                     vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();   
                     chateau_[0]->getX() -= vectorJoueurs_[1]->getSpeed();
                     background.getX() -= vectorJoueurs_[1]->getSpeed();
@@ -137,7 +137,6 @@ void Jeu :: decalerAllAffichablesX(){
                         vectorJoueurs_[0]->getX() += distance*Kv;
                         chateau_[0]->getX() += distance*Kv;
                         background.getX() += distance*Kv;
-                         background.getX() += distance*Kv;
                         for(robot_ptr monster : wave_.getVectorMonsters()){
                             monster->getX() += distance*Kv;
                         }
@@ -209,6 +208,7 @@ void Jeu :: decalerAllAffichablesX(){
 
         }  
     }
+     std::cout<<"Border Reached X"<<background.getBorderReachedX()<<std::endl;
     background.getBorderReachedX()=0;
 }
 
@@ -335,6 +335,7 @@ void Jeu :: decalerAllAffichablesY(){
             }
         }
     }
+    std::cout<<"Border Reached "<<background.getBorderReachedY()<<std::endl;
     background.getBorderReachedY()=0;
 }
 
@@ -487,8 +488,6 @@ void Jeu :: gameInput(){
             //decalerAllAffichablesY();
         }
 
-        decalerAllAffichablesX();
-        decalerAllAffichablesY();
         if(vectorJoueurs_[1]->getMouvement()==false)
         {
             if(vectorJoueurs_[1]->getDirection()==Gauche)
@@ -508,6 +507,8 @@ void Jeu :: gameInput(){
                 vectorJoueurs_[1]->loadSprite(loadTexture_.getMap()["standby_front_j2"]);
             }
         }
+        decalerAllAffichablesX();
+        decalerAllAffichablesY();
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && vectorJoueurs_[1]->getIsAttacking()==false){
             std :: cout << "Utilisation Attaque J2" << std :: endl;
             vectorJoueurs_[1]->attack();

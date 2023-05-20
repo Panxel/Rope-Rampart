@@ -5,18 +5,19 @@ Robot::Robot(sf::Texture& texture,float x,float y,int health,int id,int atk, int
     direction_=Bas;
     rect.top=0;
     rect.left=0;
-    rect.height=64;
-    rect.width=64;
+    rect.height=150;
+    rect.width=175;
     compteur=0;
     debut=0;
+    sprite_.setScale(sf::Vector2f(0.5,0.5));
 }
 
 void Robot :: afficher(sf::RenderWindow& window) {
     sprite_.setPosition(round(pos_x_),round(pos_y_));
-    if(compteur==1)
+    if(compteur==7)
         {
             compteur=0;
-            debut=(debut+64)%1024;
+            debut=(debut+175)%700;
             // Positionnement du rectangle de découpe dans l'image chargée
             rect.left=debut;
         }

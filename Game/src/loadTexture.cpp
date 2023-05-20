@@ -71,14 +71,24 @@ LoadTexture :: LoadTexture(){
     loadFile("../res/Map/Lifebar/life7.png");
     mapTexture_.insert({"life7",texture_});
     // Chargement des textures des robots
-    loadFile("../res/Robot/robot_front.png");
-    mapTexture_.insert({"robot_front",texture_});
-    loadFile("../res/Robot/robot_back.png");
-    mapTexture_.insert({"robot_back",texture_});
-    loadFile("../res/Robot/robot_right.png");
-    mapTexture_.insert({"robot_right",texture_});
-    loadFile("../res/Robot/robot_left.png");
-    mapTexture_.insert({"robot_left",texture_});
+    // MBOT
+    loadFile("../res/Robot/MBOT/Mbot_Front.png");
+    mapTexture_.insert({"Mbot_front",texture_});
+    loadFile("../res/Robot/MBOT/Mbot_Back.png");
+    mapTexture_.insert({"Mbot_back",texture_});
+    loadFile("../res/Robot/MBOT/Mbot_Right.png");
+    mapTexture_.insert({"Mbot_right",texture_});
+    loadFile("../res/Robot/MBOT/Mbot_Left.png");
+    mapTexture_.insert({"Mbot_left",texture_});
+    // BOMBOT
+    loadFile("../res/Robot/BOMBOT/Bombot_Front.png");
+    mapTexture_.insert({"Bombot_front",texture_});
+    loadFile("../res/Robot/BOMBOT/Bombot_Back.png");
+    mapTexture_.insert({"Bombot_back",texture_});
+    loadFile("../res/Robot/BOMBOT/Bombot_Right.png");
+    mapTexture_.insert({"Bombot_right",texture_});
+    loadFile("../res/Robot/BOMBOT/Bombot_Left.png");
+    mapTexture_.insert({"Bombot_left",texture_});
     // Chargement texture bombe :
     loadFile("../res/Bombe/bomb.png");
     mapTexture_.insert({"Bombe",texture_});

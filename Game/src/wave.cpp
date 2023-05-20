@@ -14,19 +14,49 @@ void Wave :: afficherAllMonster(sf::RenderWindow& window){
     for(int i=0;i<(nb_mobs_spawned_-nb_mobs_died_);i++){
         if(vectorMonsters_[i]->getDirection()==Droite)
         {
-            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_right"]);
+            if(vectorMonsters_[i]->getID()==3)
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Bombot_right"]);
+            }
+            else
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Mbot_right"]);
+            }
         }
         if(vectorMonsters_[i]->getDirection()==Gauche)
         {
-            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_left"]);
+            if(vectorMonsters_[i]->getID()==3)
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Bombot_left"]);
+            }
+            else
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Mbot_left"]);
+            }
         }
         if(vectorMonsters_[i]->getDirection()==Haut)
         {
-            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_back"]);
+            if(vectorMonsters_[i]->getID()==3)
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Bombot_back"]);
+            }
+            else
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Mbot_back"]); 
+            }
+            
         }
         if(vectorMonsters_[i]->getDirection()==Bas)
         {
-            vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["robot_front"]);
+            if(vectorMonsters_[i]->getID()==3)
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Bombot_front"]);
+            }
+            else
+            {
+                vectorMonsters_[i]->loadSprite(loadTexture_.getMap()["Mbot_front"]);
+            }
+            
         }
         vectorMonsters_[i]->afficher(window);
     }
@@ -79,9 +109,9 @@ void Wave :: waveLevelUp(){
         y -= 200;
         //Ajoute un monstre et la difficulté augmente
         if(rand()/static_cast<float>(RAND_MAX)>(log(level_)/5+0.002*level_)){
-            addMonster(std :: make_shared<Mbot>(loadTexture_.getMap()["Mbot"],x,y,MBOT_HP,MBOT_ID,MBOT_DAMAGE,MBOT_SPEED));
+            addMonster(std :: make_shared<Mbot>(loadTexture_.getMap()["Mbot_front"],x,y,MBOT_HP,MBOT_ID,MBOT_DAMAGE,MBOT_SPEED));
         }else{
-            addMonster(std :: make_shared<Bombot>(loadTexture_.getMap()["Bombot"],x,y,BOMBOT_HP,BOMBOT_ID,BOMBOT_DAMAGE,BOMBOT_SPEED));
+            addMonster(std :: make_shared<Bombot>(loadTexture_.getMap()["Bombot_front"],x,y,BOMBOT_HP,BOMBOT_ID,BOMBOT_DAMAGE,BOMBOT_SPEED));
         }   
     }
 }
