@@ -12,7 +12,7 @@ Jeu :: Jeu(){ //Constructeur initial
     for(guerrier_ptr joueur : vectorJoueurs_){
         joueur->addObserverChateau(chateau_[0]);
     }
-     // Set position j1 et j2 
+     // Set position j1 et j2 et background 
     background.getX()=-200;
     background.getY()=-200;
     vectorJoueurs_[0]->getX() = 500 - 200;
@@ -106,7 +106,6 @@ void Jeu :: decalerAllAffichablesX(){
                         monster->getX() += distance*Kv;
                     }
                 }
-                //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
             }
         }
         else
@@ -114,12 +113,8 @@ void Jeu :: decalerAllAffichablesX(){
             
             if(vectorJoueurs_[1]->getX()>=700 && vectorJoueurs_[1]->getMouvement()==true)
             {
-                std::cout<<"DRoite j1"<<std::endl;
-                //vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();
-                
                 if(background.getBorderReachedX()!=3)
                 {
-                    std::cout<<"DRoite j1 decalage"<<std::endl;
                     vectorJoueurs_[0]->getX() = vectorJoueurs_[0]->getX()-vectorJoueurs_[1]->getSpeed();   
                     chateau_[0]->getX() -= vectorJoueurs_[1]->getSpeed();
                     background.getX() -= vectorJoueurs_[1]->getSpeed();
@@ -208,14 +203,11 @@ void Jeu :: decalerAllAffichablesX(){
 
         }  
     }
-     std::cout<<"Border Reached X"<<background.getBorderReachedX()<<std::endl;
     background.getBorderReachedX()=0;
 }
 
 
 void Jeu :: decalerAllAffichablesY(){
-    std::cout<<background.getX()<<std::endl;
-    std::cout<<background.getY()<<std::endl;
     background.isBorderReached();
     if(vectorJoueurs_[0]->getY()>=500 || vectorJoueurs_[1]->getY()>=500)
     {
@@ -301,7 +293,6 @@ void Jeu :: decalerAllAffichablesY(){
                         monster->getY() -= distance*Kv;
                     }
                 }
-                //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
             }
         }
         else
@@ -329,13 +320,11 @@ void Jeu :: decalerAllAffichablesY(){
                             monster->getY() -= distance*Kv;
                         }
                     }
-                    //map_sp.setPosition(map_sp.getPosition().x+distance*Kv,map_sp.getPosition().y);
                 }
 
             }
         }
     }
-    std::cout<<"Border Reached "<<background.getBorderReachedY()<<std::endl;
     background.getBorderReachedY()=0;
 }
 

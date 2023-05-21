@@ -82,11 +82,13 @@ void Map :: afficherView(sf::RenderWindow& window, Wave& wave_){
     window.draw(circle_j1);
     window.draw(circle_j2);
     // Affichage du cercle des robots;
-    for(robot_ptr monster : wave_.getVectorMonsters()){
+    //for(robot_ptr monster : wave_.getVectorMonsters()){
+
+    for(int i=0;i<(wave_.getNbMobsSpawned()-wave_.getNbMobsDied());i++){
         sf::CircleShape circle;
         circle.setFillColor(sf::Color::Black);
         circle.setRadius(12.0f);
-        circle.setPosition(position_small_map.getPosition().x+monster->getX()*0.65,position_small_map.getPosition().y+monster->getY()*0.65);
+        circle.setPosition(position_small_map.getPosition().x+wave_.getVectorMonsters()[i]->getX()*0.65,position_small_map.getPosition().y+wave_.getVectorMonsters()[i]->getY()*0.65);
         window.draw(circle);
     }
 
