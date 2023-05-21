@@ -13,6 +13,9 @@ void Bombot :: update(unite_ptr unite){
 
     if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+BOMBOT_WIDTH, unite->getX()+GUERRIER_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+BOMBOT_HEIGHT, unite->getY()+GUERRIER_HEIGHT)){
         std :: cout << "Bombot Damaged" << std :: endl;
+        isTouched = true;
+        compteur = 0;
+        debut = 0;
         takeDamage(unite->getAttack());
         if(hp_<=0){
             dead_=true;

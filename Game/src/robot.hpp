@@ -12,11 +12,12 @@ class Robot : public Unite {
     void afficher(sf::RenderWindow& window);
     void moveManagement(float x, float y);
     virtual void update(unite_ptr unite) = 0;
+    const bool& getIsTouched() const {return isTouched;};
+    bool& getIsTouched(){return isTouched;};
+
 
     protected :
-    // Rectangle permettant de selectionner la bonne image dans la grille d'image 
-    //sf::IntRect rect;
-
+    bool isTouched;
 };
 
 typedef std::shared_ptr<Robot> robot_ptr;

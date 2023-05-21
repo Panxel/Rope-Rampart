@@ -10,6 +10,7 @@ Robot::Robot(sf::Texture& texture,float x,float y,int health,int id,int atk, int
     compteur=0;
     debut=0;
     sprite_.setScale(sf::Vector2f(0.5,0.5));
+    isTouched = false;
 }
 
 void Robot :: afficher(sf::RenderWindow& window) {
@@ -20,10 +21,24 @@ void Robot :: afficher(sf::RenderWindow& window) {
             debut=(debut+175)%700;
             // Positionnement du rectangle de découpe dans l'image chargée
             rect.left=debut;
+            if(debut==525 && isTouched == true)
+            {
+                isTouched=false;
+            }
         }
     sprite_.setTextureRect(rect);
     compteur++;
-    window.draw(sprite_);
+    if(isTouched == true)
+    {
+        if(compteur% 5== 0)
+        {
+            window.draw(sprite_);
+        }
+    }
+    else
+    {
+        window.draw(sprite_);
+    }
 }
 
 
