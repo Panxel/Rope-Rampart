@@ -19,17 +19,17 @@ void Chateau :: afficher(sf::RenderWindow& window) {
 }
 
 void Chateau :: update( unite_ptr unite){
-    if(unite->getID()==1){ //Si c'est un joueur, il y a collision avec le chateau
-        if(std::max(pos_x_,unite->getX()+34) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+50) && std::max(pos_y_,unite->getY()+28) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+37)){
+    if(unite->getID()==1){ //Si c'est un joueur, il y a collision avec le chateau        
+        if(std::max(pos_x_,unite->getX()+GUERRIER_POS_X) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+GUERRIER_POS_X+GUERRIER_REEL_WIDTH) && std::max(pos_y_,unite->getY()+GUERRIER_POS_Y) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+GUERRIER_POS_Y+GUERRIER_REEL_HEIGHT)){
             std :: cout << "Collision Chateau" << std :: endl;
             if(unite->getDirection()==Haut){
-                unite->getY()=pos_y_+CHATEAU_HEIGHT;
+                unite->getY()=pos_y_+CHATEAU_HEIGHT-GUERRIER_POS_Y;
             }else if(unite->getDirection()==Droite){
-                unite->getX()=pos_x_-GUERRIER_WIDTH;
+                unite->getX()=pos_x_-GUERRIER_REEL_WIDTH-GUERRIER_POS_X;
             }else if(unite->getDirection()==Bas){
-                unite->getY()=pos_y_-GUERRIER_HEIGHT;
+                unite->getY()=pos_y_-GUERRIER_REEL_HEIGHT-GUERRIER_POS_Y;
             }else if(unite->getDirection()==Gauche){
-                unite->getX()=pos_x_+CHATEAU_WIDTH;
+                unite->getX()=pos_x_+CHATEAU_WIDTH-GUERRIER_POS_X;
             }
         }
     }//Mbot

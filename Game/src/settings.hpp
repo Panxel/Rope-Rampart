@@ -23,8 +23,8 @@ const int BOMBE_ID = 4;
 
 const float CHATEAU_INITX = WIN_WIDTH/2;
 const float CHATEAU_INITY = WIN_HEIGHT/2;
-const int CHATEAU_WIDTH = 50;
-const int CHATEAU_HEIGHT = 50;
+const int CHATEAU_WIDTH = 63;
+const int CHATEAU_HEIGHT = 72;
 const int CHATEAU_HP = 300;
 
 //Bombe
@@ -43,23 +43,27 @@ const float JOUEUR2_INITX = WIN_WIDTH*0.2;
 const float JOUEUR2_INITY = WIN_HEIGHT*0.2;
 
 //Guerrier
-const int GUERRIER_WIDTH = 50;
-const int GUERRIER_HEIGHT = 49;
+const int GUERRIER_WIDTH = 120;
+const int GUERRIER_HEIGHT = 120;
+const int GUERRIER_REEL_WIDTH = 26;
+const int GUERRIER_REEL_HEIGHT = 38;
+const int GUERRIER_POS_X = GUERRIER_WIDTH/2 - GUERRIER_REEL_WIDTH/2;
+const int GUERRIER_POS_Y = GUERRIER_HEIGHT/2 - GUERRIER_REEL_HEIGHT/2;
 const int GUERRIER_HP = 20;
 const int GUERRIER_DAMAGE = 5;
 const int GUERRIER_SPEED = 2;
 
 //Mbot
-const int MBOT_WIDTH = 50;
-const int MBOT_HEIGHT = 28;
+const float MBOT_WIDTH = 87.5;
+const int MBOT_HEIGHT = 75;
 const int MBOT_HP = 10;
 const int MBOT_DAMAGE = 2;
 const int MBOT_SPEED = 1;
 
 //Bombot
 
-const int BOMBOT_WIDTH = 50;
-const int BOMBOT_HEIGHT = 28;
+const float BOMBOT_WIDTH = 87.5;
+const int BOMBOT_HEIGHT = 75;
 const int BOMBOT_HP = 20;
 const int BOMBOT_DAMAGE = 4;
 const int BOMBOT_SPEED = 1;
