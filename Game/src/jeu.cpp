@@ -436,6 +436,7 @@ void Jeu :: gameInput(){
             std :: cout << "Utilisation Attaque" << std :: endl;
             vectorJoueurs_[0]->attack();
             vectorJoueurs_[0]->notifyObserverRobot(vectorJoueurs_[0]);
+            vectorJoueurs_[0]->notifyObserverBombe(vectorJoueurs_[0]);
             vectorJoueurs_[0]->loadSprite(loadTexture_.getMap()["attack_j1"]);
         }
     }
@@ -502,6 +503,7 @@ void Jeu :: gameInput(){
             std :: cout << "Utilisation Attaque J2" << std :: endl;
             vectorJoueurs_[1]->attack();
             vectorJoueurs_[1]->notifyObserverRobot(vectorJoueurs_[1]);
+            vectorJoueurs_[0]->notifyObserverBombe(vectorJoueurs_[1]);
             vectorJoueurs_[1]->loadSprite(loadTexture_.getMap()["attack_j2"]);
         }
     }

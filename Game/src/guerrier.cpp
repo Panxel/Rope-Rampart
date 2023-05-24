@@ -65,7 +65,7 @@ void Guerrier :: notifyObserverBombe(unite_ptr unite){
 }
 
 void Guerrier :: update(bombe_ptr bombe){
-    if(std::max(pos_x_,bombe->getX()) < std::min(pos_x_+GUERRIER_WIDTH, bombe->getX()+BOMBE_WIDTH) && std::max(pos_y_,bombe->getY()) < std::min(pos_y_+GUERRIER_HEIGHT, bombe->getY()+BOMBE_HEIGHT)){
+    if(std::max(pos_x_+GUERRIER_POS_X,bombe->getX()) < std::min(pos_x_+GUERRIER_POS_X+GUERRIER_REEL_WIDTH, bombe->getX()+BOMBE_WIDTH) && std::max(pos_y_+GUERRIER_POS_Y,bombe->getY()) < std::min(pos_y_+GUERRIER_POS_Y+GUERRIER_REEL_HEIGHT, bombe->getY()+BOMBE_HEIGHT)){
         std :: cout << "Bombe damage le Guerrier" << std :: endl;
         takeDamage(bombe->getAttack());
         std :: cout << "HP Guerrier : " << getHP() << std :: endl;

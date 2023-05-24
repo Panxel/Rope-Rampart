@@ -29,8 +29,8 @@ const int CHATEAU_HP = 300;
 
 //Bombe
 
-const int BOMBE_WIDTH = 50;
-const int BOMBE_HEIGHT = 28;
+const int BOMBE_WIDTH = 32;
+const int BOMBE_HEIGHT = 32;
 const int BOMBE_HP = 2;
 const int BOMBE_DAMAGE = 5;
 
