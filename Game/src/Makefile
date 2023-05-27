@@ -8,7 +8,7 @@ LIBS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
 all: $(EXEC)
 
 %.o : %.cpp %.hpp
-	$(CPP) $(CPPFLAGS) -o $@ -c $< 
+	$(CPP)  $(CPPFLAGS) -o $@ -c $< 
 
 
 $(EXEC): $(OBJ)

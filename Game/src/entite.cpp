@@ -17,3 +17,4 @@ void Entite::loadSprite(sf::Texture& texture){
 void Entite :: takeDamage(const int& damage){
     hp_-=damage;
 }
+

@@ -45,6 +45,12 @@ Map :: Map(float x,float y)
 
     borderReachedX = 0;
     borderReachedX = 0;
+
+    soundBuffer.loadFromFile("../res/Son/Tower-Defense.wav");
+    sound_.setLoop(true);
+    sound_.setBuffer(soundBuffer);
+    sound_.setVolume(40);
+    sound_.play();
     
 }
 

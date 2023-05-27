@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
+#include <SFML/Audio.hpp>
+
 
 class Entite{
 
@@ -23,7 +25,7 @@ class Entite{
     const bool& getDead() const {return dead_;};
     bool& getDead(){return dead_;};
     void takeDamage(const int& damage);
-
+    //void loadSound();
 
     protected :
     int id_;
@@ -37,6 +39,9 @@ class Entite{
      // Attributs nécessaire à l'affichage et au changement de sprite pour le graphisme
     int compteur;
     int debut;
+    // Son pour les animations
+    sf::Sound sound_;
+    sf::SoundBuffer soundBuffer;
 };
 
 

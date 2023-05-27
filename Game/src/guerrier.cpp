@@ -11,6 +11,8 @@ Guerrier::Guerrier(sf::Texture& texture,float x,float y,int health,int id,int at
     compteur = 0;
     debut = 0;
     sprite_.setScale(2,2);
+    soundBuffer.loadFromFile("../res/Son/attaque.wav");
+    sound_.setBuffer(soundBuffer);
 }
 
 void Guerrier :: attack(){
@@ -18,6 +20,7 @@ void Guerrier :: attack(){
     isAttacking = true;
     debut = 0;
     compteur = 0;
+    sound_.play();
 }
 
 void Guerrier :: afficher(sf::RenderWindow& window) {

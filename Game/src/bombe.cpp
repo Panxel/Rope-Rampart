@@ -1,5 +1,6 @@
 #include "bombe.hpp"
 #include "guerrier.hpp"
+#include <SFML/Audio.hpp>
 
 Bombe :: Bombe(sf::Texture& texture,float x,float y,int health,int id, int atk) : Entite(texture,x,y,health,id){
     attack_=atk;
@@ -10,6 +11,8 @@ Bombe :: Bombe(sf::Texture& texture,float x,float y,int health,int id, int atk) 
     rect.width=32;
     compteur=0;
     debut=0;
+    soundBuffer.loadFromFile("../res/Son/Bomb.wav");
+    sound_.setBuffer(soundBuffer);
     std :: cout << "Utilisation Constructeur Bombe" << std :: endl;
 }
 
@@ -21,6 +24,10 @@ void Bombe :: afficher(sf::RenderWindow& window) {
             debut=(debut+32)%384;
             // Positionnement du rectangle de découpe dans l'image chargée
             rect.left=debut;
+             if(debut==256)
+                {
+                    sound_.play();
+                }
         }
     sprite_.setTextureRect(rect);
     compteur++;

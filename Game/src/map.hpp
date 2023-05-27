@@ -199,6 +199,7 @@ public:
      */
     void isBorderReached();
 
+
 protected:
     float pos_x_; /**< La position en x de la carte. */
     float pos_y_; /**< La position en y de la carte. */
@@ -218,6 +219,13 @@ protected:
     //
     int borderReachedX; /**< La valeur du bord atteint en x. */
     int borderReachedY; /**< La valeur du bord atteint en y. */
+
+    // Nécessaire au son de fond
+    sf::Sound sound_;
+    sf::SoundBuffer soundBuffer;
+    
+    
+
 };
 
 #endif

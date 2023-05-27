@@ -2,6 +2,9 @@
 
 Mbot::Mbot(sf::Texture& texture,float x,float y,int health,int id,int atk, int spd) : Robot(texture,x,y,health,id,atk,spd){
     std :: cout << "Creation classe Mbot" << std :: endl;
+    soundBuffer.loadFromFile("../res/Son/robot2.wav");
+    sound_.setBuffer(soundBuffer);
+    sound_.setVolume(100);
 }
 
 void Mbot :: attack(){
@@ -15,6 +18,7 @@ void Mbot :: update(unite_ptr unite){
         takeDamage(unite->getAttack());
         if(hp_<=0){
             dead_=true;
+
         }
         std :: cout << "HP Mbot : " << getHP() << std :: endl;
     }
