@@ -60,4 +60,4 @@ Le jeu devient de plus en plus dur au fil des vagues avec plus de robots et de "
 
 ## Documentation
 
-La documentation du code se trouve dans le fichier Documentation
+La documentation du code se trouve dans le dossier Documentation
