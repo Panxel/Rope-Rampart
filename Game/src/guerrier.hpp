@@ -8,6 +8,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+
+/**
+ * @class Guerrier
+ * @brief Classe représentant un guerrier.
+ *
+ * La classe Guerrier hérite de la classe Entite et ajoute des fonctionnalités spécifiques à un Guerrier.
+ */
 class Guerrier : public Unite {
 
 public:
