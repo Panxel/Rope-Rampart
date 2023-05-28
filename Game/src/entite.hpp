@@ -25,7 +25,6 @@ class Entite{
     const bool& getDead() const {return dead_;};
     bool& getDead(){return dead_;};
     void takeDamage(const int& damage);
-    //void loadSound();
 
     protected :
     int id_;
