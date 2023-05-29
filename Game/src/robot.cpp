@@ -45,6 +45,7 @@ void Robot :: afficher(sf::RenderWindow& window) {
 void Robot :: moveManagement(float x, float y){
     float deltaX =(x+CHATEAU_WIDTH/2)-pos_x_;
     float deltaY =(y+CHATEAU_HEIGHT/2)-pos_y_;
+    // Test pour savoir dans quelle direction le robot doit se déplacer.
     if(deltaX>=0.8){
         direction_=Droite;
         pos_x_+= 0.8*speed_;

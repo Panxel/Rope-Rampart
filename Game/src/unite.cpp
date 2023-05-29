@@ -1,5 +1,7 @@
 #include "unite.hpp"
 
+
+// Constructeur Unité
 Unite :: Unite(sf::Texture& texture,float x,float y,int health,int id, int atk, int spd) : Entite(texture,x,y,health,id){
     std :: cout << "Utilisation Constructeur Unite" << std :: endl;
     attack_=atk;

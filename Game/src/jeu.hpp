@@ -53,7 +53,7 @@ public:
     void clearVectorChateau();
 
     /**
-     * @brief Supprime tous les liens d'observation entre les robots et les joueurs.
+     * @brief Supprime tous les liens d'observation entre les robots et les joueurs et chateau.
      */
     void clearAllObserverLink();
 
@@ -106,7 +106,7 @@ public:
     void decalerAllAffichablesY();
 
     /**
-     * @brief Gère les entrées du jeu (clavier, souris, etc.).
+     * @brief Gère les entrées du jeu (clavier, etc.).
      */
     void gameInput();
 

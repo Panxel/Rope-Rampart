@@ -5,7 +5,7 @@
 
 /**
  * @class HUD
- * @brief Classe représentant l'interface utilisateur tête haute (HUD).
+ * @brief Classe représentant l'interface utilisateur tête haute (HUD) (Head Up Display en anglais).
  *
  * Le HUD est utilisé pour afficher des informations à l'écran, telles que la position
  * d'un objet, un texte, etc. Ici, il est utilisé pour afficher les informations du joueur au cours

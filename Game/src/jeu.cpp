@@ -1,6 +1,6 @@
 #include "jeu.hpp"
 
-Jeu :: Jeu(){ //Constructeur initial
+Jeu :: Jeu(){ //Constructeur Jeu
     //Ajoute les 2 joueurs et le chateau dans les vecteurs
     addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["run_front_j1"],JOUEUR1_INITX,JOUEUR1_INITY,GUERRIER_HP,JOUEUR_ID,GUERRIER_DAMAGE,GUERRIER_SPEED));
     addJoueur(std :: make_shared<Guerrier>(loadTexture_.getMap()["run_front_j2"],JOUEUR2_INITX,JOUEUR2_INITY,GUERRIER_HP,JOUEUR_ID,GUERRIER_DAMAGE,GUERRIER_SPEED));
@@ -12,7 +12,7 @@ Jeu :: Jeu(){ //Constructeur initial
     for(guerrier_ptr joueur : vectorJoueurs_){
         joueur->addObserverChateau(chateau_[0]);
     }
-     // Set position j1 et j2 et background 
+     // Set position j1 et j2, background et chateau quand on lance le jeu.
     background.getX()=-200;
     background.getY()=-200;
     vectorJoueurs_[0]->getX() = 500 - 200;
@@ -26,7 +26,7 @@ Jeu :: Jeu(){ //Constructeur initial
     vectorJoueurs_[0]->getLifebar().getY() = 568;
     vectorJoueurs_[1]->getLifebar().getX() = 654;
     vectorJoueurs_[1]->getLifebar().getY() = 568;
-    // Ajoute nom des joueurs
+    // Ajoute nom des joueurs et set la position des HUD.
     background.getHUD_j1().setText("PLAYER ONE",16,sf::Color::Red);
     background.getHUD_j2().setText("PLAYER TWO",16,sf::Color::Blue);
     background.getHUD_j1().getText().setPosition(60,545);
@@ -79,10 +79,13 @@ void Jeu :: delinkBombeObserver(bombe_ptr bombe){ //Permet de detacher la bombe 
     }
 }
 
+// Permet de décaler tous les affichables en X quand un des guerriers a atteint un bord de l'image.
 void Jeu :: decalerAllAffichablesX(){
     background.isBorderReached();
+    // Teste si le bord de gauche
     if(vectorJoueurs_[0]->getX()>=700 || vectorJoueurs_[1]->getX()>=700)
     {
+        // Teste si c'est le J1
         if(vectorJoueurs_[0]->getX()>=700 && vectorJoueurs_[0]->getMouvement()==true)
         {  
             if(background.getBorderReachedX()!=3)
@@ -118,7 +121,7 @@ void Jeu :: decalerAllAffichablesX(){
         }
         else
         {
-            
+            // Teste si c'est le J2   
             if(vectorJoueurs_[1]->getX()>=700 && vectorJoueurs_[1]->getMouvement()==true)
             {
                 if(background.getBorderReachedX()!=3)
@@ -158,8 +161,10 @@ void Jeu :: decalerAllAffichablesX(){
             }
         }
     }
+    // Teste si le bord de droite
     if(vectorJoueurs_[0]->getX()<=100 || vectorJoueurs_[1]->getX()<=100)
     {
+        // Teste si c'est le J1
         if(vectorJoueurs_[0]->getX()<=100 && vectorJoueurs_[0]->getMouvement()==true)
         {
             
@@ -198,6 +203,7 @@ void Jeu :: decalerAllAffichablesX(){
         }
         else
         {
+            // Teste si c'est le J2
             if(vectorJoueurs_[1]->getX()<=100 && vectorJoueurs_[1]->getMouvement()==true)
             {
                 if(background.getBorderReachedX()!=9)
@@ -234,7 +240,7 @@ void Jeu :: decalerAllAffichablesX(){
     background.getBorderReachedX()=0;
 }
 
-
+// Même chose que la fonction précedente mais sur l'axe Y
 void Jeu :: decalerAllAffichablesY(){
     background.isBorderReached();
     if(vectorJoueurs_[0]->getY()>=500 || vectorJoueurs_[1]->getY()>=500)
@@ -406,6 +412,7 @@ void Jeu:: updateLifeAffichables()
 {
     std::string result;
     int life;
+    // Pour chaque joueur, on recupère les points de vie et affiche la barre de vie en conséquence
     for(guerrier_ptr joueur : vectorJoueurs_){
         life = round((joueur->getHP()/20.0)*7);
         result = "life" + std::to_string(life);
@@ -419,7 +426,6 @@ void Jeu:: updateLifeAffichables()
 
 void Jeu :: gameInput(){
 
-    //POUR EVITER QUE SA CRASH CAR SFML EST MAL FOUTU
     while(renderer_.getWindow().pollEvent(event_)){
         if(event_.type == sf::Event::Closed){
             renderer_.getWindow().close();
@@ -438,44 +444,43 @@ void Jeu :: gameInput(){
     vectorJoueurs_[1]->getMouvement() = false;
 
     //Joueur 1
-     //Joueur 1
     vectorJoueurs_[0]->getElastique()=false;
     if(vectorJoueurs_[0]->getIsAttacking()==false)
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        //std::cout<<"Valeur Vitesse "<<vectorJoueurs_[0]->getSpeed()<<std::endl;
         vectorJoueurs_[0]->getDirection()=Gauche;
+        // On charge la bonne texture en conséquence de la direction du joueur 1
         vectorJoueurs_[0]->loadSprite(loadTexture_.getMap()["run_left_j1"]);
         vectorJoueurs_[0]->activateElastique(distance, vectorJoueurs_[1]->getX(), vectorJoueurs_[1]->getY());
         vectorJoueurs_[0]->deplacement(distance);
         vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
-        //decalerAllAffichablesX();
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
             vectorJoueurs_[0]->getDirection()=Droite;
+            // On charge la bonne texture en conséquence de la direction du joueur 1
             vectorJoueurs_[0]->loadSprite(loadTexture_.getMap()["run_right_j1"]);
             vectorJoueurs_[0]->activateElastique(distance, vectorJoueurs_[1]->getX(), vectorJoueurs_[1]->getY());
             vectorJoueurs_[0]->deplacement(distance);
             vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
-            //decalerAllAffichablesX();
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
             vectorJoueurs_[0]->getDirection()=Haut;
+            // On charge la bonne texture en conséquence de la direction du joueur 1
             vectorJoueurs_[0]->loadSprite(loadTexture_.getMap()["run_back_j1"]);
             vectorJoueurs_[0]->activateElastique(distance, vectorJoueurs_[1]->getX(), vectorJoueurs_[1]->getY());
             vectorJoueurs_[0]->deplacement(distance);
             vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
-            //decalerAllAffichablesY();
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
             vectorJoueurs_[0]->getDirection()=Bas;
+            // On charge la bonne texture en conséquence de la direction du joueur 1
             vectorJoueurs_[0]->loadSprite(loadTexture_.getMap()["run_front_j1"]);
             vectorJoueurs_[0]->activateElastique(distance, vectorJoueurs_[1]->getX(), vectorJoueurs_[1]->getY());
             vectorJoueurs_[0]->deplacement(distance);
             vectorJoueurs_[0]->notifyObserverChateau(vectorJoueurs_[0]);
-            //decalerAllAffichablesY();
         }
 
+        // Si aucune touche de déplacement du J1 est touchée, il faut charger les animations de standby.
         if(vectorJoueurs_[0]->getMouvement()==false)
         {
             if(vectorJoueurs_[0]->getDirection()==Gauche)
@@ -495,6 +500,7 @@ void Jeu :: gameInput(){
                 vectorJoueurs_[0]->loadSprite(loadTexture_.getMap()["standby_front_j1"]);
             }
         }
+
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && vectorJoueurs_[0]->getIsAttacking()==false){
             std :: cout << "Utilisation Attaque" << std :: endl;
             vectorJoueurs_[0]->attack();
@@ -508,39 +514,39 @@ void Jeu :: gameInput(){
     if(vectorJoueurs_[1]->getIsAttacking()==false)
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
-        //std::cout<<"Valeur Vitesse "<<vectorJoueurs_[0]->getSpeed()<<std::endl;
         vectorJoueurs_[1]->getDirection()=Gauche;
+        // On charge la bonne texture en conséquence de la direction du joueur 2
         vectorJoueurs_[1]->loadSprite(loadTexture_.getMap()["run_left_j2"]);
         vectorJoueurs_[1]->activateElastique(distance, vectorJoueurs_[0]->getX(), vectorJoueurs_[0]->getY());
         vectorJoueurs_[1]->deplacement(distance);
         vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
-        //decalerAllAffichablesX();
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
             vectorJoueurs_[1]->getDirection()=Droite;
+            // On charge la bonne texture en conséquence de la direction du joueur 2
             vectorJoueurs_[1]->loadSprite(loadTexture_.getMap()["run_right_j2"]);
             vectorJoueurs_[1]->activateElastique(distance, vectorJoueurs_[0]->getX(), vectorJoueurs_[0]->getY());
             vectorJoueurs_[1]->deplacement(distance);
             vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
-            //decalerAllAffichablesX();
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
             vectorJoueurs_[1]->getDirection()=Haut;
+            // On charge la bonne texture en conséquence de la direction du joueur 2
             vectorJoueurs_[1]->loadSprite(loadTexture_.getMap()["run_back_j2"]);
             vectorJoueurs_[1]->activateElastique(distance, vectorJoueurs_[0]->getX(), vectorJoueurs_[0]->getY());
             vectorJoueurs_[1]->deplacement(distance);
             vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
-            //decalerAllAffichablesY();
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
             vectorJoueurs_[1]->getDirection()=Bas;
+            // On charge la bonne texture en conséquence de la direction du joueur 2
             vectorJoueurs_[1]->loadSprite(loadTexture_.getMap()["run_front_j2"]);
             vectorJoueurs_[1]->activateElastique(distance, vectorJoueurs_[0]->getX(), vectorJoueurs_[0]->getY());
             vectorJoueurs_[1]->deplacement(distance);
             vectorJoueurs_[1]->notifyObserverChateau(vectorJoueurs_[1]);
-            //decalerAllAffichablesY();
         }
 
+        // Si aucune touche de déplacement du J2 est touchée, il faut charger les animations de standby.
         if(vectorJoueurs_[1]->getMouvement()==false)
         {
             if(vectorJoueurs_[1]->getDirection()==Gauche)
@@ -560,6 +566,8 @@ void Jeu :: gameInput(){
                 vectorJoueurs_[1]->loadSprite(loadTexture_.getMap()["standby_front_j2"]);
             }
         }
+
+        // On appelle les méthodes de décalage des affichables pour tester si les affichables ont besoin d'être décaler.
         decalerAllAffichablesX();
         decalerAllAffichablesY();
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && vectorJoueurs_[1]->getIsAttacking()==false){
@@ -580,12 +588,14 @@ void Jeu :: gameInput(){
  
 
 void Jeu :: gameLoop(){
+
     srand(time(NULL)); //Permet de randomiser
-    while(renderer_.getWindow().isOpen() && chateau_[0]->getHP()>0){ //Tant que le chateau est pas détruit ou qu'on ne quitte pas la fenetre
-        while(wave_.getOver()){
+    while(renderer_.getWindow().isOpen() && chateau_[0]->getHP()>0){ //Tant que le chateau n'est pas détruit ou qu'on ne quitte pas la fenetre
+        while(wave_.getOver()){ // Tant que la vague de robot n'est pas finie.
             gameDraw();
             gameInput();
         }
+
         //Changement de level
         wave_.waveLevelUp();
         //Link tous les dépendances d'observer par rapport au robot
@@ -596,7 +606,7 @@ void Jeu :: gameLoop(){
             gamePlay();
             gameDraw();
         }
-        //Si il reste des bombes
+        //S'il reste des bombes
         while(wave_.getVectorBombe().size()!=0){
             gameInput();
             gamePlay();

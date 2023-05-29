@@ -1,6 +1,7 @@
 #include "map.hpp"
 #include <math.h>
 
+// Constructeur de la classe Map
 Map :: Map(float x,float y)
 {
     pos_x_ = x;
@@ -46,6 +47,7 @@ Map :: Map(float x,float y)
     borderReachedX = 0;
     borderReachedX = 0;
 
+    // Set le son de fond du jeu.
     soundBuffer.loadFromFile("../res/Son/Tower-Defense.wav");
     sound_.setLoop(true);
     sound_.setBuffer(soundBuffer);
@@ -54,6 +56,7 @@ Map :: Map(float x,float y)
     
 }
 
+// Charge les sprites de la Map
 void Map::loadSprites(sf::Texture& texture, sf::Texture& texture_minimap, sf::Texture& texture_rope, sf::Texture& texture_hud_j1, sf::Texture& texture_hud_j2){
     background.setTexture(texture);
     background_minimap.setTexture(texture_minimap);
@@ -62,13 +65,15 @@ void Map::loadSprites(sf::Texture& texture, sf::Texture& texture_minimap, sf::Te
     HUD_j2.getSprite().setTexture(texture_hud_j2);
 }
 
+// Charge l'écran de nouveau niveau.
 void Map::loadSpritesScreen(sf::Texture& texture){
     level_up.setTexture(texture);
 }
 
+
 void Map :: afficher(sf::RenderWindow& window){
     window.setView(window.getDefaultView());
-    // Affichage du background
+    // Affichage de la map et des HUD.
     background.setPosition(round(pos_x_),round(pos_y_));
     window.draw(background);
     window.draw(rope);
@@ -87,9 +92,8 @@ void Map :: afficherView(sf::RenderWindow& window, Wave& wave_){
     // Affichage du cercles des deux joueurs;
     window.draw(circle_j1);
     window.draw(circle_j2);
-    // Affichage du cercle des robots;
-    //for(robot_ptr monster : wave_.getVectorMonsters()){
 
+    // Affichage du cercle des robots;
     for(int i=0;i<(wave_.getNbMobsSpawned()-wave_.getNbMobsDied());i++){
         sf::CircleShape circle;
         circle.setFillColor(sf::Color::Black);

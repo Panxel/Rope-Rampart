@@ -1,10 +1,14 @@
 #include "HUD.hpp"
 
+// Constructeur de la classe HUD.
 HUD :: HUD(float x,float y)
 {
+    // Set la position de l'HUD
     pos_x_ = x;
     pos_y_ = y;
+    // On augmente la taille de l'HUD.
     sprite_.setScale(3,3);
+    // On charge la police permettant d'afficher le nom du joueur.
     loadFont();
     nom_.setFont(font_);
 }

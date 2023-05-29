@@ -103,8 +103,8 @@ public:
     const bool& getMouvement() const { return mouvement_; }
 
     /**
-     * @brief Déplace le guerrier d'une certaine distance.
-     * @param distance La distance de déplacement.
+     * @brief Déplace le guerrier en fonction des paramètres de distance et d'élastique.
+     * @param distance La distance actuelle entre les deux joueurs.
      */
     void deplacement(float distance);
 

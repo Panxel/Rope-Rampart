@@ -1,5 +1,6 @@
 #include "wave.hpp"
 
+// Constructeur Wave
 Wave::Wave(){
     level_=0;
     nb_mobs_total_=1;
@@ -11,6 +12,7 @@ Wave::Wave(){
 }
 
 void Wave :: afficherAllMonster(sf::RenderWindow& window){
+    // Gère pour chaque robot, l'animation à charger en fonction de la direction.
     for(int i=0;i<(nb_mobs_spawned_-nb_mobs_died_);i++){
         if(vectorMonsters_[i]->getDirection()==Droite)
         {

@@ -1,5 +1,7 @@
 #include "renderer.hpp"
 
+
+// Constructeur de la classe Renderer
 Renderer::Renderer()
 {   
     window_.create(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "Rope Rampart");
