@@ -17,6 +17,7 @@ Bombe :: Bombe(sf::Texture& texture,float x,float y,int health,int id, int atk) 
     // Chargement du son pour l'animation de bombe
     soundBuffer.loadFromFile("../res/Son/Bomb.wav");
     sound_.setBuffer(soundBuffer);
+    std :: cout << "Utilisation Constructeur Bombe" << std :: endl;
 }
 
 void Bombe :: afficher(sf::RenderWindow& window) {
@@ -54,7 +55,9 @@ void Bombe :: notifyObserverGuerrier(bombe_ptr bombe){
 
 void Bombe :: update(unite_ptr unite){
     if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+BOMBE_WIDTH, unite->getX()+GUERRIER_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+BOMBE_HEIGHT, unite->getY()+GUERRIER_HEIGHT)){
+        std :: cout << "Guerrier damage la Bombe" << std :: endl;
         takeDamage(1);
+        std :: cout << "HP Bombe : " << getHP() << std :: endl;
         if(hp_==0){
             dead_=true;
         }

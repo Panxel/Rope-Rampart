@@ -431,6 +431,7 @@ void Jeu :: gameInput(){
             renderer_.getWindow().close();
             wave_.getOver()=false;
         }else if(event_.type == sf::Event :: KeyPressed && event_.key.code== sf::Keyboard :: Space){
+            std :: cout << "Utilisation Attaque" << std :: endl;
             vectorJoueurs_[0]->notifyObserverRobot(vectorJoueurs_[0]);
         }
     }
@@ -501,6 +502,7 @@ void Jeu :: gameInput(){
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && vectorJoueurs_[0]->getIsAttacking()==false){
+            std :: cout << "Utilisation Attaque" << std :: endl;
             vectorJoueurs_[0]->attack();
             vectorJoueurs_[0]->notifyObserverRobot(vectorJoueurs_[0]);
             vectorJoueurs_[0]->notifyObserverBombe(vectorJoueurs_[0]);
@@ -569,6 +571,7 @@ void Jeu :: gameInput(){
         decalerAllAffichablesX();
         decalerAllAffichablesY();
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && vectorJoueurs_[1]->getIsAttacking()==false){
+            std :: cout << "Utilisation Attaque J2" << std :: endl;
             vectorJoueurs_[1]->attack();
             vectorJoueurs_[1]->notifyObserverRobot(vectorJoueurs_[1]);
             vectorJoueurs_[0]->notifyObserverBombe(vectorJoueurs_[1]);
@@ -587,7 +590,7 @@ void Jeu :: gameInput(){
 void Jeu :: gameLoop(){
 
     srand(time(NULL)); //Permet de randomiser
-    while(renderer_.getWindow().isOpen() && chateau_[0]->getHP()>0 && vectorJoueurs_[0]->getHP()>0 && vectorJoueurs_[1]->getHP()>0){ //Tant que le chateau n'est pas détruit ou qu'on ne quitte pas la fenetre
+    while(renderer_.getWindow().isOpen() && chateau_[0]->getHP()>0){ //Tant que le chateau n'est pas détruit ou qu'on ne quitte pas la fenetre
         while(wave_.getOver()){ // Tant que la vague de robot n'est pas finie.
             gameDraw();
             gameInput();
@@ -597,7 +600,7 @@ void Jeu :: gameLoop(){
         wave_.waveLevelUp();
         //Link tous les dépendances d'observer par rapport au robot
         linkAllRobotObserver();
-        while(renderer_.getWindow().isOpen() && chateau_[0]->getHP()>0 && wave_.getVectorMonsters().size()!=0 && vectorJoueurs_[0]->getHP()>0 && vectorJoueurs_[1]->getHP()>0){ //Tant que le chateau est pas détruit ou qu'on ne quitte pas la fenetre ou que le level actuel n'est pas clear
+        while(renderer_.getWindow().isOpen() && chateau_[0]->getHP()>0 && wave_.getVectorMonsters().size()!=0){ //Tant que le chateau est pas détruit ou qu'on ne quitte pas la fenetre ou que le level actuel n'est pas clear
             wave_.mobSpawnManagement();
             gameInput();
             gamePlay();
@@ -657,6 +660,7 @@ void Jeu :: gamePlay(){
             //Si c'est un Bombot, il lâche une bombe
             if(monster->getID()==3){
                 wave_.addBombe(std::make_shared<Bombe>(loadTexture_.getMap()["Bombe"],monster->getX()+15,monster->getY()+15,BOMBE_HP,BOMBE_ID,BOMBE_DAMAGE));
+                std::cout<<"Bombe posé en : "<<monster->getX()<<" "<<monster->getY()<<std::endl;
                 linkBombeObserver(wave_.getVectorBombe().back());
             }
             wave_.removeMonster(i);

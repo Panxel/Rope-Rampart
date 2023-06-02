@@ -8,6 +8,7 @@ Wave::Wave(){
     nb_mobs_died_=0;
     over_=false;
     timer_start_=false;
+    std :: cout << "Creation classe Wave" << std :: endl;
 }
 
 void Wave :: afficherAllMonster(sf::RenderWindow& window){
@@ -119,6 +120,7 @@ void Wave :: waveLevelUp(){
 
 void Wave :: explodeAllBombe(){
     for(bombe_ptr bombe : vectorBombe_){
+        std::cout << bombe->timeDiff() << std::endl;
         if(bombe->timeDiff()>=2){
             bombe->getDead()=true;
             bombe->notifyObserverGuerrier(bombe);

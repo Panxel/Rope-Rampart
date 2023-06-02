@@ -3,6 +3,7 @@
 
 // Constructeur Guerrier
 Guerrier::Guerrier(sf::Texture& texture,float x,float y,int health,int id,int atk, int spd) : Unite(texture,x,y,health,id,atk,spd){
+    std :: cout << "Creation classe Guerrier" << std :: endl;
     // Réglage de la fenêtre de sélection pour l'animation 
     rect.top=0;
     rect.left=0;
@@ -20,6 +21,7 @@ Guerrier::Guerrier(sf::Texture& texture,float x,float y,int health,int id,int at
 }
 
 void Guerrier :: attack(){
+    std :: cout << " Utilisation attack de Guerrier" << std :: endl;
     isAttacking = true;
     // On change les paramètres d'animation pour lancer l'animation d'attaque
     debut = 0;
@@ -76,7 +78,9 @@ void Guerrier :: notifyObserverBombe(unite_ptr unite){
 
 void Guerrier :: update(bombe_ptr bombe){
     if(std::max(pos_x_+GUERRIER_POS_X,bombe->getX()) < std::min(pos_x_+GUERRIER_POS_X+GUERRIER_REEL_WIDTH, bombe->getX()+BOMBE_WIDTH) && std::max(pos_y_+GUERRIER_POS_Y,bombe->getY()) < std::min(pos_y_+GUERRIER_POS_Y+GUERRIER_REEL_HEIGHT, bombe->getY()+BOMBE_HEIGHT)){
+        std :: cout << "Bombe damage le Guerrier" << std :: endl;
         takeDamage(bombe->getAttack());
+        std :: cout << "HP Guerrier : " << getHP() << std :: endl;
         bombe->getDead()=true;
     }
 }

@@ -3,6 +3,7 @@
 
 // Constructeur de la classe Chateau
 Chateau :: Chateau(sf::Texture& texture,float x,float y,int health,int id) : Entite(texture,x,y,health,id){
+    std :: cout << "Utilisation Constructeur Chateau" << std :: endl;
     // Set position Chateau
     pos_x_=852;
     pos_y_=618;
@@ -23,6 +24,7 @@ void Chateau :: afficher(sf::RenderWindow& window) {
 void Chateau :: update( unite_ptr unite){
     if(unite->getID()==1){ //Si c'est un joueur, il y a collision avec le chateau, on empêche donc le joueur de traverser le chateau       
         if(std::max(pos_x_,unite->getX()+GUERRIER_POS_X) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+GUERRIER_POS_X+GUERRIER_REEL_WIDTH) && std::max(pos_y_,unite->getY()+GUERRIER_POS_Y) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+GUERRIER_POS_Y+GUERRIER_REEL_HEIGHT)){
+            std :: cout << "Collision Chateau" << std :: endl;
             if(unite->getDirection()==Haut){
                 unite->getY()=pos_y_+CHATEAU_HEIGHT-GUERRIER_POS_Y;
             }else if(unite->getDirection()==Droite){
@@ -37,14 +39,18 @@ void Chateau :: update( unite_ptr unite){
     else if(unite->getID()==2){ //Si c'est un monstre, il y a collision avec le chateau et le robot s'autodétruit et fait des dmg au chateau
         if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+MBOT_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+MBOT_HEIGHT)){
             unite->attack();
+            std :: cout << "Robot damage le Chateau" << std :: endl;
             takeDamage(unite->getAttack());
+            std :: cout << "HP CHATEAU : " << getHP() << std :: endl;
             unite->getDead()=true;
         }
     }//Bombot : Le robot attaque le chateau avec ses points d'attaque.
     else if(unite->getID()==3){ //Si c'est un monstre, il y a collision avec le chateau et le robot s'autodétruit et fait des dmg au chateau
         if(std::max(pos_x_,unite->getX()) < std::min(pos_x_+CHATEAU_WIDTH, unite->getX()+BOMBOT_WIDTH) && std::max(pos_y_,unite->getY()) < std::min(pos_y_+CHATEAU_HEIGHT, unite->getY()+BOMBOT_HEIGHT)){
             unite->attack();
+            std :: cout << "Robot damage le Chateau" << std :: endl;
             takeDamage(unite->getAttack());
+            std :: cout << "HP CHATEAU : " << getHP() << std :: endl;
             unite->getDead()=true;
         }
     }

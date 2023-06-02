@@ -2,6 +2,7 @@
 
 // Constructeur de la classe Entité
 Entite::Entite(sf::Texture& texture,float x,float y,int health,int id){
+    std :: cout << "Utilisation Constructeur Entite" << std :: endl;
     pos_x_=x;
     pos_y_=y;
     hp_=health;
