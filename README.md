@@ -4,10 +4,10 @@
 
 Code source du jeu Rope Rampart, un jeu de défense d'un château avec 2 personnages liés par une corde !
 
-## Cadre du projet et Auteurs
+## Informations sur le projet
 
 ### Cadre du projet
-Projet réalisé dans le cadre du fin de module de Programmation orienté objet de Robotique 4 de Polytech Sorbonne.
+Projet réalisé dans le cadre de la fin du module de Programmation orienté objet de Robotique 4 de Polytech Sorbonne.
 
 ### Auteurs
 * Daniel FU (Github ID : Panxel) - Etudiant en 4e année de Robotique à Polytech Sorbonne.
@@ -70,7 +70,7 @@ La version finale du jeu présentée pour ce projet diffère de ce que nous avio
 
 Finalement, nous sommes fiers du projet réalisé et nous avons acqueri de nombreuses compétences dans l'utilisation de la programmation orienté objet et l'utilisation de SFML.
 
-### Repartition du travail
+### Répartition du travail
 
 Daniel s'est principalement penché sur la physique du jeu et son bon déroulement lors d'une partie. Il s'est notamment occupé de la réalisation des classes principales du jeu, telles que celles des guerriers, des robots et du château. Il a porté son attention sur la bonne interaction de toutes les entités du jeu, en particulier en s'intéressant à la collision entre elles. Enfin, il a pu implémenter l'apparition automatique des robots et leur gestion entre les différents niveaux.
 
