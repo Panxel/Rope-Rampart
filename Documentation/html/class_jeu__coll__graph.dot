@@ -1,0 +1,18 @@
+digraph "Jeu"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="Jeu",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Classe principale du jeu qui gère la logique du jeu et les interactions entre les entités."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" renderer_" ,fontname="Helvetica"];
+  Node2 [label="Renderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_renderer.html",tooltip="Classe Renderer pour gérer l'affichage et la fenêtre de rendu."];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" background" ,fontname="Helvetica"];
+  Node3 [label="Map",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_map.html",tooltip="Classe représentant la carte du jeu."];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" HUD_j1\nHUD_j2" ,fontname="Helvetica"];
+  Node4 [label="HUD",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_h_u_d.html",tooltip="Classe représentant l'interface utilisateur tête haute (HUD) (Head Up Display en anglais)."];
+  Node5 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" wave_" ,fontname="Helvetica"];
+  Node5 [label="Wave",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_wave.html",tooltip="Classe Wave, représentant une vague d'ennemis dans le jeu."];
+  Node6 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" loadTexture_" ,fontname="Helvetica"];
+  Node6 [label="LoadTexture",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_load_texture.html",tooltip="Classe singleton pour charger les textures."];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" loadTexture_" ,fontname="Helvetica"];
+}
