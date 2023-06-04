@@ -5,8 +5,11 @@
 Code source du jeu Rope Rampart, un jeu de défense d'un château avec 2 personnages liés par une corde !
 
 ## Cadre du projet et Auteurs
+
 Projet réalisé dans le cadre du fin de module de Programmation orienté objet de Robotique 4 de Polytech Sorbonne.
-Auteurs : Daniel FU (Github ID : Panxel) - Lilian DELORY (Github ID : LilianDelory)
+Auteurs : 
+* Daniel FU (Github ID : Panxel) 
+* Lilian DELORY (Github ID : LilianDelory)
 
 ## Pré-requis
 
