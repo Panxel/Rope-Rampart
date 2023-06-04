@@ -11,6 +11,7 @@ Entite::Entite(sf::Texture& texture,float x,float y,int health,int id){
     loadSprite(texture);
 }
 
+// Charge la texture du sprite de l'entité
 void Entite::loadSprite(sf::Texture& texture){
     sprite_.setTexture(texture);
 }

@@ -103,8 +103,8 @@ void Wave :: waveLevelUp(){
             x = WIN_INT_WIDTH+WIN_INT_POSX+rand()%WIN_INT_POSX;
             y = rand()%WIN_HEIGHT;
         }else{ //Cote Bas
-            x = rand()%WIN_WIDTH+50;
-            y = WIN_INT_HEIGHT+WIN_INT_POSY+rand()%WIN_INT_POSY;
+            x = rand()%WIN_WIDTH;
+            y = WIN_INT_HEIGHT-WIN_INT_POSY+rand()%WIN_INT_POSY+25;
         }
         x -= 200;
         y -= 200;

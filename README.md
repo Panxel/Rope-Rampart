@@ -4,6 +4,10 @@
 
 Code source du jeu Rope Rampart, un jeu de défense d'un château avec 2 personnages liés par une corde !
 
+## Cadre du projet et Auteurs
+Projet réalisé dans le cadre du fin de module de Programmation orienté objet de Robotique 4 de Polytech Sorbonne.
+Auteurs : Daniel FU (Github ID : Panxel) - Lilian DELORY (Github ID : LilianDelory)
+
 ## Pré-requis
 
 * C++
@@ -55,9 +59,26 @@ Chaque joueur se déplace en utilisant 4 touches du clavier :
 
 ## Remarque
 
-Le jeu devient de plus en plus dur au fil des vagues avec plus de robots et de "Bombot".
+Une attention particulière a été portée sur la physique du jeu. En effet, l'effet élastique de la corde a été conçu de manière précise afin de rendre le jeu le plus réaliste possible. Nous avons également accordé une importance à une bonne gestion de l'apparition des robots ennemis, conçue de manière à ce que les robots, qu'il s'agisse des "mbots" ou des "bombots", apparaissent de manière totalement aléatoire, offrant ainsi une expérience différente à chaque partie. Cette gestion entraîne également une élévation du niveau du jeu en fonction des différents niveaux passés. Le jeu devient de plus en plus difficile au fil des vagues, avec plus de robots et notamment plus de "Bombots". Enfin, bien que ce ne fût pas l'objectif principal du projet, un soin particulier a été apporté à l'aspect graphique du jeu. Des animations et des sons ont également été ajoutés, ce qui rend l'expérience de jeu plus captivante pour l'utilisateur.
 
+La version finale du jeu présentée pour ce projet diffère de ce que nous avions initialement prévu. Elle a évolué au fil du projet. Certains éléments auxquels nous avions pensé au début du projet, tels que l'amélioration des personnages au fil des niveaux ou l'introduction de personnages aux caractéristiques différentes, ne sont finalement pas présents, mais ils pourraient faire l'objet d'une deuxième version plus complète du jeu. Cependant, des éléments tels que la gestion automatique des robots ennemis, la création de la physique de l'élastique entre les joueurs ou encore la gestion des animations de déplacement, auxquels nous n'étions pas certains de pouvoir les implémenter correctement au début du projet, sont finalement présents avec un rendu plus que convaincant.
 
-## Documentation
+Finalement, nous sommes fiers du projet réalisé et nous avons acqueri de nombreuses compétences dans l'utilisation de la programmation orienté objet et l'utilisation de SFML.
 
-La documentation du code se trouve dans le dossier Documentation
+### Repartition du travail
+
+Daniel s'est principalement penché sur la physique du jeu et son bon déroulement lors d'une partie. Il s'est notamment occupé de la réalisation des classes principales du jeu, telles que celles des guerriers, des robots et du château. Il a porté son attention sur la bonne interaction de toutes les entités du jeu, en particulier en s'intéressant à la collision entre elles. Enfin, il a pu implémenter l'apparition automatique des robots et leur gestion entre les différents niveaux.
+
+Lilian s'est principalement intéressé à l'aspect graphique du jeu. Il a notamment implémenté les classes nécessaires à une bonne gestion graphique du jeu (Map, Lifebar, HUD, etc.). Il s'est concentré sur la réalisation du ressenti élastique de la corde, le déplacement des joueurs dans une grande carte et a mis en place le radar en haut à droite de la fenêtre de jeu. Enfin, il a réalisé les animations du jeu, telles que la course des joueurs, l'attaque des joueurs, le déplacement de la carte et la course des robots.
+
+Au final, la répartition des tâches a été très homogène et chacun a pu contribuer au projet de manière équilibrée, tout en s'intéressant au travail de l'autre. L'aspect gestion de projet a été primordial et bien mis en place pour la réalisation de ce projet.
+
+## Documentation et Tests
+
+La documentation du code se trouve dans le dossier Documentation.
+
+Les tests réalisés se trouvent dans le dossier test du dossier Game.
+
+## UML des classes
+
+![Image UML](Images/UML.png)
